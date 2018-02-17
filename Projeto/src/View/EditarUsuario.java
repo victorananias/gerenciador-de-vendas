@@ -15,13 +15,13 @@ import Models.Usuario;
  * @author victor
  */
 public class EditarUsuario extends javax.swing.JFrame {
-    private String idUsuario;
+    private String nomeUsuario;
 
     /**
      * Creates new form CadastrarUsuario
      */
     public EditarUsuario(String idUsuario) {
-        this.idUsuario = idUsuario;
+        this.nomeUsuario = idUsuario;
         initComponents();
         this.setLocationRelativeTo(null);
         this.setUsuario();
@@ -57,9 +57,9 @@ public class EditarUsuario extends javax.swing.JFrame {
     }
     
     private void setUsuario(){
-        Usuario usuario = new UsuariosController().buscarUsuario(this.idUsuario);
+        Usuario usuario = new UsuariosController().buscarUsuario(this.nomeUsuario);
         
-        jFormattedTextUsuario.setText(usuario.getId());
+        jTextNomeUsuario.setText(usuario.getNomeUsuario());
         jTextNome.setText(usuario.getNome());
         jTextCpf.setText(usuario.getCpf());
         
@@ -94,7 +94,7 @@ public class EditarUsuario extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabelAviso2 = new javax.swing.JLabel();
         jLabelAviso3 = new javax.swing.JLabel();
-        jFormattedTextUsuario = new javax.swing.JFormattedTextField();
+        jTextNomeUsuario = new javax.swing.JFormattedTextField();
         jBtVoltar = new javax.swing.JButton();
         jBtRemover = new javax.swing.JButton();
         jTextNome = new javax.swing.JTextField();
@@ -142,18 +142,17 @@ public class EditarUsuario extends javax.swing.JFrame {
 
         jLabelAviso3.setFont(new java.awt.Font("Cantarell", 0, 12)); // NOI18N
 
-        jFormattedTextUsuario.setEditable(false);
-        jFormattedTextUsuario.setEnabled(false);
-        jFormattedTextUsuario.setPreferredSize(new java.awt.Dimension(185, 30));
-        jFormattedTextUsuario.setRequestFocusEnabled(false);
-        jFormattedTextUsuario.addFocusListener(new java.awt.event.FocusAdapter() {
+        jTextNomeUsuario.setEnabled(false);
+        jTextNomeUsuario.setPreferredSize(new java.awt.Dimension(185, 30));
+        jTextNomeUsuario.setRequestFocusEnabled(false);
+        jTextNomeUsuario.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
-                jFormattedTextUsuarioFocusLost(evt);
+                jTextNomeUsuarioFocusLost(evt);
             }
         });
-        jFormattedTextUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
+        jTextNomeUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                jFormattedTextUsuarioKeyTyped(evt);
+                jTextNomeUsuarioKeyTyped(evt);
             }
         });
 
@@ -217,7 +216,7 @@ public class EditarUsuario extends javax.swing.JFrame {
                                             .addGroup(jPainelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                                 .addComponent(jTextNome, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                                 .addComponent(jTextCpf, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(jFormattedTextUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addComponent(jTextNomeUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
                                             .addComponent(jBtSalvar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGap(18, 18, 18)
                                         .addGroup(jPainelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -241,7 +240,7 @@ public class EditarUsuario extends javax.swing.JFrame {
                         .addComponent(jLabelAviso3, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPainelLayout.createSequentialGroup()
                         .addGroup(jPainelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jFormattedTextUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextNomeUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPainelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -289,7 +288,7 @@ public class EditarUsuario extends javax.swing.JFrame {
             Usuario usuario = new Usuario();
             usuario.setNome(jTextNome.getText());
             usuario.setCpf(jTextCpf.getText());
-            usuario.setId(idUsuario);
+            usuario.setNomeUsuario(jTextNomeUsuario.getText());
             
             if(jComboBoxTipo.getSelectedItem().toString().equals("Usuário")){
                 usuario.setTipo("U");
@@ -307,28 +306,28 @@ public class EditarUsuario extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jBtSalvarActionPerformed
 
-    private void jFormattedTextUsuarioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jFormattedTextUsuarioFocusLost
+    private void jTextNomeUsuarioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextNomeUsuarioFocusLost
         
-    }//GEN-LAST:event_jFormattedTextUsuarioFocusLost
+    }//GEN-LAST:event_jTextNomeUsuarioFocusLost
 
     private void jBtVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtVoltarActionPerformed
         EditarUsuario.this.dispose();
         new Usuarios().setVisible(true);
     }//GEN-LAST:event_jBtVoltarActionPerformed
 
-    private void jFormattedTextUsuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jFormattedTextUsuarioKeyTyped
+    private void jTextNomeUsuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextNomeUsuarioKeyTyped
         // TODO add your handling code here:
-    }//GEN-LAST:event_jFormattedTextUsuarioKeyTyped
+    }//GEN-LAST:event_jTextNomeUsuarioKeyTyped
 
     private void jBtRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtRemoverActionPerformed
         int i;
         i = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja remover"
-            + " o usuário: "+ idUsuario +"?","Confirmar",
+            + " o usuário: "+ nomeUsuario +"?","Confirmar",
             JOptionPane.YES_NO_OPTION,
             JOptionPane.WARNING_MESSAGE);
 
         if(i == 0){
-            new UsuariosController().removeUsuario(idUsuario);
+            new UsuariosController().removeUsuario(nomeUsuario);
             JOptionPane.showMessageDialog(null,"Usuário Removido");
             
             EditarUsuario.this.dispose();
@@ -351,7 +350,6 @@ public class EditarUsuario extends javax.swing.JFrame {
     private javax.swing.JButton jBtSalvar;
     private javax.swing.JButton jBtVoltar;
     private javax.swing.JComboBox<String> jComboBoxTipo;
-    private javax.swing.JFormattedTextField jFormattedTextUsuario;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -362,5 +360,6 @@ public class EditarUsuario extends javax.swing.JFrame {
     private javax.swing.JPanel jPainel;
     private javax.swing.JTextField jTextCpf;
     private javax.swing.JTextField jTextNome;
+    private javax.swing.JFormattedTextField jTextNomeUsuario;
     // End of variables declaration//GEN-END:variables
 }

@@ -159,7 +159,7 @@ public class VendasHistoricoProdutos extends javax.swing.JFrame {
                 String.valueOf(itensVenda.get(i).getId()),
                 String.valueOf(itensVenda.get(i).getIdProduto()),
                 String.valueOf(itensVenda.get(i).getNomeProduto()),
-                String.valueOf(Caracteres.converteDouble(itensVenda.get(i).getValor())),
+                String.valueOf(Caracteres.addMascaraMonetaria(itensVenda.get(i).getValor())),
                 String.valueOf(itensVenda.get(i).getQuantidade())});
         }
         

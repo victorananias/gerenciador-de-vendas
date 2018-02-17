@@ -13,13 +13,13 @@ import Controllers.UsuariosController;
  * @author victor.ananias
  */
 public class AlteracaoSenha extends javax.swing.JFrame {
-    private String idUsuario;
+    private String nomeUsuario;
     /**
      * Creates new form AlteracaoSenha
      * @param idUsuario
      */
     public AlteracaoSenha(String idUsuario) {
-        this.idUsuario = idUsuario;
+        this.nomeUsuario = idUsuario;
         initComponents();
 //        Centralizando a tela
         this.setLocationRelativeTo(null);
@@ -229,7 +229,7 @@ public class AlteracaoSenha extends javax.swing.JFrame {
         this.verificarCamposCoincidem();
         
         if(verificarAvisos()){
-            new UsuariosController().alterarSenhaUsuario(jPwSenha.getText(), idUsuario);
+            new UsuariosController().alterarSenhaUsuario(jPwSenha.getText(), nomeUsuario);
             JOptionPane.showMessageDialog(null, "Senha alterada");
             AlteracaoSenha.this.dispose();
         }

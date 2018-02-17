@@ -49,7 +49,7 @@ public class Estoque extends javax.swing.JFrame {
                 String.valueOf(produto.get(contador).getId()),
                 String.valueOf(produto.get(contador).getNome()),
                 String.valueOf(produto.get(contador).getQuantidade()),
-                String.valueOf(Caracteres.converteDouble(produto.get(contador).getValor()))
+                String.valueOf(Caracteres.addMascaraMonetaria(produto.get(contador).getValor()))
             });
         }
 

@@ -44,7 +44,7 @@ public class VendasController {
             return new VendaDAO().buscarVendas();
         }
         else {
-            return new VendaDAO().filtrarVendas(usuario.getId());
+            return new VendaDAO().buscarVendasUsuario(usuario.getId());
         }
     }
     

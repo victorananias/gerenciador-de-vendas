@@ -6,8 +6,9 @@ public class Venda {
     private int id;
     private String data;
     private String hora;
+    private String nomeUsuaro;
     private int quantidadeTotal;
-    private String idUsuario;
+    private int idUsuario;
     
     //remover isso
     private int quantidadeItens;
@@ -56,53 +57,21 @@ public class Venda {
     public void setQuantidadeTotal(int quantidadeTotal) {
         this.quantidadeTotal = quantidadeTotal;
     }
-    
-    public String getIdUsuario() {
-        return idUsuario;
-    }
 
-    public void setIdUsuario(String idUsuario) {
+    public void setIdUsuario(int idUsuario) {
         this.idUsuario = idUsuario;
     }
     
-    
-
-    ///////////// remover isso
-    public int getQuantidadeItens() {
-        return quantidadeItens;
-    }
-
-    public void setQuantidadeItens(int quantidadeItens) {
-        this.quantidadeItens = quantidadeItens;
-    }
-
-    public double getValorProdutos() {
-        return valorProdutos;
+    public int getIdUsuario() {
+        return this.idUsuario;
     }
     
-    public void setValorProdutos(double valorProdutos) {
-        this.valorProdutos = valorProdutos;
+    public String getNomeUsuario() {
+        return this.nomeUsuaro;
     }
 
-    ///////////// e isso
-
-    public int getIdProduto() {
-        return idProduto;
+    public void setNomeUsuario(String nomeUsuaro) {
+        this.nomeUsuaro = nomeUsuaro;
     }
-
-    public void setIdProduto(int idProduto) {
-        this.idProduto = idProduto;
-    }
-
-    
-
-    public String getNomeProduto() {
-        return nomeProduto;
-    }
-
-    public void setNomeProduto(String nomeProduto) {
-        this.nomeProduto = nomeProduto;
-    }
-    
     
 }

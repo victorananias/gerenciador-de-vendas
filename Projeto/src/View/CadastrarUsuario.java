@@ -393,7 +393,7 @@ public class CadastrarUsuario extends javax.swing.JFrame {
         if(getStatusAvisos()){
             
             Usuario usuario = new Usuario();
-            usuario.setId(jFormattedTextUsuario.getText());
+            usuario.setNomeUsuario(jFormattedTextUsuario.getText());
             usuario.setNome(jFormattedTextNome.getText());
             usuario.setCpf(jTextCpf.getText());
             usuario.setSenha(Senha.criptografarSenha(jPwSenha.getText()));

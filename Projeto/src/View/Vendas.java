@@ -98,7 +98,7 @@ public class Vendas extends javax.swing.JFrame {
             }
         });
 
-        jBtAdicionar.setText("Adicionar");
+        jBtAdicionar.setText("+");
         jBtAdicionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtAdicionarActionPerformed(evt);
@@ -174,7 +174,7 @@ public class Vendas extends javax.swing.JFrame {
         jTbProd.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(jTbProd);
 
-        jBtRemover.setText("Remover");
+        jBtRemover.setText("-");
         jBtRemover.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtRemoverActionPerformed(evt);
@@ -248,10 +248,10 @@ public class Vendas extends javax.swing.JFrame {
                         .addGap(24, 24, 24)
                         .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(4, 4, 4)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jTextPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(9, 9, 9)
+                                .addGap(10, 10, 10)
                                 .addComponent(jBtLimparPesquisar))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 463, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jLayeredPane1Layout.createSequentialGroup()
@@ -345,7 +345,7 @@ public class Vendas extends javax.swing.JFrame {
                 String.valueOf(produtos.get(i).getId()),
                 String.valueOf(produtos.get(i).getNome()),
                 String.valueOf(produtos.get(i).getQuantidade()),
-                String.valueOf(caracteres.converteDouble(produtos.get(i).getValor()))});
+                String.valueOf(caracteres.addMascaraMonetaria(produtos.get(i).getValor()))});
         }
         jTbProd.setModel(modeloTabelaProdutos);
     }
@@ -354,9 +354,9 @@ public class Vendas extends javax.swing.JFrame {
         Caracteres caracteres = new Caracteres();
         double total = 0;
         for(int contador =0;contador<jTbVenda.getRowCount();contador++){
-            total = total + caracteres.converterString(jTbVenda.getValueAt(contador,3).toString());
+            total = total + caracteres.rmMascaraMonetaria(jTbVenda.getValueAt(contador,3).toString());
         }
-        jLabelTotal.setText("  Total: R$"+caracteres.converteDouble(total));
+        jLabelTotal.setText("  Total: "+caracteres.addMascaraMonetaria(total));
     }
     
     private void procurarLinha(String palavra){
@@ -448,14 +448,14 @@ public class Vendas extends javax.swing.JFrame {
     }
     
     private void adicionaTbVenda(){
-        double valor_produto = Caracteres.converterString(
+        double valor_produto = Caracteres.rmMascaraMonetaria(
                 jTbProd.getValueAt(jTbProd.getSelectedRow(), 3).toString());
         int quantidade_produto = Integer.parseInt(jTextQntProd.getText());
         double valor_total = valor_produto*quantidade_produto;
 
         String codigo_produto = (String) jTbProd.getValueAt(jTbProd.getSelectedRow(),0);
         String nome_produto = (String) jTbProd.getValueAt(jTbProd.getSelectedRow(),1);
-        String valorConvertido = Caracteres.converteDouble(valor_total);
+        String valorConvertido = Caracteres.addMascaraMonetaria(valor_total);
 
         modeloTabelaCarrinho.addRow(new String[]{
             codigo_produto,
@@ -467,7 +467,7 @@ public class Vendas extends javax.swing.JFrame {
     }
     
     private void atualizaTbVenda(){
-        double valor_produto = Caracteres.converterString(jTbProd.getValueAt(jTbProd.getSelectedRow(),3).toString());
+        double valor_produto = Caracteres.rmMascaraMonetaria(jTbProd.getValueAt(jTbProd.getSelectedRow(),3).toString());
         int quantidadeSelecionada = Integer.parseInt(jTextQntProd.getText());
         int quantidade_produto = Integer.parseInt(jTbVenda.getValueAt(this.linhaProdutoTbVendas, 2).toString());
 
@@ -477,7 +477,7 @@ public class Vendas extends javax.swing.JFrame {
 
         modeloTabelaCarrinho.setValueAt(novaQuantidade_produto, this.linhaProdutoTbVendas,2 );
 
-        modeloTabelaCarrinho.setValueAt(Caracteres.converteDouble(valor), this.linhaProdutoTbVendas,3 );
+        modeloTabelaCarrinho.setValueAt(Caracteres.addMascaraMonetaria(valor), this.linhaProdutoTbVendas,3 );
         
     }
     
@@ -508,7 +508,7 @@ public class Vendas extends javax.swing.JFrame {
         int quantidade = 0;
         for (int contador=0; contador<jTbVenda.getRowCount(); contador++){
             quantidade = quantidade + Integer.parseInt(jTbVenda.getValueAt(contador,2).toString());
-            valor = valor + Caracteres.converterString(jTbVenda.getValueAt(contador,3).toString());
+            valor = valor + Caracteres.rmMascaraMonetaria(jTbVenda.getValueAt(contador,3).toString());
         }
         venda.setQuantidadeTotal(quantidade);
         venda.setValorTotal(valor);
@@ -525,7 +525,7 @@ public class Vendas extends javax.swing.JFrame {
         for(int i = 0; i < jTbVenda.getRowCount(); i++){
             ItemVenda itemVenda = new ItemVenda();
             
-            itemVenda.setValor(Caracteres.converterString(
+            itemVenda.setValor(Caracteres.rmMascaraMonetaria(
                     jTbVenda.getValueAt(i, 3).toString()));
             itemVenda.setQuantidade(Integer.parseInt(
                     jTbVenda.getValueAt(i, 2).toString()));

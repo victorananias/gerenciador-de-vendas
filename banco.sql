@@ -1,7 +1,6 @@
-CREATE DATABASE  IF NOT EXISTS `padaria`;
-USE `padaria`;
+CREATE DATABASE  IF NOT EXISTS `gerenciamento_vendas`;
+USE `gerenciamento_vendas`;
 
-DROP TABLE IF EXISTS `produtos`;
 CREATE TABLE `produtos` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(100) NOT NULL,
@@ -12,9 +11,9 @@ CREATE TABLE `produtos` (
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 
-DROP TABLE IF EXISTS `usuarios`;
 CREATE TABLE `usuarios` (
-  `id` varchar(45) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nome_usuario` varchar(45) NOT NULL UNIQUE,
   `nome` varchar(45) NOT NULL,
   `senha` varchar(45) DEFAULT NULL,
   `cpf` varchar(14) DEFAULT NULL,
@@ -22,21 +21,18 @@ CREATE TABLE `usuarios` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-
-DROP TABLE IF EXISTS `vendas`;
 CREATE TABLE `vendas` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `quantidade_total` int(11) NOT NULL,
   `valor_total` double NOT NULL,
   `data` date NOT NULL,
   `hora` time DEFAULT NULL,
-  `id_usuario` varchar(45) DEFAULT NULL,
+  `id_usuario` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   FOREIGN KEY (`id_usuario`) REFERENCES usuarios(`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 
-DROP TABLE IF EXISTS `itens_venda`;
 CREATE TABLE `itens_venda` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_venda` int(11) NOT NULL,
@@ -48,4 +44,8 @@ CREATE TABLE `itens_venda` (
   FOREIGN KEY (`id_venda`) REFERENCES vendas(`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
-INSERT INTO `usuarios` VALUES ('admin','admin','F5BB0C8DE146C67B44BABBF4E6584CC0','11111111111','A'),('usuario','usuario','F5BB0C8DE146C67B44BABBF4E6584CC0','11111111111','U');
+-- Senha: "123123123"
+
+INSERT INTO `usuarios` VALUES
+(null, 'admin','admin','F5BB0C8DE146C67B44BABBF4E6584CC0','11111111111','A'),
+(null, 'usuario','usuario','F5BB0C8DE146C67B44BABBF4E6584CC0','11111111111','U');

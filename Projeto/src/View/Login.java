@@ -26,7 +26,7 @@ public class Login extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     
     private void setUsuarioValido() {
-        this.usuarioValido = new UsuariosController().validarId(
+        this.usuarioValido = new UsuariosController().validarNomeUsuario(
                     campoUsuario.getText());
     }
     

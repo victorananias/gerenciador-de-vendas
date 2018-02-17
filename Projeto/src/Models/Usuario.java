@@ -3,9 +3,10 @@ package Models;
 public class Usuario {
     
     private static Usuario atual;
-    private String senha;
-    private String id;
+    private int id;
+    private String nomeUsuario;
     private String nome;
+    private String senha;
     private String tipo;
     private String cpf;
 
@@ -25,12 +26,20 @@ public class Usuario {
         this.senha = senha;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
+    }
+    
+    public String getNomeUsuario() {
+        return this.nomeUsuario;
+    }
+
+    public void setNomeUsuario(String nomeUsuario) {
+        this.nomeUsuario = nomeUsuario;
     }
 
     public String getNome() {

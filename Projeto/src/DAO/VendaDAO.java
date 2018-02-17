@@ -36,12 +36,12 @@ public class VendaDAO extends DAOGenerico{
         }
     }
     
-    public ArrayList<Venda> filtrarVendas(String id) {;
+    public ArrayList<Venda> buscarVendasUsuario(int idUsuario) {;
         ArrayList<Venda> listaVendas = null;
         try {
-            listaVendas = buscar("where id='"+id+"'");
+            listaVendas = buscar("where id_usuario="+idUsuario);
         } catch (SQLException erro) {
-            JOptionPane.showMessageDialog(null, "Erro ao buscar venda "+erro);
+            JOptionPane.showMessageDialog(null, "Erro ao buscar vendas "+erro);
             return null;
         }
         return listaVendas;
@@ -54,7 +54,7 @@ public class VendaDAO extends DAOGenerico{
                 + "v.quantidade_total, "
                 + "v.valor_total, "
                 + "v.data, v.hora, "
-                + "u.id AS id_usuario "
+                + "u.nome_usuario AS nome_usuario "
                 + "FROM vendas AS v "
                 + "INNER JOIN usuarios AS u "
                 + "ON u.id=v.id_usuario "+where;
@@ -69,7 +69,7 @@ public class VendaDAO extends DAOGenerico{
             venda.setValorTotal(resultado.getDouble("valor_total"));
             venda.setData(resultado.getString("data"));
             venda.setHora(resultado.getString("hora"));
-            venda.setIdUsuario(resultado.getString("id_usuario"));
+            venda.setNomeUsuario(resultado.getString("nome_usuario"));
             lista.add(venda);
         }
         

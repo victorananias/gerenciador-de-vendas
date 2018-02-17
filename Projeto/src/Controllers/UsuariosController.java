@@ -19,44 +19,43 @@ public class UsuariosController {
     }
     
     
-    public void setUsuarioAtual(String id) {
-        Usuario usuario = new UsuarioDAO().buscarUsuario(id);
+    public void setUsuarioAtual(String nomeUsuario) {
+        Usuario usuario = new UsuarioDAO().buscarUsuario(nomeUsuario);
         Usuario.setAtual(usuario);
     }
     
     
-    public boolean validarId(String id) {
+    public boolean validarNomeUsuario(String nomeUsuario) {
         Usuario usuario;
-        usuario = new UsuarioDAO().buscarUsuario(id);
-        return usuario.getId() != null;
+        usuario = new UsuarioDAO().buscarUsuario(nomeUsuario);
+        return usuario.getNomeUsuario() != null;
     }
     
     
-    public boolean getValidadeSenha(String senha, String id) {
+    public boolean getValidadeSenha(String senha, String nomeUsuario) {
         Usuario usuario;
-        usuario = new UsuarioDAO().buscarUsuario(id);
+        usuario = new UsuarioDAO().buscarUsuario(nomeUsuario);
         
         senha = Senha.criptografarSenha(senha);
         return usuario.getSenha().equals(senha);
     }
     
     
-    public Usuario buscarUsuario(String id) {
-        return new UsuarioDAO().buscarUsuario(id);
+    public Usuario buscarUsuario(String nomeUsuario) {
+        return new UsuarioDAO().buscarUsuario(nomeUsuario);
     }
-    
     
     public void atualizarUsuario(Usuario usuario) {
         new UsuarioDAO().atualizarUsuario(usuario);
     }
     
     
-    public void alterarSenhaUsuario(String senha, String id) {
-        new UsuarioDAO().alterarSenha(senha, id);
+    public void alterarSenhaUsuario(String senha, String nomeUsuario) {
+        new UsuarioDAO().alterarSenha(senha, nomeUsuario);
     }
     
-    public void removeUsuario (String id) {
-        new UsuarioDAO().removerUsuario(id);
+    public void removeUsuario(String nomeUsuario) {
+        new UsuarioDAO().removerUsuario(nomeUsuario);
     }
     
 }

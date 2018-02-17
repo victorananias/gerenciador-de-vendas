@@ -244,7 +244,7 @@ public class CadastrarProduto extends javax.swing.JFrame {
             }
             produto.setNome(jTextNome.getText());
             produto.setQuantidade(Integer.parseInt(jTextQntProd.getText()));
-            produto.setValor(Caracteres.converterString(jTextPrecoProd.getText()));
+            produto.setValor(Caracteres.rmMascaraMonetaria(jTextPrecoProd.getText()));
             produto.setTipo(btGroupTipo.getSelection().getActionCommand());
             
             new ProdutosController().cadastrarProduto(produto);

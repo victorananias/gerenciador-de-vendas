@@ -215,7 +215,7 @@ public class EditarProduto extends javax.swing.JFrame {
         Produto produto = new ProdutosController().buscarProduto(codigoProduto);
         jTextCodProd.setText(codigoProduto+"");
         jTextNome.setText(String.valueOf(produto.getNome()));
-        jTextPrecoProd.setText(String.valueOf(Caracteres.converteDouble(produto.getValor())));
+        jTextPrecoProd.setText(String.valueOf(Caracteres.addMascaraMonetaria(produto.getValor())));
     }
     
     private void verificaCampoNome(){
@@ -237,7 +237,7 @@ public class EditarProduto extends javax.swing.JFrame {
             }
             produto.setId(codigoProduto);
             produto.setNome(jTextNome.getText());
-            produto.setValor(Caracteres.converterString(jTextPrecoProd.getText()));
+            produto.setValor(Caracteres.rmMascaraMonetaria(jTextPrecoProd.getText()));
             produto.setTipo(btGroupTipo.getSelection().getActionCommand());
             
             new ProdutosController().atualizarInfoProduto(produto);

@@ -1,4 +1,5 @@
 package Helpers;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -8,15 +9,25 @@ import java.util.Date;
  */
 public class Caracteres {
     
-    public static String converteDouble(double num){
-        String resultado = String.format("%.2f", num);
-        return resultado;
+    public static String addMascaraMonetaria(Double numero){
+//        Locale meuLocal = new Locale( "pt", "BR" );
+        NumberFormat formato = NumberFormat.getCurrencyInstance();
+
+        String saida = formato.format(numero);
+
+        if(numero < 0) {
+            saida = saida.replace("(","");
+            saida = saida.replace(")","");
+            saida = "-" + saida;
+        }
+
+        return saida;
     }
-    
-    public static Double converterString(String num){
-        String numero = num.replace(",",".");
-        double convercao = Double.parseDouble(numero);
-        return convercao;
+//
+    public static double rmMascaraMonetaria(String num){
+        double valor = Double.parseDouble(num.replaceAll("[^\\d]", ""));
+        valor = valor/100;
+        return valor;
     }
     
     public static String formatarData(String dat) throws Exception { 
