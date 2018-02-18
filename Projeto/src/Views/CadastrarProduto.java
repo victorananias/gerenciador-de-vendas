@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package View;
+package Views;
 
 import javax.swing.JOptionPane;
-import Helpers.Caracteres;
+import Helpers.CaracteresHelper;
 import Controllers.ProdutosController;
 import Models.Produto;
 
@@ -56,7 +56,6 @@ public class CadastrarProduto extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jTextQntProd = new javax.swing.JTextField();
-        jTextPrecoProd = new javax.swing.JTextField();
         jBtEnviar = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jRBtPerecivel = new javax.swing.JRadioButton();
@@ -64,6 +63,7 @@ public class CadastrarProduto extends javax.swing.JFrame {
         jTextNome = new javax.swing.JTextField();
         jLabelAviso1 = new javax.swing.JLabel();
         jBtVoltar = new javax.swing.JButton();
+        jTextPrecoProd = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Cadastrar Produto");
@@ -87,14 +87,6 @@ public class CadastrarProduto extends javax.swing.JFrame {
         jTextQntProd.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTextQntProdKeyTyped(evt);
-            }
-        });
-
-        jTextPrecoProd.setPreferredSize(new java.awt.Dimension(185, 30));
-        jTextPrecoProd.setRequestFocusEnabled(false);
-        jTextPrecoProd.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                jTextPrecoProdKeyTyped(evt);
             }
         });
 
@@ -140,6 +132,13 @@ public class CadastrarProduto extends javax.swing.JFrame {
             }
         });
 
+        jTextPrecoProd.setPreferredSize(new java.awt.Dimension(185, 30));
+        jTextPrecoProd.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextPrecoProdKeyTyped(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -164,11 +163,11 @@ public class CadastrarProduto extends javax.swing.JFrame {
                                                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addComponent(jTextQntProd, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                                 .addGroup(jPanel1Layout.createSequentialGroup()
                                                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                    .addComponent(jTextPrecoProd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                    .addComponent(jTextPrecoProd, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
                                                 .addGroup(jPanel1Layout.createSequentialGroup()
                                                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -212,7 +211,7 @@ public class CadastrarProduto extends javax.swing.JFrame {
                             .addComponent(jRBtN))))
                 .addGap(18, 18, 18)
                 .addComponent(jBtEnviar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 206, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 209, Short.MAX_VALUE)
                 .addComponent(jBtVoltar)
                 .addContainerGap())
         );
@@ -244,7 +243,7 @@ public class CadastrarProduto extends javax.swing.JFrame {
             }
             produto.setNome(jTextNome.getText());
             produto.setQuantidade(Integer.parseInt(jTextQntProd.getText()));
-            produto.setValor(Caracteres.rmMascaraMonetaria(jTextPrecoProd.getText()));
+            produto.setValor(CaracteresHelper.rmMascaraMonetaria(jTextPrecoProd.getText()));
             produto.setTipo(btGroupTipo.getSelection().getActionCommand());
             
             new ProdutosController().cadastrarProduto(produto);
@@ -275,16 +274,14 @@ public class CadastrarProduto extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jTextQntProdKeyTyped
 
-    private void jTextPrecoProdKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextPrecoProdKeyTyped
-//        if(!(evt.getKeyChar()+"").matches("[0-9]")){
-//            evt.consume();
-//        }
-    }//GEN-LAST:event_jTextPrecoProdKeyTyped
-
     private void jBtVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtVoltarActionPerformed
         CadastrarProduto.this.dispose();        
         new Estoque().setVisible(true);
     }//GEN-LAST:event_jBtVoltarActionPerformed
+
+    private void jTextPrecoProdKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextPrecoProdKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextPrecoProdKeyTyped
 
     /**
      * @param args the command line arguments

@@ -2,7 +2,7 @@ package Controllers;
 
 import Models.Usuario;
 import DAO.UsuarioDAO;
-import Models.Senha;
+import Helpers.SenhaHelper;
 import java.util.ArrayList;
 
 
@@ -36,7 +36,7 @@ public class UsuariosController {
         Usuario usuario;
         usuario = new UsuarioDAO().buscarUsuario(nomeUsuario);
         
-        senha = Senha.criptografarSenha(senha);
+        senha = new SenhaHelper().criptografarSenha(senha);
         return usuario.getSenha().equals(senha);
     }
     

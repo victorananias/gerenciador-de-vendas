@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package View;
+package Views;
 
 import javax.swing.JOptionPane;
 import Controllers.UsuariosController;
-import Models.Senha;
+import Helpers.SenhaHelper;
 import Models.Usuario;
 
 /**
@@ -396,7 +396,7 @@ public class CadastrarUsuario extends javax.swing.JFrame {
             usuario.setNomeUsuario(jFormattedTextUsuario.getText());
             usuario.setNome(jFormattedTextNome.getText());
             usuario.setCpf(jTextCpf.getText());
-            usuario.setSenha(Senha.criptografarSenha(jPwSenha.getText()));
+            usuario.setSenha(new SenhaHelper().criptografarSenha(jPwSenha.getText()));
             usuario.setTipo(jComboBoxTipo.getSelectedItem().toString());
             
             new UsuariosController().cadastraUsuario(usuario);

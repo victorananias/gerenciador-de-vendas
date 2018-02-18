@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package View;
+package Views;
 
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
-import Helpers.Caracteres;
+import Helpers.CaracteresHelper;
 import Controllers.VendasController;
 import Models.ItemVenda;
 import Models.Produto;
@@ -159,7 +159,7 @@ public class VendasHistoricoProdutos extends javax.swing.JFrame {
                 String.valueOf(itensVenda.get(i).getId()),
                 String.valueOf(itensVenda.get(i).getIdProduto()),
                 String.valueOf(itensVenda.get(i).getNomeProduto()),
-                String.valueOf(Caracteres.addMascaraMonetaria(itensVenda.get(i).getValor())),
+                String.valueOf(CaracteresHelper.addMascaraMonetaria(itensVenda.get(i).getValor())),
                 String.valueOf(itensVenda.get(i).getQuantidade())});
         }
         

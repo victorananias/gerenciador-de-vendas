@@ -1,6 +1,6 @@
 package DAO;
 
-import Helpers.ConexaoBanco;
+import Helpers.ConexaoBancoHelper;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,7 +12,7 @@ public class DAOGenerico {
     private Connection conexao;
     
     public DAOGenerico() {
-        this.conexao = new ConexaoBanco().getConnection();
+        this.conexao = new ConexaoBancoHelper().getConnection();
     }
     
     public Connection getConexao() {

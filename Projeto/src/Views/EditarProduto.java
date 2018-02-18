@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package View;
+package Views;
 
 import javax.swing.JOptionPane;
-import Helpers.Caracteres;
+import Helpers.CaracteresHelper;
 import Controllers.ProdutosController;
 import Models.Produto;
 
@@ -215,7 +215,7 @@ public class EditarProduto extends javax.swing.JFrame {
         Produto produto = new ProdutosController().buscarProduto(codigoProduto);
         jTextCodProd.setText(codigoProduto+"");
         jTextNome.setText(String.valueOf(produto.getNome()));
-        jTextPrecoProd.setText(String.valueOf(Caracteres.addMascaraMonetaria(produto.getValor())));
+        jTextPrecoProd.setText(String.valueOf(CaracteresHelper.addMascaraMonetaria(produto.getValor())));
     }
     
     private void verificaCampoNome(){
@@ -237,7 +237,7 @@ public class EditarProduto extends javax.swing.JFrame {
             }
             produto.setId(codigoProduto);
             produto.setNome(jTextNome.getText());
-            produto.setValor(Caracteres.rmMascaraMonetaria(jTextPrecoProd.getText()));
+            produto.setValor(CaracteresHelper.rmMascaraMonetaria(jTextPrecoProd.getText()));
             produto.setTipo(btGroupTipo.getSelection().getActionCommand());
             
             new ProdutosController().atualizarInfoProduto(produto);

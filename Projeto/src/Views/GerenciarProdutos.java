@@ -1,4 +1,4 @@
-package View;
+package Views;
 
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -328,7 +328,7 @@ public class GerenciarProdutos extends javax.swing.JFrame {
     
     private void atualizaQnt(){
         Produto produto = new Produto();
-        for(int i=0; i<jTbProd.getRowCount();i++){
+        for(int i=0; i < jTbProd.getRowCount();i++){
             produto.setQuantidade(pegaQnt(i));
             produto.setId(pegaCodProd(i));
             new ProdutosController().atualizarQuantidadeProduto(produto);
@@ -382,8 +382,7 @@ public class GerenciarProdutos extends javax.swing.JFrame {
     }//GEN-LAST:event_jBtRemoverActionPerformed
 
     private void jBtVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtVoltarActionPerformed
-        Estoque e = new Estoque();
-        e.setVisible(true);
+        new Estoque().setVisible(true);
         GerenciarProdutos.this.dispose();
     }//GEN-LAST:event_jBtVoltarActionPerformed
 

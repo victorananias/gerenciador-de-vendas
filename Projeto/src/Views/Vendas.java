@@ -1,12 +1,12 @@
 
-package View;
+package Views;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import Helpers.Caracteres;
+import Helpers.CaracteresHelper;
 import Controllers.ProdutosController;
 import Controllers.VendasController;
 import Models.ItemVenda;
@@ -336,7 +336,7 @@ public class Vendas extends javax.swing.JFrame {
 
     
     private void geraTabelaProdutos(){
-        Caracteres caracteres = new Caracteres();
+        CaracteresHelper caracteres = new CaracteresHelper();
         ArrayList<Produto> produtos;
         produtos = new ProdutosController().buscarProdutos();
         
@@ -351,7 +351,7 @@ public class Vendas extends javax.swing.JFrame {
     }
     
     private void mostraTotal(){
-        Caracteres caracteres = new Caracteres();
+        CaracteresHelper caracteres = new CaracteresHelper();
         double total = 0;
         for(int contador =0;contador<jTbVenda.getRowCount();contador++){
             total = total + caracteres.rmMascaraMonetaria(jTbVenda.getValueAt(contador,3).toString());
@@ -448,14 +448,14 @@ public class Vendas extends javax.swing.JFrame {
     }
     
     private void adicionaTbVenda(){
-        double valor_produto = Caracteres.rmMascaraMonetaria(
+        double valor_produto = CaracteresHelper.rmMascaraMonetaria(
                 jTbProd.getValueAt(jTbProd.getSelectedRow(), 3).toString());
         int quantidade_produto = Integer.parseInt(jTextQntProd.getText());
         double valor_total = valor_produto*quantidade_produto;
 
         String codigo_produto = (String) jTbProd.getValueAt(jTbProd.getSelectedRow(),0);
         String nome_produto = (String) jTbProd.getValueAt(jTbProd.getSelectedRow(),1);
-        String valorConvertido = Caracteres.addMascaraMonetaria(valor_total);
+        String valorConvertido = CaracteresHelper.addMascaraMonetaria(valor_total);
 
         modeloTabelaCarrinho.addRow(new String[]{
             codigo_produto,
@@ -467,7 +467,7 @@ public class Vendas extends javax.swing.JFrame {
     }
     
     private void atualizaTbVenda(){
-        double valor_produto = Caracteres.rmMascaraMonetaria(jTbProd.getValueAt(jTbProd.getSelectedRow(),3).toString());
+        double valor_produto = CaracteresHelper.rmMascaraMonetaria(jTbProd.getValueAt(jTbProd.getSelectedRow(),3).toString());
         int quantidadeSelecionada = Integer.parseInt(jTextQntProd.getText());
         int quantidade_produto = Integer.parseInt(jTbVenda.getValueAt(this.linhaProdutoTbVendas, 2).toString());
 
@@ -477,7 +477,7 @@ public class Vendas extends javax.swing.JFrame {
 
         modeloTabelaCarrinho.setValueAt(novaQuantidade_produto, this.linhaProdutoTbVendas,2 );
 
-        modeloTabelaCarrinho.setValueAt(Caracteres.addMascaraMonetaria(valor), this.linhaProdutoTbVendas,3 );
+        modeloTabelaCarrinho.setValueAt(CaracteresHelper.addMascaraMonetaria(valor), this.linhaProdutoTbVendas,3 );
         
     }
     
@@ -508,7 +508,7 @@ public class Vendas extends javax.swing.JFrame {
         int quantidade = 0;
         for (int contador=0; contador<jTbVenda.getRowCount(); contador++){
             quantidade = quantidade + Integer.parseInt(jTbVenda.getValueAt(contador,2).toString());
-            valor = valor + Caracteres.rmMascaraMonetaria(jTbVenda.getValueAt(contador,3).toString());
+            valor = valor + CaracteresHelper.rmMascaraMonetaria(jTbVenda.getValueAt(contador,3).toString());
         }
         venda.setQuantidadeTotal(quantidade);
         venda.setValorTotal(valor);
@@ -525,7 +525,7 @@ public class Vendas extends javax.swing.JFrame {
         for(int i = 0; i < jTbVenda.getRowCount(); i++){
             ItemVenda itemVenda = new ItemVenda();
             
-            itemVenda.setValor(Caracteres.rmMascaraMonetaria(
+            itemVenda.setValor(CaracteresHelper.rmMascaraMonetaria(
                     jTbVenda.getValueAt(i, 3).toString()));
             itemVenda.setQuantidade(Integer.parseInt(
                     jTbVenda.getValueAt(i, 2).toString()));

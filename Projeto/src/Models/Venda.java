@@ -10,14 +10,6 @@ public class Venda {
     private int quantidadeTotal;
     private int idUsuario;
     
-    //remover isso
-    private int quantidadeItens;
-    private double valorProdutos;
-    
-    private String nomeProduto;
-    private int idProduto;
-
-    
     public double getValorTotal() {
         return valorTotal;
     }

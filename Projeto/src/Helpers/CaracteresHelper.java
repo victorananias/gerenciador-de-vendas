@@ -7,7 +7,7 @@ import java.util.Date;
  *
  * @author victor
  */
-public class Caracteres {
+public class CaracteresHelper {
     
     public static String addMascaraMonetaria(Double numero){
 //        Locale meuLocal = new Locale( "pt", "BR" );

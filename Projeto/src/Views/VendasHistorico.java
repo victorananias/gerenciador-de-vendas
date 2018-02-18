@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package View;
+package Views;
 
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import Controllers.UsuariosController;
-import Helpers.Caracteres;
+import Helpers.CaracteresHelper;
 import Controllers.ProdutosController;
 import Controllers.VendasController;
 import Models.Produto;
@@ -155,7 +155,7 @@ public class VendasHistorico extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 608, Short.MAX_VALUE)
         );
 
         pack();
@@ -189,9 +189,9 @@ public class VendasHistorico extends javax.swing.JFrame {
             modeloTabelaHistorico.addRow(new String[]{
                     String.valueOf(listaVendas.get(i).getId()),
                     String.valueOf(listaVendas.get(i).getQuantidadeTotal()),
-                    String.valueOf(Caracteres.addMascaraMonetaria(
+                    String.valueOf(CaracteresHelper.addMascaraMonetaria(
                             listaVendas.get(i).getValorTotal())),
-                    String.valueOf(Caracteres.formatarData(listaVendas.get(i).getData())),
+                    String.valueOf(CaracteresHelper.formatarData(listaVendas.get(i).getData())),
                     String.valueOf(listaVendas.get(i).getHora()),
                     String.valueOf(listaVendas.get(i).getNomeUsuario())});
             }

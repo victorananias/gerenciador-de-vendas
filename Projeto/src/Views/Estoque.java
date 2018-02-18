@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package View;
+package Views;
 
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import Controllers.UsuariosController;
-import Helpers.Caracteres;
+import Helpers.CaracteresHelper;
 import Controllers.ProdutosController;
 import Models.Produto;
 import Models.Usuario;
@@ -49,7 +49,7 @@ public class Estoque extends javax.swing.JFrame {
                 String.valueOf(produto.get(contador).getId()),
                 String.valueOf(produto.get(contador).getNome()),
                 String.valueOf(produto.get(contador).getQuantidade()),
-                String.valueOf(Caracteres.addMascaraMonetaria(produto.get(contador).getValor()))
+                String.valueOf(CaracteresHelper.addMascaraMonetaria(produto.get(contador).getValor()))
             });
         }
 

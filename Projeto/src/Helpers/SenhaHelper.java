@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Models;
+package Helpers;
 
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
@@ -14,9 +14,9 @@ import javax.swing.JOptionPane;
  *
  * @author victor
  */
-public class Senha {
+public class SenhaHelper {
     
-    public static String criptografarSenha(String senhaDigitada) {
+    public String criptografarSenha(String senhaDigitada) {
         String senha = "";
         
         try{

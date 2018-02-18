@@ -1,4 +1,4 @@
-package View;
+package Views;
 
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;

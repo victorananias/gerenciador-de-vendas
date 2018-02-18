@@ -45,7 +45,11 @@ CREATE TABLE `itens_venda` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- Senha: "123123123"
-
 INSERT INTO `usuarios` VALUES
 (null, 'admin','admin','F5BB0C8DE146C67B44BABBF4E6584CC0','11111111111','A'),
 (null, 'usuario','usuario','F5BB0C8DE146C67B44BABBF4E6584CC0','11111111111','U');
+
+INSERT INTO `produtos` VALUES
+(null, "Batata", 'P',30, 3.5),
+(null, "Melancia", 'P',30, 5.5),
+(null, "Queijo", 'P',30, 2.5);

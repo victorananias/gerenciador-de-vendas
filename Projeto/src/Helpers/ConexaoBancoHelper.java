@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 
-public class ConexaoBanco {
+public class ConexaoBancoHelper {
     Connection conexao;
     Statement stmt;
     PreparedStatement prStmt;
