@@ -52,7 +52,7 @@ public class Vendas extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         this.geraTabelaProdutos();
-        this.mostraTotal();
+        this.setTotal();
     }
 
     /**
@@ -350,7 +350,7 @@ public class Vendas extends javax.swing.JFrame {
         jTbProd.setModel(modeloTabelaProdutos);
     }
     
-    private void mostraTotal(){
+    private void setTotal(){
         CaracteresHelper caracteres = new CaracteresHelper();
         double total = 0;
         for(int contador =0;contador<jTbVenda.getRowCount();contador++){
@@ -568,7 +568,7 @@ public class Vendas extends javax.swing.JFrame {
         else{
             JOptionPane.showMessageDialog(null, "Selecione uma linha");
         }
-        this.mostraTotal();
+        this.setTotal();
     }//GEN-LAST:event_jBtAdicionarActionPerformed
 
     private void jBtEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtEnviarActionPerformed
@@ -579,6 +579,7 @@ public class Vendas extends javax.swing.JFrame {
             
             this.limpaTabela();
             this.geraTabelaProdutos();
+            this.setTotal();
         }
         else{
             JOptionPane.showMessageDialog(null, "O carrinho está vazio");
@@ -591,19 +592,18 @@ public class Vendas extends javax.swing.JFrame {
             atualizaTbProdRemove();
             modeloTabelaCarrinho.removeRow(jTbVenda.getSelectedRow());
         } 
-        this.mostraTotal();
+        this.setTotal();
     }//GEN-LAST:event_jBtRemoverActionPerformed
 
     private void jBtLimparCarrinhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtLimparCarrinhoActionPerformed
         this.limpaTabela();
         this.geraTabelaProdutos();
-        this.mostraTotal();
+        this.setTotal();
     }//GEN-LAST:event_jBtLimparCarrinhoActionPerformed
 
     private void jBtMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtMenuActionPerformed
         Vendas.this.dispose();
-        Menu m = new Menu();
-        m.setVisible(true);
+        new Menu().setVisible(true);
     }//GEN-LAST:event_jBtMenuActionPerformed
 
     private void jTextPesquisaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextPesquisaKeyTyped
