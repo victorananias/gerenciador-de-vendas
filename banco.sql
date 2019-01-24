@@ -13,7 +13,7 @@ CREATE TABLE `produtos` (
 
 CREATE TABLE `usuarios` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nome_usuario` varchar(45) NOT NULL UNIQUE,
+  `login` varchar(45) NOT NULL UNIQUE,
   `nome` varchar(45) NOT NULL,
   `senha` varchar(45) DEFAULT NULL,
   `cpf` varchar(14) DEFAULT NULL,
@@ -27,21 +27,21 @@ CREATE TABLE `vendas` (
   `valor_total` double NOT NULL,
   `data` date NOT NULL,
   `hora` time DEFAULT NULL,
-  `id_usuario` int(11) NOT NULL,
+  `usuario_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  FOREIGN KEY (`id_usuario`) REFERENCES usuarios(`id`)
+  FOREIGN KEY (`usuario_id`) REFERENCES usuarios(`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 
 CREATE TABLE `itens_venda` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_venda` int(11) NOT NULL,
-  `id_produto` int(11) NOT NULL,
+  `venda_id` int(11) NOT NULL,
+  `produto_id` int(11) NOT NULL,
   `valor` double DEFAULT NULL,
   `quantidade` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  FOREIGN KEY (`id_produto`) REFERENCES produtos(`id`),
-  FOREIGN KEY (`id_venda`) REFERENCES vendas(`id`)
+  FOREIGN KEY (`produto_id`) REFERENCES produtos(`id`),
+  FOREIGN KEY (`venda_id`) REFERENCES vendas(`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- Senha: "123123123"
