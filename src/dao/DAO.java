@@ -1,6 +1,6 @@
 package dao;
 
-import core.DatabaseConnection;
+import core.MySqlConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,7 +12,7 @@ public class DAO {
     private Connection conexao;
     
     public DAO() {
-        this.conexao = new DatabaseConnection().getConnection();
+        this.conexao = new MySqlConnection().getConnection();
     }
     
     public Connection getConexao() {

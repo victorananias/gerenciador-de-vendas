@@ -1,5 +1,8 @@
 package models;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 public class Produto {
     
     private int id;
@@ -7,6 +10,18 @@ public class Produto {
     private String tipo;
     private int quantidade;
     private double valor;
+    
+    public static Produto build(ResultSet row) throws SQLException {
+    	Produto produto = new Produto();
+    	
+	    produto.setId(row.getInt("id"));
+	    produto.setNome(row.getString("nome"));
+	    produto.setQuantidade(row.getInt("quantidade"));
+	    produto.setTipo(row.getString("tipo"));
+	    produto.setValor(row.getDouble("valor"));
+	    
+    	return produto;
+    }
 
     public int getId() {
         return id;

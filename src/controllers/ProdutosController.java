@@ -11,7 +11,7 @@ public class ProdutosController extends Produto{
     }
     
     public ArrayList<Produto> buscarProdutos() {
-        return new ProdutoDAO().buscarProdutos();
+        return new ProdutoDAO().getAll();
     }
     
     public Produto buscarProduto(int codigo) {

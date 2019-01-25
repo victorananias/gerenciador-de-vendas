@@ -52,7 +52,7 @@ public class UsuarioDAO extends DAO{
     }
     
     public ArrayList<Usuario> buscar(String where) throws SQLException {
-        ArrayList<Usuario> lista = new ArrayList();
+        ArrayList<Usuario> lista = new ArrayList<Usuario>();
         
         String sql = "SELECT id, login, nome, cpf, senha, tipo FROM usuarios "+where;
         

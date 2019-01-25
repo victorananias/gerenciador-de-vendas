@@ -7,6 +7,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
+import core.Database;
+import core.MySqlConnection;
+
 public class ProdutoDAO extends DAO{
     
     public void cadastrarProduto(Produto produto) {
@@ -27,13 +30,25 @@ public class ProdutoDAO extends DAO{
         }
     }
     
-    public ArrayList<Produto> buscarProdutos() {
+    public ArrayList<Produto> getAll() {
+    	ArrayList<Produto> lista = new ArrayList<Produto>();
+    	
+    	Database db = new Database(new MySqlConnection().getConnection());
+    	
+    	db.select("produtos");
+
         try {
-            return buscar("");
-        } catch (SQLException erro) {
-            JOptionPane.showMessageDialog(null, "Erro ao buscar produto "+erro);
-            return null;
-        }
+			while (db.getResult().next()) {
+			    Produto produto = Produto.build(db.getResult());
+			    lista.add(produto);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+        db.close();
+            
+        return lista;
     }
     
     public Produto buscarProduto(int id) {
