@@ -15,7 +15,7 @@ public class Main {
 //			db.select("produtos");
 //			
 //			while(db.next()) {
-//				System.out.println(db.getResult().getString("nome"));
+//				System.out.println(ddb.getResult().getString("nome"));
 //			}
 //		} catch (SQLException e) {
 //			// TODO Auto-generated catch block

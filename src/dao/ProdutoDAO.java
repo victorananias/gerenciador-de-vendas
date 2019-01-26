@@ -13,10 +13,16 @@ import core.MySqlConnection;
 public class ProdutoDAO extends DAO{
     
     public void cadastrarProduto(Produto produto) {
+        Database db = new Database(new MySqlConnection().getConnection());
+
         String sql = "INSERT INTO produtos(id, nome, tipo, quantidade, valor)"
                 +" VALUES(?,?,?,?,?)";
         
         try {
+        // db.addToInsert("nome", produto.getNome()).addToInsert("tipo", produto.getTipo())
+        //         .addToInsert("quantidade", produto.getQuantidade()).addToInsert("valor", produto.getValor())
+        //         .insertInto("produtos");
+
             insert(
                     sql,
                     produto.getId(),
@@ -31,61 +37,45 @@ public class ProdutoDAO extends DAO{
     }
     
     public ArrayList<Produto> getAll() {
-    	ArrayList<Produto> lista = new ArrayList<Produto>();
-    	
+        ArrayList<Produto> list = new ArrayList<Produto>();
+        
     	Database db = new Database(new MySqlConnection().getConnection());
     	
-    	db.select("produtos");
+    	db.select("*", "produtos").get();
 
         try {
-			while (db.getResult().next()) {
-			    Produto produto = Produto.build(db.getResult());
-			    lista.add(produto);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
+			while (db.next()) {
+			    Produto produto = this.makeProduto(db.getResult());
+			    list.add(produto);
+            }
+            
+		} catch (SQLException erro) {
+            JOptionPane.showMessageDialog(null, "Erro ao alterar quantidade do produto " + erro.toString());
 		}
 
         db.close();
             
-        return lista;
+        return list;
     }
     
-    public Produto buscarProduto(int id) {
-        ArrayList<Produto> resultado = null;
-        try {
-            resultado = buscar("where id="+id);
-            return resultado.get(0);
-        } catch (SQLException erro) {
-            JOptionPane.showMessageDialog(null, "Erro ao buscar produtos "+erro);
-            return null;
-        }
-    }
-    
-    public ArrayList<Produto> buscar(String where) throws SQLException {
-        ArrayList<Produto> lista = new ArrayList();
-        
-        String sql = "SELECT id, nome, tipo, quantidade, valor"
-                + " FROM produtos "+where;
-        
-        PreparedStatement pStmt = getConexao().prepareStatement(sql);
-        ResultSet resultado = pStmt.executeQuery();
+    public Produto find(int id) {
+        Database db = new Database(new MySqlConnection().getConnection());
 
-        while (resultado.next()) {
-            Produto produto = new Produto();
-            produto.setId(resultado.getInt("id"));
-            produto.setNome(resultado.getString("nome"));
-            produto.setQuantidade(resultado.getInt("quantidade"));
-            produto.setTipo(resultado.getString("tipo"));
-            produto.setValor(resultado.getDouble("valor"));
-            lista.add(produto);
+        Produto produto = null;
+
+        db.select("*", "produtos").where("id", "=", Integer.toString(id)).get();
+
+        try {
+            while (db.next()) {
+                produto = this.makeProduto(db.getResult());
+            }
+        } catch (SQLException erro) {
+            JOptionPane.showMessageDialog(null, "Erro ao buscar produto " + erro.toString());
         }
-        
-        resultado.close();
-        pStmt.close();
-        getConexao().close();
+
+        db.close();
             
-        return lista;
+        return produto;
     }
     
     public void atualizar(Produto produto) {
@@ -104,5 +94,17 @@ public class ProdutoDAO extends DAO{
         } catch (SQLException erro) {
             JOptionPane.showMessageDialog(null, "Erro ao alterar quantidade do produto "+erro);
         }
+    }
+
+    private Produto makeProduto(ResultSet result) throws SQLException {
+
+    	Produto produto = new Produto();
+	    produto.setId(result.getInt("id"));
+	    produto.setNome(result.getString("nome"));
+	    produto.setQuantidade(result.getInt("quantidade"));
+	    produto.setTipo(result.getString("tipo"));
+	    produto.setValor(result.getDouble("valor"));
+	    
+    	return produto;
     }
 }

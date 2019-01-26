@@ -4,5 +4,6 @@
 build/
 nbbuild/
 dist/
+.vscode/
 nbdist/
 .nb-gradle/
