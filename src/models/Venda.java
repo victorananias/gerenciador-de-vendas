@@ -1,7 +1,10 @@
 package models;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 public class Venda {
-    
+
     private double valorTotal;
     private int id;
     private String created_at;
@@ -50,17 +53,26 @@ public class Venda {
     public void setUsuarioId(int usuarioId) {
         this.usuarioId = usuarioId;
     }
-    
+
     public int getUsuarioId() {
         return this.usuarioId;
     }
-    
+
     public String getLogin() {
         return this.login;
     }
 
     public void setLogin(String nomeUsuaro) {
         this.login = nomeUsuaro;
+    }
+
+    public static Venda make(ResultSet resultSet) throws SQLException {
+        Venda venda = new Venda();
+        venda.setId(resultSet.getInt("id"));
+        venda.setQuantidadeTotal(resultSet.getInt("quantidade_total"));
+        venda.setValorTotal(resultSet.getInt("valor_total"));
+        venda.setCreatedAt(resultSet.getString("created_at"));
+        return venda;
     }
     
 }

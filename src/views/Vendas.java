@@ -13,6 +13,7 @@ import models.ItemVenda;
 import models.Produto;
 import models.Usuario;
 import models.Venda;
+import services.AuthService;
 
 public class Vendas extends javax.swing.JFrame {
     private int linhaProdutoTbVendas = -1;
@@ -512,7 +513,7 @@ public class Vendas extends javax.swing.JFrame {
         }
         venda.setQuantidadeTotal(quantidade);
         venda.setValorTotal(valor);
-        venda.setUsuarioId(Usuario.getAtual().getId());
+        venda.setUsuarioId(AuthService.getUser().getId());
         
         new VendasController().registrarVenda(venda, getItensVenda());
    }

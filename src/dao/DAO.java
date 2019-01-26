@@ -8,70 +8,91 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class DAO {
-    private int ultimoIdInserido;
-    private Connection conexao;
+    private int lastInsertedId;
+    private Connection connection;
+    private PreparedStatement pStmt;
+    public ResultSet resultSet;
     
     public DAO() {
-        this.conexao = new MySqlConnection().getConnection();
+        this.connection = new MySqlConnection().getConnection();
     }
     
     public Connection getConexao() {
-        return this.conexao;
+        return this.connection;
     }
 
-    public int getUltimoIdInserido() {
-        return ultimoIdInserido;
+    public int getLastInsertedId() {
+        return lastInsertedId;
     }
 
-    public void setUltimoIdInserido(int ultimoIdInserido) {
-        this.ultimoIdInserido = ultimoIdInserido;
+    public void setLastInsertedId(int lastInsertedId) {
+        this.lastInsertedId = lastInsertedId;
     }
     
-    protected void insert(String sql, Object... parametros) throws SQLException {
-        PreparedStatement pStmt;
-        pStmt = this.conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+    public void insert(String sql, Object... params) throws SQLException {
+        pStmt = this.connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
-        for (int i = 0; i < parametros.length; i++) {
-            pStmt.setObject(i+1, parametros[i]);
+        for (int i = 0; i < params.length; i++) {
+            pStmt.setObject(i+1, params[i]);
         }
         
         pStmt.executeUpdate();
         
-        ResultSet rs = pStmt.getGeneratedKeys();
+        this.resultSet = pStmt.getGeneratedKeys();
         
-        if(rs.next()) {
-            setUltimoIdInserido(rs.getInt(1));
+        if(this.nextResult()) {
+            setLastInsertedId(this.resultSet.getInt(1));
         }
         
-        pStmt.close();
-        this.conexao.close();
+        this.closeConnection();
     }
     
-    protected void update(String sql, Object id, Object... parametros) throws SQLException {
-        PreparedStatement pStmt = getConexao().prepareStatement(sql);
-        
-        for (int i = 0; i < parametros.length; i++) {
-            pStmt.setObject(i+1, parametros[i]);
-        }
-        
-        pStmt.setObject(parametros.length +1, id);
-        
-        pStmt.executeUpdate();
-        
-        pStmt.close();
-        this.conexao.close();
+    public void delete(String sql, Object... params) throws SQLException {
+        this.update(sql, params);
     }
     
-    protected void delete(String sql, Object... parametros) throws SQLException {
-        PreparedStatement pStmt = getConexao().prepareStatement(sql);
+    public void update(String sql, Object... params) throws SQLException {
+        pStmt = getConexao().prepareStatement(sql);
         
-        for(int i = 0; i < parametros.length; i++) {
-            pStmt.setObject(i+1, parametros[i]);
+        for (int i = 0; i < params.length; i++) {
+            pStmt.setObject(i+1, params[i]);
         }
         
         pStmt.executeUpdate();
         
-        pStmt.close();
-        this.conexao.close();
+        this.closeConnection();
     }
+
+    public void select(String sql, Object... params) throws SQLException {
+        this.pStmt = this.connection.prepareStatement(sql);
+        
+        for (int i = 0; i < params.length; i++) {
+            this.pStmt.setObject(i+1, params[i]);
+        }
+
+        this.resultSet = this.pStmt.executeQuery();
+    }
+
+    public ResultSet result() {
+        return this.resultSet;
+    }
+
+    public boolean nextResult() throws SQLException {
+        return this.resultSet.next();
+    }
+
+    public void closeConnection() throws SQLException {
+        if (this.pStmt != null) {
+            this.pStmt.close();
+        }
+
+        if (this.resultSet != null) {
+            this.resultSet.close();
+        }
+
+        if(this.connection != null) {
+            this.connection.close();
+        }
+    }
+    
 }

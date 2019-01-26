@@ -6,6 +6,7 @@
 package views;
 
 import models.Usuario;
+import services.AuthService;
 
 /**
  *
@@ -22,11 +23,11 @@ public class Menu extends javax.swing.JFrame {
     }
     
     private void setLogin(){
-        jLabelNomeUsuaro.setText(Usuario.getAtual().getNome());
+        jLabelNomeUsuaro.setText(AuthService.getUser().getNome());
     }
     
     private void verificaTipoUsuario(){
-        if(Usuario.getAtual().getTipo().equals("Usuário")){
+        if (AuthService.getUser().getTipo().equals("Usuário")){
             jBtUsuarios.setVisible(false);
         }
     }
@@ -205,7 +206,7 @@ public class Menu extends javax.swing.JFrame {
     private void jBtSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSairActionPerformed
         new Login().setVisible(true);
         Menu.this.dispose();
-        Usuario.setAtual(new Usuario());
+        AuthService.setUser(new Usuario());
     }//GEN-LAST:event_jBtSairActionPerformed
 
     private void jBtSairMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtSairMouseEntered

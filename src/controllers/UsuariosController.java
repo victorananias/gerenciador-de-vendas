@@ -1,6 +1,7 @@
 package controllers;
 
 import models.Usuario;
+import services.AuthService;
 import dao.UsuarioDAO;
 import helpers.SenhaHelper;
 import java.util.ArrayList;
@@ -10,7 +11,7 @@ public class UsuariosController {
     
     public void cadastraUsuario(Usuario usuario) {
         usuario.setTipo(usuario.getTipo().equals("Usuário") ? "U" : "A");
-        new UsuarioDAO().cadastrarUsuario(usuario);
+        new UsuarioDAO().insert(usuario);
     }
     
     
@@ -21,7 +22,7 @@ public class UsuariosController {
     
     public void setUsuarioAtual(String login) {
         Usuario usuario = new UsuarioDAO().buscarUsuario(login);
-        Usuario.setAtual(usuario);
+        AuthService.setUser(usuario);
     }
     
     

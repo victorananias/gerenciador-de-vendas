@@ -12,6 +12,8 @@ import models.ItemVenda;
 import models.Produto;
 import models.Usuario;
 import models.Venda;
+
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -19,14 +21,14 @@ import java.util.ArrayList;
  * @author victor
  */
 public class VendasController {
-    
+
     public void registrarVenda(Venda venda, ArrayList<ItemVenda> listaItens) {
         VendaDAO vendaDAO = new VendaDAO();
-        vendaDAO.registrarVenda(venda);
-        int idVenda = vendaDAO.getUltimoIdInserido();
+        vendaDAO.insert(venda);
+        int idVenda = vendaDAO.getLastInsertedId();
         registrarItensVenda(listaItens, idVenda);
-}
-    
+    }
+
     public void registrarItensVenda(ArrayList<ItemVenda> lista, int idVenda) {
         lista.forEach((item) -> {
             item.setVendaId(idVenda);
@@ -35,17 +37,17 @@ public class VendasController {
 
             produto.setQuantidade(produto.getQuantidade() - item.getQuantidade());
             new ProdutoDAO().update(produto);
-            
+
             new ItemVendaDAO().registrarItemVenda(item);
 
         });
     }
-    
-    public ArrayList<Venda> buscarVendasUsuario(Usuario usuario) {
+
+    public ArrayList<Venda> buscarVendasUsuario(Usuario usuario) throws SQLException {
         if (usuario.getTipo().equals("Admin")) {
-            return new VendaDAO().buscarVendas();
+            return new VendaDAO().getAll();
         } else {
-            return new VendaDAO().buscarVendasUsuario(usuario.getId());
+            return usuario.getVendas();
         }
     }
     

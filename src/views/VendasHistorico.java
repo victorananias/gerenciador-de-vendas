@@ -15,6 +15,7 @@ import controllers.VendasController;
 import models.Produto;
 import models.Usuario;
 import models.Venda;
+import services.AuthService;
 
 /**
  *
@@ -40,7 +41,7 @@ public class VendasHistorico extends javax.swing.JFrame {
     public VendasHistorico() {
         initComponents();
         this.setLocationRelativeTo(null);
-        this.geraTabelaHistorico();
+        this.gerarTabela();
     }
 
     /**
@@ -180,10 +181,10 @@ public class VendasHistorico extends javax.swing.JFrame {
         menu.setVisible(true);
     }//GEN-LAST:event_jBtMenuActionPerformed
     
-    private void geraTabelaHistorico(){
+    private void gerarTabela(){
         try {           
             ArrayList<Venda> listaVendas;
-            listaVendas = new VendasController().buscarVendasUsuario(Usuario.getAtual());
+            listaVendas = new VendasController().buscarVendasUsuario(AuthService.getUser());
             
             for (int i = 0; i < listaVendas.size(); i++) {
                 modeloTabelaHistorico.addRow(new String[]{
@@ -198,6 +199,7 @@ public class VendasHistorico extends javax.swing.JFrame {
             jTbHistorico.setModel(modeloTabelaHistorico);
 
         } catch (Exception e) {
+            e.printStackTrace();
             JOptionPane.showMessageDialog(
                     this,
                     "Erro ao gerar tabela historico - " + e.getMessage());

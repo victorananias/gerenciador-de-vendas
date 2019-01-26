@@ -13,6 +13,7 @@ import helpers.CaracteresHelper;
 import controllers.ProdutosController;
 import models.Produto;
 import models.Usuario;
+import services.AuthService;
 
 /**
  *
@@ -70,7 +71,7 @@ public class Estoque extends javax.swing.JFrame {
     }
     
     private void verificaTipoUsuario(){
-        if(Usuario.getAtual().getTipo().equals("U")){
+        if(AuthService.getUser().getTipo().equals("U")){
             jBtEditar.setVisible(false);
         }
     }

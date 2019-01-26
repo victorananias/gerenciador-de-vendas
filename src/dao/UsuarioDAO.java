@@ -9,18 +9,18 @@ import javax.swing.JOptionPane;
 
 public class UsuarioDAO extends DAO{
     
-    public void cadastrarUsuario(Usuario usuarios) {
-        String sql = "INSERT INTO usuarios(login, nome, cpf, senha, tipo)"
+    public void insert(Usuario usuario) {
+        String sql = "INSERT INTO usuario(login, nome, cpf, senha, tipo)"
                 +" VALUES(?,?,?,?,?)";
         
         try {
             insert(
                     sql,
-                    usuarios.getLogin(),
-                    usuarios.getNome(),
-                    usuarios.getCpf(),
-                    usuarios.getSenha(),
-                    usuarios.getTipo());
+                    usuario.getLogin(),
+                    usuario.getNome(),
+                    usuario.getCpf(),
+                    usuario.getSenha(),
+                    usuario.getTipo());
             
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Erro ao cadastrar o usuario "+e);
@@ -56,8 +56,7 @@ public class UsuarioDAO extends DAO{
         
         String sql = "SELECT id, login, nome, cpf, senha, tipo FROM usuarios "+where;
         
-        PreparedStatement pStmt = getConexao().prepareStatement(sql);
-        ResultSet resultado = pStmt.executeQuery();
+        ResultSet resultado = getConexao().prepareStatement(sql).executeQuery();
 
         while (resultado.next()) {
             Usuario usuario = new Usuario();
@@ -73,7 +72,6 @@ public class UsuarioDAO extends DAO{
         }
         
         resultado.close();
-        pStmt.close();
         getConexao().close();
         
         return lista;
@@ -104,7 +102,7 @@ public class UsuarioDAO extends DAO{
     }
     
     public void removerUsuario(String login) {
-        String sql = "DELETE FROM usuarios WHERE nome_usuario = ?";
+        String sql = "DELETE FROM usuarios WHERE login = ?";
         
         try {
             delete(sql, login);

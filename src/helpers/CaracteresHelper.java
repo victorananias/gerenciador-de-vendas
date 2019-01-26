@@ -1,7 +1,5 @@
 package helpers;
 import java.text.NumberFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 /**
  *
@@ -28,15 +26,5 @@ public class CaracteresHelper {
         double valor = Double.parseDouble(num.replaceAll("[^\\d]", ""));
         valor = valor/100;
         return valor;
-    }
-    
-    public static String formatarData(String dat) throws Exception { 
-	SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
-        Date data;
-        data = formato.parse(dat);
-        formato.applyPattern("dd/MM/yyyy");
-        String dataFormatada = formato.format(data);
-        
-        return dataFormatada;
     }
 }

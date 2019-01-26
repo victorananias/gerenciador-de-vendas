@@ -3,6 +3,8 @@ package models;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import dao.DAO;
+
 public class Produto {
     
     private int id;
@@ -49,6 +51,24 @@ public class Produto {
 
     public void setValor(double valor) {
         this.valor = valor;
+    }
+
+    public void save() throws SQLException {
+        if (this.getId() != 0) return;
+
+        DAO db = new DAO();
+
+        String sql = "INSERT INTO produtos(nome, tipo, quantidade, valor) VALUES(?, ?, ?, ?)";
+        
+        db.insert(
+            sql,
+            this.nome,
+            this.tipo,
+            this.quantidade,
+            this.valor
+        );
+
+        this.setId(db.getLastInsertedId());
     }
      
 }

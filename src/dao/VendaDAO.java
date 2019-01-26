@@ -9,9 +9,8 @@ import javax.swing.JOptionPane;
 
 public class VendaDAO extends DAO{
     
-    public void registrarVenda(Venda venda) {
-        String sql = "INSERT INTO vendas(quantidade_total, valor_total, usuario_id)"
-                +" VALUES(?,?,?)";
+    public void insert(Venda venda) {
+        String sql = "INSERT INTO vendas(quantidade_total, valor_total, usuario_id)  VALUES(?,?,?)";
         
         try {
             insert(
@@ -26,24 +25,28 @@ public class VendaDAO extends DAO{
         }
     }
     
-    public ArrayList<Venda> buscarVendas() {
+    public ArrayList<Venda> getAll() {
+        ArrayList<Venda> lista = new ArrayList();
+
+        String sql = "SELECT v.*, "
+                + " (SELECT login FROM usuarios AS u WHERE u.id = v.usuario_id LIMIT 1) AS login"
+                + " FROM vendas AS v ";
+
         try {
-            return this.buscar("");
+            this.select(sql);
+
+            while(this.nextResult()) {
+                lista.add(Venda.make(result()));
+            }
+
+            this.closeConnection();
+
         } catch (SQLException erro) {
             JOptionPane.showMessageDialog(null, "Erro ao buscar vendas "+erro);
             return null;
         }
-    }
-    
-    public ArrayList<Venda> buscarVendasUsuario(int usuarioId) {
-        ArrayList<Venda> listaVendas = null;
-        try {
-            listaVendas = this.buscar("where usuario_id="+usuarioId);
-        } catch (SQLException erro) {
-            JOptionPane.showMessageDialog(null, "Erro ao buscar vendas "+erro);
-            return null;
-        }
-        return listaVendas;
+
+        return lista;
     }
     
     public ArrayList<Venda> buscar(String where) throws SQLException {

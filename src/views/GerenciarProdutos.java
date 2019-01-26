@@ -17,7 +17,7 @@ import models.Produto;
  * @author victor.ananias
  */
 public class GerenciarProdutos extends javax.swing.JFrame {
-    
+    private ArrayList<Produto> produtos; 
     DefaultTableModel dtmp = new DefaultTableModel(
             new Object[][]{},
             new Object[]{"Código","Produto","Em Estoque"}
@@ -37,7 +37,7 @@ public class GerenciarProdutos extends javax.swing.JFrame {
     public GerenciarProdutos() {
         initComponents();
         this.setLocationRelativeTo(null);
-        buscarProd();
+        carregarTabela();
     }
 
     /**
@@ -302,14 +302,13 @@ public class GerenciarProdutos extends javax.swing.JFrame {
         
     }
     
-    private void buscarProd(){
-        ArrayList<Produto> produto;
-        produto = new ProdutosController().buscarProdutos();
-        for (int i = 0; i < produto.size(); i++) {
+    private void carregarTabela(){
+        this.produtos = new ProdutosController().buscarProdutos();
+        for (int i = 0; i < produtos.size(); i++) {
             dtmp.addRow(new String[]{
-                String.valueOf(produto.get(i).getId()),
-                String.valueOf(produto.get(i).getNome()),
-                String.valueOf(produto.get(i).getQuantidade())});
+                String.valueOf(produtos.get(i).getId()),
+                String.valueOf(produtos.get(i).getNome()),
+                String.valueOf(produtos.get(i).getQuantidade())});
         }
         jTbProd.setModel(dtmp);
     }
@@ -320,33 +319,22 @@ public class GerenciarProdutos extends javax.swing.JFrame {
         return qnt;
     }
     
-    private int pegaCodProd(int i){
-        int cod;
-        cod = Integer.parseInt(jTbProd.getValueAt(i,0).toString());
-        return cod;
-    }
-    
     private void atualizaQnt(){
-        Produto produto = new Produto();
-        for(int i=0; i < jTbProd.getRowCount();i++){
-            produto.setQuantidade(pegaQnt(i));
-            produto.setId(pegaCodProd(i));
-            new ProdutosController().atualizarQuantidadeProduto(produto);
+        for(int i=0; i < jTbProd.getRowCount(); i++){
+            produtos.get(i).setQuantidade(this.pegaQnt(i));
+            new ProdutosController().atualizarQuantidadeProduto(produtos.get(i));
         }
     }
     
     private void jBtAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAdicionarActionPerformed
-        if(jTbProd.getSelectedRow()>-1){
-            if(jTextQntProd.getText()==null){
+        if (jTbProd.getSelectedRow() > -1){
+            if(jTextQntProd.getText() == null){
                 JOptionPane.showMessageDialog(null, "Você não digitou uma quantidade");
-            }
-            else{
+            } else{
                 this.adicionarTbProd();
             }
-        }
-        else{
+        } else{
             JOptionPane.showMessageDialog(null, "Selecione uma linha");
-
         }
     }//GEN-LAST:event_jBtAdicionarActionPerformed
 
@@ -354,7 +342,7 @@ public class GerenciarProdutos extends javax.swing.JFrame {
         this.atualizaQnt();
         JOptionPane.showMessageDialog(null, "Salvo");
         this.limpaTabela();
-        this.buscarProd();
+        this.carregarTabela();
     }//GEN-LAST:event_jBtSalvarActionPerformed
 
     private void jBtRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtRemoverActionPerformed
