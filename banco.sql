@@ -8,7 +8,7 @@ CREATE TABLE `produtos` (
   `quantidade` int(11) NOT NULL,
   `valor` double DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 CREATE TABLE `usuarios` (
@@ -25,12 +25,11 @@ CREATE TABLE `vendas` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `quantidade_total` int(11) NOT NULL,
   `valor_total` double NOT NULL,
-  `data` date NOT NULL,
-  `hora` time DEFAULT NULL,
+  `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `usuario_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   FOREIGN KEY (`usuario_id`) REFERENCES usuarios(`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 CREATE TABLE `itens_venda` (
@@ -42,7 +41,7 @@ CREATE TABLE `itens_venda` (
   PRIMARY KEY (`id`),
   FOREIGN KEY (`produto_id`) REFERENCES produtos(`id`),
   FOREIGN KEY (`venda_id`) REFERENCES vendas(`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Senha: "123123123"
 INSERT INTO `usuarios` VALUES

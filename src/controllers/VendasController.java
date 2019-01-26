@@ -9,6 +9,7 @@ import dao.ItemVendaDAO;
 import dao.ProdutoDAO;
 import dao.VendaDAO;
 import models.ItemVenda;
+import models.Produto;
 import models.Usuario;
 import models.Venda;
 import java.util.ArrayList;
@@ -26,24 +27,24 @@ public class VendasController {
         registrarItensVenda(listaItens, idVenda);
 }
     
-    public void registrarItensVenda(ArrayList<ItemVenda> listaItens, int idVenda) {
-        System.out.println(idVenda);
-        listaItens.stream().map((item) -> {
+    public void registrarItensVenda(ArrayList<ItemVenda> lista, int idVenda) {
+        lista.forEach((item) -> {
             item.setVendaId(idVenda);
-            return item;
-        }).map((item) -> {
+
+            Produto produto = new ProdutoDAO().find(item.getProdutoId());
+
+            produto.setQuantidade(produto.getQuantidade() - item.getQuantidade());
+            new ProdutoDAO().update(produto);
+            
             new ItemVendaDAO().registrarItemVenda(item);
-            return item;
-        }).forEach((item) -> {
-            new ProdutoDAO().atualizarQuantidade(item.getProdutoId(), item.getQuantidade());
+
         });
     }
     
     public ArrayList<Venda> buscarVendasUsuario(Usuario usuario) {
-        if(usuario.getTipo().equals("Admin")) {
+        if (usuario.getTipo().equals("Admin")) {
             return new VendaDAO().buscarVendas();
-        }
-        else {
+        } else {
             return new VendaDAO().buscarVendasUsuario(usuario.getId());
         }
     }

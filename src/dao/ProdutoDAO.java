@@ -1,7 +1,6 @@
 package dao;
 
 import models.Produto;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -10,15 +9,16 @@ import javax.swing.JOptionPane;
 import app.Database;
 import app.MySqlConnection;
 
-public class ProdutoDAO extends DAO{
+public class ProdutoDAO {
     
     public void insert(Produto produto) {
         Database db = new Database(new MySqlConnection().getConnection());
         
         try {
-            db.addToInsert("nome", produto.getNome()).addToInsert("tipo", produto.getTipo())
-                    .addToInsert("quantidade", produto.getQuantidade()).addToInsert("valor", produto.getValor())
-                    .insertInto("produtos");
+            db.addToInsert("nome", produto.getNome())
+                .addToInsert("tipo", produto.getTipo())
+                .addToInsert("quantidade", produto.getQuantidade()).addToInsert("valor", produto.getValor())
+                .insertInto("produtos");
                     
         } catch (SQLException error) {
             System.out.println(error.toString());
@@ -72,24 +72,23 @@ public class ProdutoDAO extends DAO{
         return produto;
     }
     
-    public void atualizar(Produto produto) {
-        String sql = "UPDATE produtos set nome = ?, tipo = ?, valor = ? where id = ?";
+    public void update(Produto produto) {
+        Database db = new Database(new MySqlConnection().getConnection());
+        
         try {
-            update(sql, produto.getId(), produto.getNome(), produto.getTipo(), produto.getValor());
+            db.addToUpdate("nome", produto.getNome())
+                .addToUpdate("tipo", produto.getTipo())
+                .addToUpdate("valor", produto.getValor())
+                .addToUpdate("quantidade", produto.getQuantidade())
+                .where("id", "=", produto.getId())
+                .update("produtos");
+
         } catch (SQLException error) {
             System.out.println(error.toString());
             JOptionPane.showMessageDialog(null, "Erro ao atualizar informações do produto. ");
         }
-    }
-    
-    public void atualizarQuantidade(int id, int quantidade) {
-        String sql = "UPDATE produtos SET quantidade = ? WHERE id = ?";
-        try {
-            this.update(sql, id, quantidade);
-        } catch (SQLException error) {
-            System.out.println(error.toString());
-            JOptionPane.showMessageDialog(null, "Erro ao alterar quantidade do produto. ");
-        }
+
+        db.close();
     }
 
     protected Produto makeProduto(ResultSet result) throws SQLException {

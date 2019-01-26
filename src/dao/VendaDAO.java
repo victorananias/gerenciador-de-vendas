@@ -10,17 +10,16 @@ import javax.swing.JOptionPane;
 public class VendaDAO extends DAO{
     
     public void registrarVenda(Venda venda) {
-        String sql = "INSERT INTO vendas(quantidade_total, valor_total, data, hora, usuario_id)"
-                +" VALUES(?,?,?,?,?)";
+        String sql = "INSERT INTO vendas(quantidade_total, valor_total, usuario_id)"
+                +" VALUES(?,?,?)";
         
         try {
             insert(
-                    sql,
-                    venda.getQuantidadeTotal(),
-                    venda.getValorTotal(),
-                    venda.getData(),
-                    venda.getHora(),
-                    venda.getUsuarioId());
+                sql,
+                venda.getQuantidadeTotal(),
+                venda.getValorTotal(),
+                venda.getUsuarioId()
+            );
             
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Erro ao registrar venda "+e);
@@ -63,8 +62,7 @@ public class VendaDAO extends DAO{
             venda.setId(resultado.getInt("id"));
             venda.setQuantidadeTotal(resultado.getInt("quantidade_total"));
             venda.setValorTotal(resultado.getDouble("valor_total"));
-            venda.setData(resultado.getString("data"));
-            venda.setHora(resultado.getString("hora"));
+            venda.setCreatedAt(resultado.getString("created_at"));
             venda.setLogin(resultado.getString("login"));
             lista.add(venda);
         }

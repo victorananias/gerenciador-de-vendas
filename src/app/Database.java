@@ -11,10 +11,10 @@ import java.util.Date;
 
 public class Database {
 	private Connection connection;
-	private Statement stmt = null;
     public ResultSet resultSet = null;
     public String error = null;
     private String sql = "";
+    private String where = "";
     private ArrayList<String> columnsToPrepare = new ArrayList();
     private ArrayList args = new ArrayList();
     private int lastId;
@@ -30,19 +30,24 @@ public class Database {
     }
     
     public Database select(String columns, String table) {
-        this.sql = "SELECT "+columns+" FROM `" + table + "`";
+        this.sql = "SELECT " + columns + " FROM " + table;
         return this;
     }
 
-    public Database where(String column, String operator, Object value) {
+    public Database where(String column, String operator, int value) {
+
         this.checkWhere();
-        this.sql += " " + column + " "  + operator + " "  + value;
+
+        this.args.add(value);
+        
+        this.where += " " + column + " "  + operator + " ? ";
+
         return this;
     }
 
     public boolean get() {
         try {
-        	this.resultSet = this.getStatement().executeQuery(sql);
+        	this.resultSet = this.getStatement().executeQuery(this.sql + this.where);
             return true;
             
         } catch (Exception error) {
@@ -73,6 +78,25 @@ public class Database {
         this.lastId = this.next() ? this.getResult().getInt(1) : null;
 
         pStmt.close();
+    }
+
+    public void update(String table) throws SQLException {
+        this.prepareUpdateSql(table);
+
+        this.pStmt = this.connection.prepareStatement(this.sql);
+
+        this.pStmt = this.mapParams(this.pStmt, this.args);
+        
+        pStmt.executeUpdate();
+        
+        pStmt.close();
+    }
+
+    public Database addToUpdate(String column, Object param) {
+        this.columnsToPrepare.add(column);
+        this.args.add(param);
+        
+        return this;
     }
 
     public Statement getStatement() {
@@ -115,11 +139,16 @@ public class Database {
         this.sql = "INSERT INTO " + table + "(" +columns + ") VALUES(" + values + ")";
     }
 
+    private void prepareUpdateSql(String table) {
+        String columns = String.join(" = ?, ", this.columnsToPrepare) + " = ? ";
+        this.sql = "UPDATE " + table + " set " + columns + where;
+    }
+
     private void checkWhere() {
-        if (!this.sql.contains("WHERE")) {
-            this.sql += " WHERE ";
+        if (!this.where.contains("WHERE")) {
+            this.where += " WHERE ";
         } else {
-            this.sql += " AND ";
+            this.where += " AND ";
         }
     }
     
@@ -151,7 +180,9 @@ public class Database {
         return new String(new char[count]).replace("\0", str);
     }
 
-    private void toSql() {
+    public void printSql() {
         System.out.println(this.sql);
+        System.out.println("\nparams: \n");
+        this.args.forEach(a -> System.out.println(a));
     }
 }

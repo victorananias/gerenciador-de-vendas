@@ -13,9 +13,6 @@ public class MySqlConnection {
     
     public Connection getConnection() {
         try {
-        	
-            System.out.println("Connecting to db.");
-            
             Class.forName(Config.DRIVER_CLASS);
             
             return DriverManager.getConnection(

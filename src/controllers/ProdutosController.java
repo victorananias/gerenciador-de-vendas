@@ -19,11 +19,11 @@ public class ProdutosController extends Produto{
     }
     
     public void atualizarInfoProduto(Produto produto) {
-        new ProdutoDAO().atualizar(produto);
+        new ProdutoDAO().update(produto);
     }
     
     public void atualizarQuantidadeProduto(Produto produto) {
-        new ProdutoDAO().atualizarQuantidade(produto.getId(), produto.getQuantidade());
+        new ProdutoDAO().update(produto);
     }
     
 }

@@ -4,14 +4,27 @@ public class Venda {
     
     private double valorTotal;
     private int id;
-    private String data;
-    private String hora;
+    private String created_at;
     private String login;
     private int quantidadeTotal;
     private int usuarioId;
-    
+
     public double getValorTotal() {
         return valorTotal;
+    }
+
+    /**
+     * @return the created_at
+     */
+    public String getCreatedAt() {
+        return created_at;
+    }
+
+    /**
+     * @param created_at the created_at to set
+     */
+    public void setCreatedAt(String created_at) {
+        this.created_at = created_at;
     }
 
     public void setValorTotal(double valorTotal) {
@@ -24,22 +37,6 @@ public class Venda {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getData() {
-        return data;
-    }
-
-    public void setData(String data) {
-        this.data = data;
-    }
-
-    public String getHora() {
-        return hora;
-    }
-
-    public void setHora(String hora) {
-        this.hora = hora;
     }
 
     public int getQuantidadeTotal() {

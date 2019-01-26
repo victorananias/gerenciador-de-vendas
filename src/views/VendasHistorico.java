@@ -186,13 +186,12 @@ public class VendasHistorico extends javax.swing.JFrame {
             listaVendas = new VendasController().buscarVendasUsuario(Usuario.getAtual());
             
             for (int i = 0; i < listaVendas.size(); i++) {
-            modeloTabelaHistorico.addRow(new String[]{
+                modeloTabelaHistorico.addRow(new String[]{
                     String.valueOf(listaVendas.get(i).getId()),
                     String.valueOf(listaVendas.get(i).getQuantidadeTotal()),
                     String.valueOf(CaracteresHelper.addMascaraMonetaria(
                             listaVendas.get(i).getValorTotal())),
-                    String.valueOf(CaracteresHelper.formatarData(listaVendas.get(i).getData())),
-                    String.valueOf(listaVendas.get(i).getHora()),
+                    String.valueOf(listaVendas.get(i).getCreatedAt()),
                     String.valueOf(listaVendas.get(i).getLogin())});
             }
 

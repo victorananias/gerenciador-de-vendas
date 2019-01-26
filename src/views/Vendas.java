@@ -372,24 +372,27 @@ public class Vendas extends javax.swing.JFrame {
         }
     }
     
-    private boolean verificarQuantidadeZero(){
+    private boolean estoqueEstaVazio(){
         return (jTbProd.getValueAt(
-                jTbProd.getSelectedRow(), 2).toString()).equals("0");
+                jTbProd.getSelectedRow(), 2).toString()).equals("1");
     }
     
     private int verificaQuantidade() {
         int opcao = 0;
         int quantidadeEscolhida;
+        
         int codigoProduto = Integer.parseInt(
                 jTbProd.getValueAt(jTbProd.getSelectedRow(), 0).toString());
-        int quantidadeProduto = new ProdutosController().buscarProduto(codigoProduto).getQuantidade();
+
+        int quantidadeProduto = Integer.parseInt(
+            jTbProd.getValueAt(jTbProd.getSelectedRow(), 2).toString());
+
         quantidadeEscolhida = Integer.parseInt(jTextQntProd.getText());
         
         if (quantidadeEscolhida > quantidadeProduto) {
             opcao = 0;
             //se tem ao menos 1 linha
-        }
-        else if (jTbVenda.getRowCount() > 0) {
+        } else if (jTbVenda.getRowCount() > 0) {
             this.linhaProdutoTbVendas = linhaTabelaVendas();
             
             if(linhaProdutoTbVendas != -1){
@@ -398,8 +401,7 @@ public class Vendas extends javax.swing.JFrame {
                 
                 if(quantidadeCarrinho + quantidadeEscolhida > quantidadeProduto){
                     opcao = 0;
-                }
-                else{
+                } else{
                     opcao = 2;
                 }
             }
@@ -501,8 +503,6 @@ public class Vendas extends javax.swing.JFrame {
     
     private void registrarVenda(){
         Venda venda = new Venda();
-        SimpleDateFormat formatoData = new SimpleDateFormat("yyyyMMdd");
-        SimpleDateFormat formatoHora = new SimpleDateFormat("HHmmss");
         
         double valor = 0;
         int quantidade = 0;
@@ -512,15 +512,13 @@ public class Vendas extends javax.swing.JFrame {
         }
         venda.setQuantidadeTotal(quantidade);
         venda.setValorTotal(valor);
-        venda.setData(formatoData.format(new Date()));
-        venda.setHora(formatoHora.format(new Date()));
         venda.setUsuarioId(Usuario.getAtual().getId());
         
         new VendasController().registrarVenda(venda, getItensVenda());
    }
     
     private ArrayList<ItemVenda> getItensVenda(){
-        ArrayList<ItemVenda> listaItens = new ArrayList();
+        ArrayList<ItemVenda> lista = new ArrayList();
        
         for(int i = 0; i < jTbVenda.getRowCount(); i++){
             ItemVenda itemVenda = new ItemVenda();
@@ -532,10 +530,10 @@ public class Vendas extends javax.swing.JFrame {
             itemVenda.setProdutoId(Integer.parseInt(
                     jTbVenda.getValueAt(i, 0).toString()));
             
-            listaItens.add(itemVenda);
+            lista.add(itemVenda);
         }
         
-        return listaItens;
+        return lista;
     }
     
     
@@ -547,10 +545,9 @@ public class Vendas extends javax.swing.JFrame {
             else{
                 switch (this.verificaQuantidade()){
                     case 0:
-                        if(verificarQuantidadeZero()){
+                        if (estoqueEstaVazio()){
                             JOptionPane.showMessageDialog(null, "Produto em falta");
-                        }
-                        else{
+                        } else{
                             JOptionPane.showMessageDialog(null, "Quantidade maior que estoque");
                         }
                         break;
@@ -572,7 +569,7 @@ public class Vendas extends javax.swing.JFrame {
     }//GEN-LAST:event_jBtAdicionarActionPerformed
 
     private void jBtEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtEnviarActionPerformed
-        if(jTbVenda.getRowCount()>0){
+        if(jTbVenda.getRowCount() > 0){
             this.registrarVenda();
             this.getItensVenda();
             JOptionPane.showMessageDialog(null,"Venda registrada");
@@ -587,7 +584,7 @@ public class Vendas extends javax.swing.JFrame {
     }//GEN-LAST:event_jBtEnviarActionPerformed
 
     private void jBtRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtRemoverActionPerformed
-        if(jTbVenda.getSelectedRow()>-1){
+        if(jTbVenda.getSelectedRow() > -1){
             
             atualizaTbProdRemove();
             modeloTabelaCarrinho.removeRow(jTbVenda.getSelectedRow());
