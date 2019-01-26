@@ -1,13 +1,13 @@
 
-package core;
+package app;
 
 import java.sql.SQLException;
 
 import views.Login;
 
-public class Main {
+public class App {
 	
-    public static void main(String args[]) {
+    public static void main(String[] args) throws Exception {
 //    	Database db = new Database(new MySqlConnection().getConnection());
 //    	
 //    	try {

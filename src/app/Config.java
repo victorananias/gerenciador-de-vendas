@@ -1,4 +1,4 @@
-package core;
+package app;
 
 public class Config {
     public static final String DATABASE = "gerenciamento_vendas";

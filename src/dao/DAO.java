@@ -1,6 +1,6 @@
 package dao;
 
-import core.MySqlConnection;
+import app.MySqlConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -38,6 +38,7 @@ public class DAO {
         pStmt.executeUpdate();
         
         ResultSet rs = pStmt.getGeneratedKeys();
+        
         if(rs.next()) {
             setUltimoIdInserido(rs.getInt(1));
         }

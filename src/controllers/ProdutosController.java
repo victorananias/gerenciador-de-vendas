@@ -7,7 +7,7 @@ import models.Produto;
 public class ProdutosController extends Produto{
     
     public void cadastrarProduto(Produto produto) {
-        new ProdutoDAO().cadastrarProduto(produto);
+        new ProdutoDAO().insert(produto);
     }
     
     public ArrayList<Produto> buscarProdutos() {

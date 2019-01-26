@@ -1,4 +1,4 @@
-package core;
+package app;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -14,7 +14,7 @@ public class MySqlConnection {
     public Connection getConnection() {
         try {
         	
-            System.out.println("Conectando ao Banco de Dados ");
+            System.out.println("Connecting to db.");
             
             Class.forName(Config.DRIVER_CLASS);
             
