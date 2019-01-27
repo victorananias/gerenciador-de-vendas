@@ -14,9 +14,9 @@ import javax.swing.JOptionPane;
  *
  * @author victor
  */
-public class SenhaHelper {
+public class Senha {
     
-    public String criptografarSenha(String senhaDigitada) {
+    public static String encrypt(String senhaDigitada) {
         String senha = "";
         
         try{
@@ -30,10 +30,10 @@ public class SenhaHelper {
             }
             
             senha = hexString.toString();
-        }
-        catch(NoSuchAlgorithmException | UnsupportedEncodingException e){
+        } catch(NoSuchAlgorithmException | UnsupportedEncodingException e){
             JOptionPane.showMessageDialog(null, "Erro - "+e);
         }
+
         return senha;
     }
     

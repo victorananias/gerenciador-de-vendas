@@ -1,8 +1,6 @@
 
 package app;
 
-import java.sql.SQLException;
-
 import views.Login;
 
 public class App {

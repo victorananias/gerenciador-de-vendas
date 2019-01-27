@@ -6,12 +6,11 @@
 package controllers;
 
 import dao.ItemVendaDAO;
-import dao.ProdutoDAO;
-import dao.VendaDAO;
 import models.ItemVenda;
 import models.Produto;
 import models.Usuario;
 import models.Venda;
+import services.AuthService;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -22,21 +21,24 @@ import java.util.ArrayList;
  */
 public class VendasController {
 
-    public void registrarVenda(Venda venda, ArrayList<ItemVenda> listaItens) {
-        VendaDAO vendaDAO = new VendaDAO();
-        vendaDAO.insert(venda);
-        int idVenda = vendaDAO.getLastInsertedId();
-        registrarItensVenda(listaItens, idVenda);
+    public void registrarVenda(Venda venda) throws SQLException {
+        venda.setUsuarioId(AuthService.getUser().getId());
+        venda.save();
     }
 
     public void registrarItensVenda(ArrayList<ItemVenda> lista, int idVenda) {
         lista.forEach((item) -> {
             item.setVendaId(idVenda);
+            
+            try {
+                Produto produto = new Produto();
+                produto = item.getProduto();
+                produto.setQuantidade(produto.getQuantidade() - item.getQuantidade());
+                produto.save();
 
-            Produto produto = new ProdutoDAO().find(item.getProdutoId());
-
-            produto.setQuantidade(produto.getQuantidade() - item.getQuantidade());
-            new ProdutoDAO().update(produto);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
 
             new ItemVendaDAO().registrarItemVenda(item);
 
@@ -44,8 +46,8 @@ public class VendasController {
     }
 
     public ArrayList<Venda> buscarVendasUsuario(Usuario usuario) throws SQLException {
-        if (usuario.getTipo().equals("Admin")) {
-            return new VendaDAO().getAll();
+        if (usuario.isAdmin()) {
+            return Venda.all();
         } else {
             return usuario.getVendas();
         }

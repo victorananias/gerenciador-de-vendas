@@ -2,7 +2,6 @@ package controllers;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import dao.ProdutoDAO;
 import models.Produto;
 
 public class ProdutosController extends Produto {
@@ -16,20 +15,24 @@ public class ProdutosController extends Produto {
         produto.save();
     }
     
-    public ArrayList<Produto> buscarProdutos() {
-        return new ProdutoDAO().all();
+    public ArrayList<Produto> buscarProdutos() throws SQLException {
+        return Produto.all();
     }
     
-    public Produto buscarProduto(int codigo) {
-        return new ProdutoDAO().find(codigo);
+    public Produto buscarProduto(int codigo) throws SQLException {
+        return Produto.find(codigo);
     }
     
-    public void atualizarInfoProduto(Produto produto) {
-        new ProdutoDAO().update(produto);
-    }
-    
-    public void atualizarQuantidadeProduto(Produto produto) {
-        new ProdutoDAO().update(produto);
+    public void atualizarProduto(int id, String nome, String tipo, int quantidade, double valor) 
+        throws SQLException {
+
+        Produto produto = new Produto();
+        produto.setId(id);
+        produto.setNome(nome);
+        produto.setTipo(tipo);
+        produto.setQuantidade(quantidade);
+        produto.setValor(valor);
+        produto.save();
     }
     
 }

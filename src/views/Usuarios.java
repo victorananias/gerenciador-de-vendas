@@ -5,6 +5,7 @@
  */
 package views;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -17,18 +18,15 @@ import models.Usuario;
  */
 public class Usuarios extends javax.swing.JFrame {
     ArrayList<Usuario> usuarios;
-    DefaultTableModel modeloTabelaUsuarios = new DefaultTableModel(
-            new Object[][]{},
-            new Object[]{"Usuário","Nome","Permissões"}
-    ) {
-        boolean[] canEdit = new boolean [] {
-            false, false, false, false
-        };
+    DefaultTableModel modeloTabelaUsuarios = new DefaultTableModel(new Object[][] {},
+            new Object[] { "Usuário", "Nome", "Tipo" }) {
+        boolean[] canEdit = new boolean[] { false, false, false, false };
 
         public boolean isCellEditable(int rowIndex, int columnIndex) {
-            return canEdit [columnIndex];
+            return canEdit[columnIndex];
         }
     };
+
     /**
      * Creates new form CadastraUsuario
      */
@@ -37,15 +35,23 @@ public class Usuarios extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.gerarTabelaUsuarios();
     }
-    
-    private void gerarTabelaUsuarios(){
-        this.usuarios = new UsuariosController().buscarUsuarios();
+
+    private void gerarTabelaUsuarios() {
+        try {
+            this.usuarios = new UsuariosController().buscarUsuarios();
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Erro ao buscar usuários.");
+        }
+
         for (int i = 0; i < this.usuarios.size(); i++) {
             modeloTabelaUsuarios.addRow(new String[]{
-                String.valueOf(this.usuarios.get(i).getId()),
+                String.valueOf(this.usuarios.get(i).getLogin()),
                 String.valueOf(this.usuarios.get(i).getNome()),
                 String.valueOf(this.usuarios.get(i).getTipo())});
         }
+
         jTbUsuarios.setModel(modeloTabelaUsuarios);
     }
     /**
@@ -194,16 +200,12 @@ public class Usuarios extends javax.swing.JFrame {
     }//GEN-LAST:event_jBtCadastrarActionPerformed
 
     private void jBtEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtEditarActionPerformed
-        if(jTbUsuarios.getSelectedRow()==-1){
+        if(jTbUsuarios.getSelectedRow() == -1){
             JOptionPane.showMessageDialog(null, "Você nâo"
                     + " selecionou um usuário");
-        }
-        else{
-            String usuarioSelecionado = jTbUsuarios.getValueAt(
-                    jTbUsuarios.getSelectedRow(), 0).toString();
-            
+        } else {
             Usuarios.this.dispose();
-            new EditarUsuario(usuarioSelecionado).setVisible(true);
+            new EditarUsuario(usuarios.get(jTbUsuarios.getSelectedRow())).setVisible(true);
         }
     }//GEN-LAST:event_jBtEditarActionPerformed
 
@@ -213,7 +215,7 @@ public class Usuarios extends javax.swing.JFrame {
     }//GEN-LAST:event_jBtVoltarActionPerformed
 
     private void jBtSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSenhaActionPerformed
-        if(jTbUsuarios.getSelectedRow() == -1){
+        if (jTbUsuarios.getSelectedRow() == -1) {
             JOptionPane.showMessageDialog(null, "Você nâo"
                     + " selecionou um usuário");
         }

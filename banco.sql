@@ -1,4 +1,8 @@
-CREATE DATABASE  IF NOT EXISTS `gerenciamento_vendas`;
+
+DROP DATABASE IF EXISTS `gerenciamento_vendas`;
+
+CREATE DATABASE `gerenciamento_vendas`;
+
 USE `gerenciamento_vendas`;
 
 CREATE TABLE `produtos` (

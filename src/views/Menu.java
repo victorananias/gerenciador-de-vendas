@@ -27,7 +27,7 @@ public class Menu extends javax.swing.JFrame {
     }
     
     private void verificaTipoUsuario(){
-        if (AuthService.getUser().getTipo().equals("Usuário")){
+        if (!AuthService.getUser().isAdmin()){
             jBtUsuarios.setVisible(false);
         }
     }

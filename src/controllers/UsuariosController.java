@@ -2,61 +2,28 @@ package controllers;
 
 import models.Usuario;
 import services.AuthService;
-import dao.UsuarioDAO;
-import helpers.SenhaHelper;
+import helpers.Senha;
+
+import java.sql.SQLException;
 import java.util.ArrayList;
 
-
 public class UsuariosController {
-    
-    public void cadastraUsuario(Usuario usuario) {
-        usuario.setTipo(usuario.getTipo().equals("Usuário") ? "U" : "A");
-        new UsuarioDAO().insert(usuario);
+
+    public void cadastraUsuario(String login, String nome, String cpf, String senha, String tipo) throws SQLException {
+        Usuario usuario = new Usuario();
+        usuario.setLogin(login);
+        usuario.setNome(nome);
+        usuario.setCpf(cpf);
+        usuario.setSenha(Senha.encrypt(senha));
+        usuario.setTipo(tipo.equals("Usuário") ? 'U' : 'A');
+        usuario.save();
     }
     
-    
-    public ArrayList<Usuario> buscarUsuarios() {
-        return new UsuarioDAO().buscarUsuarios();
+    public ArrayList<Usuario> buscarUsuarios() throws SQLException {
+        return Usuario.all();
     }
-    
-    
-    public void setUsuarioAtual(String login) {
-        Usuario usuario = new UsuarioDAO().buscarUsuario(login);
-        AuthService.setUser(usuario);
+
+    public boolean login(String login, String senha) throws SQLException {
+        return AuthService.login(login, senha);
     }
-    
-    
-    public boolean validarLogin(String login) {
-        Usuario usuario;
-        usuario = new UsuarioDAO().buscarUsuario(login);
-        return usuario.getLogin() != null;
-    }
-    
-    
-    public boolean getValidadeSenha(String senha, String nomeUsuario) {
-        Usuario usuario;
-        usuario = new UsuarioDAO().buscarUsuario(nomeUsuario);
-        
-        senha = new SenhaHelper().criptografarSenha(senha);
-        return usuario.getSenha().equals(senha);
-    }
-    
-    
-    public Usuario buscarUsuario(String nomeUsuario) {
-        return new UsuarioDAO().buscarUsuario(nomeUsuario);
-    }
-    
-    public void atualizarUsuario(Usuario usuario) {
-        new UsuarioDAO().atualizarUsuario(usuario);
-    }
-    
-    
-    public void alterarSenhaUsuario(String senha, int id) {
-        new UsuarioDAO().alterarSenha(senha, id);
-    }
-    
-    public void removeUsuario(String login) {
-        new UsuarioDAO().removerUsuario(login);
-    }
-    
 }

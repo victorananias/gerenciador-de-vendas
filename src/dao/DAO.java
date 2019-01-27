@@ -12,11 +12,17 @@ public class DAO {
     private Connection connection;
     private PreparedStatement pStmt;
     public ResultSet resultSet;
-    
+    private boolean closeConnection = true;
+
     public DAO() {
         this.connection = new MySqlConnection().getConnection();
     }
+
     
+    public void keepConnectionOpen() {
+        this.closeConnection = false;
+    }
+
     public Connection getConexao() {
         return this.connection;
     }
@@ -44,7 +50,9 @@ public class DAO {
             setLastInsertedId(this.resultSet.getInt(1));
         }
         
-        this.closeConnection();
+        if(this.closeConnection) {
+            this.closeConnection();
+        }
     }
     
     public void delete(String sql, Object... params) throws SQLException {
@@ -60,7 +68,9 @@ public class DAO {
         
         pStmt.executeUpdate();
         
-        this.closeConnection();
+        if(this.closeConnection) {
+            this.closeConnection();
+        }
     }
 
     public void select(String sql, Object... params) throws SQLException {

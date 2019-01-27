@@ -5,14 +5,13 @@
  */
 package views;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import controllers.UsuariosController;
 import helpers.CaracteresHelper;
 import controllers.ProdutosController;
 import models.Produto;
-import models.Usuario;
 import services.AuthService;
 
 /**
@@ -20,37 +19,39 @@ import services.AuthService;
  * @author victor.ananias
  */
 public class Estoque extends javax.swing.JFrame {
-    DefaultTableModel modeloTabelaProdutos = new DefaultTableModel(
-            new Object[][]{},
-            new String [] {
-                "Código", "Produto", "Em Estoque", "Preço Unidade"
-            }
-    ) {
-        boolean[] canEdit = new boolean [] {
-            false, false, false, false
-        };
+
+    ArrayList<Produto> produtos = new ArrayList<>();
+    DefaultTableModel modeloTabelaProdutos = new DefaultTableModel(new Object[][] {},
+            new String[] { "Código", "Produto", "Em Estoque", "Preço Unidade" }) {
+        boolean[] canEdit = new boolean[] { false, false, false, false };
 
         public boolean isCellEditable(int rowIndex, int columnIndex) {
-            return canEdit [columnIndex];
+            return canEdit[columnIndex];
         }
     };
-    
+
     public Estoque() {
         initComponents();
         this.setLocationRelativeTo(null);
         this.geraTabelaProdutos();
         this.verificaTipoUsuario();
     }
-    
-    private void geraTabelaProdutos(){
-        ArrayList<Produto> produto = new ProdutosController().buscarProdutos();
 
-        for (int contador = 0; contador < produto.size(); contador++) {
+    private void geraTabelaProdutos() {
+
+        try {
+            produtos = new ProdutosController().buscarProdutos();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Você nâo selecionou um produto");
+        }
+
+        for (int contador = 0; contador < produtos.size(); contador++) {
             modeloTabelaProdutos.addRow(new String[]{
-                String.valueOf(produto.get(contador).getId()),
-                String.valueOf(produto.get(contador).getNome()),
-                String.valueOf(produto.get(contador).getQuantidade()),
-                String.valueOf(CaracteresHelper.addMascaraMonetaria(produto.get(contador).getValor()))
+                String.valueOf(produtos.get(contador).getId()),
+                String.valueOf(produtos.get(contador).getNome()),
+                String.valueOf(produtos.get(contador).getQuantidade()),
+                String.valueOf(CaracteresHelper.addMascaraMonetaria(produtos.get(contador).getValor()))
             });
         }
 
@@ -59,7 +60,7 @@ public class Estoque extends javax.swing.JFrame {
 
     private void procuraLinha(String palavra){
         
-        for(int contador=0; contador< jTbProd.getRowCount();contador++){
+        for(int contador = 0; contador < jTbProd.getRowCount(); contador++){
             String codProd = jTbProd.getValueAt(contador, 1).toString();
             
             if(codProd.contains(palavra)){
@@ -71,7 +72,7 @@ public class Estoque extends javax.swing.JFrame {
     }
     
     private void verificaTipoUsuario(){
-        if(AuthService.getUser().getTipo().equals("U")){
+        if (!AuthService.getUser().isAdmin()){
             jBtEditar.setVisible(false);
         }
     }
@@ -254,7 +255,7 @@ public class Estoque extends javax.swing.JFrame {
     }//GEN-LAST:event_jBtCadastrarProdActionPerformed
 
     private void jBtEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtEditarActionPerformed
-        if(jTbProd.getSelectedRow()==-1){
+        if(jTbProd.getSelectedRow() == -1){
             JOptionPane.showMessageDialog(null, "Você nâo"
                     + " selecionou um produto");
         }
@@ -262,7 +263,7 @@ public class Estoque extends javax.swing.JFrame {
             int codigoProduto = Integer.parseInt(jTbProd.getValueAt(
                     jTbProd.getSelectedRow(), 0).toString());
             
-            new EditarProduto(codigoProduto).setVisible(true);
+            new EdicaoProduto(codigoProduto).setVisible(true);
             Estoque.this.dispose();
         }
     }//GEN-LAST:event_jBtEditarActionPerformed

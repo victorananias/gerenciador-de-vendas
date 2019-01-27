@@ -5,6 +5,10 @@
  */
 package models;
 
+import java.sql.SQLException;
+
+import dao.DAO;
+
 /**
  *
  * @author victor
@@ -14,7 +18,7 @@ public class ItemVenda {
     private int id;
     private int quantidade;
     private double valor;
-    private int produtoId;
+    private int produto_id;
     private int vendaId;
     private String nomeProduto;
 
@@ -34,8 +38,6 @@ public class ItemVenda {
         this.quantidade = quantidade;
     }
 
-    
-
     public double getValor() {
         return valor;
     }
@@ -45,11 +47,11 @@ public class ItemVenda {
     }
 
     public int getProdutoId() {
-        return produtoId;
+        return produto_id;
     }
 
-    public void setProdutoId(int produtoId) {
-        this.produtoId = produtoId;
+    public void setProdutoId(int produto_id) {
+        this.produto_id = produto_id;
     }
 
     public int getVendaId() {
@@ -66,6 +68,46 @@ public class ItemVenda {
 
     public void setNomeProduto(String nomeProduto) {
         this.nomeProduto = nomeProduto;
+    }
+    
+    public Produto getProduto() throws SQLException {
+        DAO db = new DAO();
+        
+        String sql = "SELECT * FROM produtos WHERE id = ?";
+
+        Produto produto = new Produto();
+
+        db.select(sql, this.produto_id);
+        
+        if (db.nextResult()) {
+            produto = Produto.make(db.result());
+        }
+
+        db.closeConnection();
+        
+        return produto;
+    }
+    
+    public void save() throws SQLException {
+        String sql = "INSERT INTO itens_venda(produto_id, quantidade, valor, venda_id)  VALUES(?,?,?,?)";
+
+        DAO db = new DAO();
+
+        db.keepConnectionOpen();
+        
+        db.insert(
+            sql,
+            this.getProdutoId(),
+            this.getQuantidade(),
+            this.getValor(),
+            this.getVendaId()
+        );
+        
+        String sqlUpdate = "UPDATE produtos SET quantidade = quantidade - ? where id = ?";
+        
+        db.update(sqlUpdate, this.getQuantidade(), this.getProdutoId());
+
+        db.closeConnection();
     }
 
 }

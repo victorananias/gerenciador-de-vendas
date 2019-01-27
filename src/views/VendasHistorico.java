@@ -26,7 +26,7 @@ public class VendasHistorico extends javax.swing.JFrame {
             new Object[][]{},
             new String [] {
                 "Código Venda", "Qnt Produtos",
-                "Valor Total", "Data", "Hora", "Usuário"
+                "Valor Total", "Usuário", "Data"
             }
     ) {
         boolean[] canEdit = new boolean [] {
@@ -187,13 +187,17 @@ public class VendasHistorico extends javax.swing.JFrame {
             listaVendas = new VendasController().buscarVendasUsuario(AuthService.getUser());
             
             for (int i = 0; i < listaVendas.size(); i++) {
+                String valor = String.valueOf(
+                    CaracteresHelper.addMascaraMonetaria(listaVendas.get(i).getValorTotal())
+                );
+                
                 modeloTabelaHistorico.addRow(new String[]{
                     String.valueOf(listaVendas.get(i).getId()),
                     String.valueOf(listaVendas.get(i).getQuantidadeTotal()),
-                    String.valueOf(CaracteresHelper.addMascaraMonetaria(
-                            listaVendas.get(i).getValorTotal())),
-                    String.valueOf(listaVendas.get(i).getCreatedAt()),
-                    String.valueOf(listaVendas.get(i).getLogin())});
+                    valor,
+                    String.valueOf(listaVendas.get(i).getLogin()),
+                    String.valueOf(listaVendas.get(i).getCreatedAt())
+                });
             }
 
             jTbHistorico.setModel(modeloTabelaHistorico);
