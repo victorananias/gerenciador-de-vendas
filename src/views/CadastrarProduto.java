@@ -5,12 +5,9 @@
  */
 package views;
 
-import java.sql.SQLException;
-
 import javax.swing.JOptionPane;
 import helpers.CaracteresHelper;
 import controllers.ProdutosController;
-import models.Produto;
 
 /**
  *

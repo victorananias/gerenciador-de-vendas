@@ -8,7 +8,6 @@ package views;
 import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
-import controllers.UsuariosController;
 import models.Usuario;
 
 /**
