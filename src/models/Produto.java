@@ -4,7 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import dao.DAO;
+import app.DB;
 
 public class Produto {
     
@@ -55,7 +55,7 @@ public class Produto {
     }
     
     public static Produto find(int id) throws SQLException {
-        DAO db = new DAO();
+        DB db = new DB();
         
         String sql = "SELECT * FROM produtos WHERE id = ?";
         Produto produto = new Produto();
@@ -81,7 +81,7 @@ public class Produto {
 
     public void insert() throws SQLException {
 
-        DAO db = new DAO();
+        DB db = new DB();
 
         String sql = "INSERT INTO produtos(nome, tipo, quantidade, valor) VALUES(?, ?, ?, ?)";
         
@@ -99,7 +99,7 @@ public class Produto {
     public void update() throws SQLException {
         String sql = "UPDATE produtos SET nome = ?, tipo = ?, quantidade = ?, valor = ? WHERE id = ?";
 
-        DAO db = new DAO();
+        DB db = new DB();
 
         db.update(
             sql,
@@ -115,7 +115,7 @@ public class Produto {
         ArrayList<Produto> list = new ArrayList<Produto>();
         
         String sql = "SELECT * FROM produtos";
-        DAO db = new DAO();
+        DB db = new DB();
 
         db.select(sql);
         

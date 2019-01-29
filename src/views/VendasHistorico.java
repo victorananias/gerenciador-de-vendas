@@ -22,6 +22,8 @@ import services.AuthService;
  * @author victor.ananias
  */
 public class VendasHistorico extends javax.swing.JFrame {
+    ArrayList<Venda> vendas;
+
     DefaultTableModel modeloTabelaHistorico = new DefaultTableModel(
             new Object[][]{},
             new String [] {
@@ -163,16 +165,13 @@ public class VendasHistorico extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtProdutosActionPerformed
-        if(jTbHistorico.getSelectedRow()==-1){
-            JOptionPane.showMessageDialog(null, "Você nâo"
-                    + " selecionou uma venda");
+        if(jTbHistorico.getSelectedRow() == -1){
+            JOptionPane.showMessageDialog(null, "Você nâo selecionou uma venda");
         }
-        else{
-            int venda = Integer.parseInt(jTbHistorico.getValueAt(
-                    jTbHistorico.getSelectedRow(), 0).toString());
-            new VendasHistoricoProdutos(venda).setVisible(true);
-            VendasHistorico.this.dispose();
-        }
+
+        new VendasHistoricoProdutos(vendas.get(jTbHistorico.getSelectedRow())).setVisible(true);
+        VendasHistorico.this.dispose();
+        
     }//GEN-LAST:event_jBtProdutosActionPerformed
 
     private void jBtMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtMenuActionPerformed
@@ -182,21 +181,22 @@ public class VendasHistorico extends javax.swing.JFrame {
     }//GEN-LAST:event_jBtMenuActionPerformed
     
     private void gerarTabela(){
+        this.vendas = new ArrayList<>();
+
         try {           
-            ArrayList<Venda> listaVendas;
-            listaVendas = new VendasController().buscarVendasUsuario(AuthService.getUser());
+            vendas = new VendasController().buscarVendasUsuario(AuthService.getUser());
             
-            for (int i = 0; i < listaVendas.size(); i++) {
+            for (int i = 0; i < vendas.size(); i++) {
                 String valor = String.valueOf(
-                    CaracteresHelper.addMascaraMonetaria(listaVendas.get(i).getValorTotal())
+                    CaracteresHelper.addMascaraMonetaria(vendas.get(i).getValorTotal())
                 );
                 
                 modeloTabelaHistorico.addRow(new String[]{
-                    String.valueOf(listaVendas.get(i).getId()),
-                    String.valueOf(listaVendas.get(i).getQuantidadeTotal()),
+                    String.valueOf(vendas.get(i).getId()),
+                    String.valueOf(vendas.get(i).getQuantidadeTotal()),
                     valor,
-                    String.valueOf(listaVendas.get(i).getLogin()),
-                    String.valueOf(listaVendas.get(i).getCreatedAt())
+                    String.valueOf(vendas.get(i).getLogin()),
+                    String.valueOf(vendas.get(i).getCreatedAt())
                 });
             }
 

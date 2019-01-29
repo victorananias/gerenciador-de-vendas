@@ -1,4 +1,4 @@
-package dao;
+package app;
 
 import app.MySqlConnection;
 import java.sql.Connection;
@@ -7,14 +7,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class DAO {
+public class DB {
     private int lastInsertedId;
     private Connection connection;
     private PreparedStatement pStmt;
     public ResultSet resultSet;
     private boolean closeConnection = true;
 
-    public DAO() {
+    public DB() {
         this.connection = new MySqlConnection().getConnection();
     }
 

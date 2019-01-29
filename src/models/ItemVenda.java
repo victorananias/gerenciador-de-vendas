@@ -5,9 +5,10 @@
  */
 package models;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import dao.DAO;
+import app.DB;
 
 /**
  *
@@ -20,10 +21,14 @@ public class ItemVenda {
     private double valor;
     private int produto_id;
     private int vendaId;
-    private String nomeProduto;
+    private Produto produto;
 
     public int getId() {
         return id;
+    }
+    
+    public void setProduto(Produto produto) {
+        this.produto = produto;
     }
 
     public void setId(int id) {
@@ -61,17 +66,13 @@ public class ItemVenda {
     public void setVendaId(int vendaId) {
         this.vendaId = vendaId;
     }
-
-    public String getNomeProduto() {
-        return nomeProduto;
-    }
-
-    public void setNomeProduto(String nomeProduto) {
-        this.nomeProduto = nomeProduto;
-    }
     
     public Produto getProduto() throws SQLException {
-        DAO db = new DAO();
+        if (produto != null) {
+            return this.produto;
+        }
+
+        DB db = new DB();
         
         String sql = "SELECT * FROM produtos WHERE id = ?";
 
@@ -91,7 +92,7 @@ public class ItemVenda {
     public void save() throws SQLException {
         String sql = "INSERT INTO itens_venda(produto_id, quantidade, valor, venda_id)  VALUES(?,?,?,?)";
 
-        DAO db = new DAO();
+        DB db = new DB();
 
         db.keepConnectionOpen();
         
@@ -108,6 +109,20 @@ public class ItemVenda {
         db.update(sqlUpdate, this.getQuantidade(), this.getProdutoId());
 
         db.closeConnection();
+    }
+
+    public static ItemVenda make(ResultSet resultSet) throws SQLException {
+        ItemVenda item = new ItemVenda();
+
+        item.setProduto(Produto.make(resultSet));
+
+        item.setId(resultSet.getInt("iv_id"));
+        item.setQuantidade(resultSet.getInt("iv_quantidade"));
+        item.setValor(resultSet.getDouble("iv_valor"));
+        item.setProdutoId(resultSet.getInt("iv_produto_id"));
+        item.setVendaId(resultSet.getInt("iv_venda_id"));
+
+        return item;
     }
 
 }

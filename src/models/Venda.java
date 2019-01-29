@@ -4,10 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import javax.swing.JOptionPane;
-
-import dao.DAO;
-import services.AuthService;
+import app.DB;
 
 public class Venda {
 
@@ -17,7 +14,7 @@ public class Venda {
     private String login;
     private int quantidadeTotal = 0;
     private int usuarioId;
-    private ArrayList<ItemVenda> itens= new ArrayList<>();
+    private ArrayList<ItemVenda> itens = new ArrayList<>();
 
     public double getValorTotal() {
         return valorTotal;
@@ -86,7 +83,7 @@ public class Venda {
     public static ArrayList<Venda> all() throws SQLException {
         ArrayList<Venda> vendas = new ArrayList<>();
 
-        DAO db = new DAO();
+        DB db = new DB();
 
         String sql = "SELECT v.*, "
                 + " (SELECT login FROM usuarios AS u WHERE u.id = v.usuario_id LIMIT 1) AS login"
@@ -103,12 +100,46 @@ public class Venda {
         return vendas;
     }
     
+    public ArrayList<ItemVenda> getItens() throws SQLException {
+        if (this.itens.size() > 0) {
+            return this.itens;
+        }
+        
+        this.itens = new ArrayList<>();
+
+        DB db = new DB();
+
+        String sql = "SELECT produto_id AS iv_produto_id, "
+                    + "iv.id AS iv_id, "
+                    + "venda_id AS iv_venda_id, "
+                    + "iv.valor AS iv_valor, "
+                    + "iv.quantidade AS iv_quantidade, "
+                    + "p.nome, "
+                    + "p.id, "
+                    + "p.quantidade, "
+                    + "p.valor, "
+                    + "p.tipo "
+                    + "FROM itens_venda AS iv "
+                    + "JOIN produtos AS p ON p.id = iv.produto_id "
+                    + "WHERE venda_id = ?";
+
+        db.select(sql, this.getId());
+
+        while (db.nextResult()) {
+            this.itens.add(ItemVenda.make(db.result()));
+        }
+
+        db.closeConnection();
+
+        return this.itens;
+    }
+    
     public void save() throws SQLException {
-        if(this.getId() != 0) return;
+        if (this.getId() != 0) return;
 
         String sql = "INSERT INTO vendas(quantidade_total, valor_total, usuario_id)  VALUES(?,?,?)";
 
-        DAO db = new DAO();
+        DB db = new DB();
         
         db.insert(
             sql,

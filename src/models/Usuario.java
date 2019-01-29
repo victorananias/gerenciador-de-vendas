@@ -4,7 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import dao.DAO;
+import app.DB;
 
 public class Usuario {
 
@@ -70,23 +70,23 @@ public class Usuario {
     public ArrayList<Venda> getVendas() throws SQLException {
         ArrayList<Venda> vendas = new ArrayList<>();
 
-        DAO dao  = new DAO();
+        DB db  = new DB();
 
         String sql = "SELECT * FROM vendas WHERE usuario_id = ?";
 
-        dao.select(sql, this.getId());
+        db.select(sql, this.getId());
         
-        while (dao.nextResult()) {
-            vendas.add(Venda.make(dao.result()));
+        while (db.nextResult()) {
+            vendas.add(Venda.make(db.result()));
         }
 
-        dao.closeConnection();
+        db.closeConnection();
         
         return vendas;
     }
 
     public void delete() throws SQLException {
-        DAO db = new DAO();
+        DB db = new DB();
 
         String sql = "DELETE FROM usuarios WHERE id = ?";
 
@@ -104,7 +104,7 @@ public class Usuario {
     private void update() throws SQLException {
         String sql = "UPDATE usuarios SET login = ?, nome = ?, cpf = ?, senha = ?, tipo = ? WHERE id = ?";
 
-        DAO db = new DAO();
+        DB db = new DB();
 
         db.update(sql, this.getLogin(), this.getNome(), this.getCpf(), this.getSenha(), this.getTipo(), this.getId());
     }
@@ -112,7 +112,7 @@ public class Usuario {
     private void insert() throws SQLException {
         String sql = "INSERT INTO usuarios(login, nome, cpf, senha, tipo) VALUES(?, ?, ?, ?, ?)";
 
-        DAO db = new DAO();
+        DB db = new DB();
 
         db.insert(sql, this.getLogin(), this.getNome(), this.getCpf(), this.getSenha(), this.getTipo());
     }
@@ -121,7 +121,7 @@ public class Usuario {
         ArrayList<Usuario> list = new ArrayList<Usuario>();
         
         String sql = "SELECT * FROM usuarios";
-        DAO db = new DAO();
+        DB db = new DB();
 
         db.select(sql);
         

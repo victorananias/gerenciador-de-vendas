@@ -5,7 +5,6 @@
  */
 package controllers;
 
-import dao.ItemVendaDAO;
 import models.ItemVenda;
 import models.Produto;
 import models.Usuario;
@@ -26,35 +25,12 @@ public class VendasController {
         venda.save();
     }
 
-    public void registrarItensVenda(ArrayList<ItemVenda> lista, int idVenda) {
-        lista.forEach((item) -> {
-            item.setVendaId(idVenda);
-            
-            try {
-                Produto produto = new Produto();
-                produto = item.getProduto();
-                produto.setQuantidade(produto.getQuantidade() - item.getQuantidade());
-                produto.save();
-
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-
-            new ItemVendaDAO().registrarItemVenda(item);
-
-        });
-    }
-
     public ArrayList<Venda> buscarVendasUsuario(Usuario usuario) throws SQLException {
         if (usuario.isAdmin()) {
             return Venda.all();
         } else {
             return usuario.getVendas();
         }
-    }
-    
-    public ArrayList<ItemVenda> buscarItensVenda(int idVenda) {
-        return new ItemVendaDAO().buscarItensVenda(idVenda);
     }
     
 }
