@@ -9,9 +9,9 @@ class SQLiteSeeder {
     public static void run() {
         Connection con = Config.getConnection();
 
-        String sql = "INSERT INTO `usuarios` VALUES("
-            + "null, 'admin','Administrator','F5BB0C8DE146C67B44BABBF4E6584CC0','não possui','A'"
-        +")";
+        String sql = "INSERT INTO usuarios(login, nome, senha, cpf, tipo) VALUES("
+            + "'admin','Administrator','F5BB0C8DE146C67B44BABBF4E6584CC0','não possui','A'"
+        + ")";
         
         try {
             Statement stmt = con.createStatement();

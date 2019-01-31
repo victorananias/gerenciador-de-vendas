@@ -14,13 +14,6 @@ public class Config {
     public static final String PASSWORD = "";
 
     public static Connection getConnection() {
-        Connection con =  new CustomConnection().getConnection();
-
-        if (!(new File(DBNAME).exists())) {
-            SQLiteMigrations.execute();
-            SQLiteSeeder.run();
-        }
-
-        return con;
+        return new CustomConnection().getConnection();
     }
 }

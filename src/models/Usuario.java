@@ -138,6 +138,7 @@ public class Usuario {
         Usuario usuario = new Usuario();
         
 	    usuario.setId(result.getInt("id"));
+	    usuario.setLogin(result.getString("login"));
 	    usuario.setNome(result.getString("nome"));
 	    usuario.setTipo(result.getString("tipo").toCharArray()[0]);
 	    usuario.setSenha(result.getString("senha"));

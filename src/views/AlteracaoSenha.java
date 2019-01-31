@@ -6,7 +6,6 @@
 package views;
 
 import java.sql.SQLException;
-
 import javax.swing.JOptionPane;
 import models.Usuario;
 
@@ -92,7 +91,7 @@ public class AlteracaoSenha extends javax.swing.JFrame {
         jLabelAviso4 = new javax.swing.JLabel();
         jLabelAviso5 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Alterar Senha");
 
         jPanel2.setBackground(new java.awt.Color(254, 254, 254));

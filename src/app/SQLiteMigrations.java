@@ -9,6 +9,8 @@ class SQLiteMigrations {
     Statement stmt;
 
     public static void execute() {
+        System.out.println("aq");
+
         SQLiteMigrations migrations =  new SQLiteMigrations();
 
         migrations.connection = Config.getConnection();
@@ -31,9 +33,9 @@ class SQLiteMigrations {
     public void createUsuarios() {
         String sql = "CREATE TABLE IF NOT EXISTS usuarios ("
             + "id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, "
-            + "login VARCHAR(45) NOT NULL UNIQUE, "
-            + "nome VARCHAR(45) NOT NULL, "
-            + "senha VARCHAR(45) DEFAULT NULL, "
+            + "login VARCHAR(100) NOT NULL UNIQUE, "
+            + "nome VARCHAR(250) NOT NULL, "
+            + "senha VARCHAR(40) DEFAULT NULL, "
             + "cpf VARCHAR(14) DEFAULT NULL, "
             + "tipo CHAR(1) NOT NULL "
         +")";

@@ -89,7 +89,7 @@ public class Usuarios extends javax.swing.JFrame {
                 {null, null, null}
             },
             new String [] {
-                "Usuário", "Nome", "Permissões"
+                "Usuário", "Nome", "Tipo"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -218,11 +218,10 @@ public class Usuarios extends javax.swing.JFrame {
         if (jTbUsuarios.getSelectedRow() == -1) {
             JOptionPane.showMessageDialog(null, "Você nâo"
                     + " selecionou um usuário");
-        }
-        else{
-            Usuario usuario = usuarios.get(this.jTbUsuarios.getSelectedRow());
-            new AlteracaoSenha(usuario).setVisible(true);
-        }
+            return;
+        } 
+        Usuario usuario = usuarios.get(this.jTbUsuarios.getSelectedRow());
+        new AlteracaoSenha(usuario).setVisible(true);
     }//GEN-LAST:event_jBtSenhaActionPerformed
 
     /**
