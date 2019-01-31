@@ -80,7 +80,6 @@ public class Produto {
     }
 
     public void insert() throws SQLException {
-
         DB db = new DB();
 
         String sql = "INSERT INTO produtos(nome, tipo, quantidade, valor) VALUES(?, ?, ?, ?)";

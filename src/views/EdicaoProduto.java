@@ -17,13 +17,13 @@ import models.Produto;
  * @author victor.ananias
  */
 public class EdicaoProduto extends javax.swing.JFrame {
-        private int produtoId;
+        private Produto produto;
 
         /**
          * Creates new form EditarProd
          */
-        public EdicaoProduto(int produtoId) {
-                this.produtoId = produtoId;
+        public EdicaoProduto(Produto produto) {
+                this.produto = produto;
                 initComponents();
                 // Centralizando a tela
                 this.setLocationRelativeTo(null);
@@ -41,10 +41,10 @@ public class EdicaoProduto extends javax.swing.JFrame {
         private void initComponents() {
 
                 btGroupTipo = new javax.swing.ButtonGroup();
-                jPanel1 = new javax.swing.JPanel();
-                jLabel1 = new javax.swing.JLabel();
-                jLabel2 = new javax.swing.JLabel();
-                jLabel4 = new javax.swing.JLabel();
+                jPanelPrincipal = new javax.swing.JPanel();
+                jLabelTitle = new javax.swing.JLabel();
+                jLabelNome = new javax.swing.JLabel();
+                jLabelPreco = new javax.swing.JLabel();
                 jTextPrecoProd = new javax.swing.JTextField();
                 jBtSalvar = new javax.swing.JButton();
                 jLabel5 = new javax.swing.JLabel();
@@ -53,27 +53,27 @@ public class EdicaoProduto extends javax.swing.JFrame {
                 jTextNome = new javax.swing.JTextField();
                 jLabelAviso1 = new javax.swing.JLabel();
                 jBtVoltar = new javax.swing.JButton();
-                jLabel6 = new javax.swing.JLabel();
-                jTextCodProd = new javax.swing.JTextField();
+                jLabelCodigo = new javax.swing.JLabel();
+                jTextCodigo = new javax.swing.JTextField();
 
                 setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-                setTitle("Editar Produto");
+                setTitle("Edição de Produto");
 
-                jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-                jPanel1.setPreferredSize(new java.awt.Dimension(800, 450));
+                jPanelPrincipal.setBackground(new java.awt.Color(255, 255, 255));
+                jPanelPrincipal.setPreferredSize(new java.awt.Dimension(1100, 600));
 
-                jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-                jLabel1.setText("Editar Produto");
+                jLabelTitle.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+                jLabelTitle.setText("Edição de Produto");
 
-                jLabel2.setText("Nome do Produto:");
+                jLabelNome.setText("Nome do Produto:");
 
-                jLabel4.setText("Preço:");
+                jLabelPreco.setText("Preço:");
 
                 jTextPrecoProd.setPreferredSize(new java.awt.Dimension(10, 25));
                 jTextPrecoProd.addKeyListener(new java.awt.event.KeyAdapter() {
-                        public void keyTyped(java.awt.event.KeyEvent evt) {
-                                jTextPrecoProdKeyTyped(evt);
-                        }
+                    public void keyTyped(java.awt.event.KeyEvent evt) {
+                            jTextPrecoProdKeyTyped(evt);
+                    }
                 });
 
                 jBtSalvar.setText("Salvar");
@@ -115,49 +115,51 @@ public class EdicaoProduto extends javax.swing.JFrame {
                         }
                 });
 
-                jLabel6.setText("Código do Produto: ");
+                jLabelCodigo.setText("Código: ");
 
-                jTextCodProd.setEditable(false);
-                jTextCodProd.setEnabled(false);
-                jTextCodProd.setPreferredSize(new java.awt.Dimension(80, 25));
+                jTextCodigo.setEditable(false);
+                jTextCodigo.setEnabled(false);
+                jTextCodigo.setPreferredSize(new java.awt.Dimension(80, 25));
 
-                javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-                jPanel1.setLayout(jPanel1Layout);
-                jPanel1Layout.setHorizontalGroup(jPanel1Layout
+                javax.swing.GroupLayout jPanelPrincipalLayout = new javax.swing.GroupLayout(jPanelPrincipal);
+                jPanelPrincipal.setLayout(jPanelPrincipalLayout);
+                jPanelPrincipalLayout.setHorizontalGroup(jPanelPrincipalLayout
                                 .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout
-                                                .createSequentialGroup().addGap(0, 209, Short.MAX_VALUE)
-                                                .addGroup(jPanel1Layout.createParallelGroup(
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelPrincipalLayout
+                                                .createSequentialGroup()
+                                                .addGap(0, 209, Short.MAX_VALUE)
+                                                .addGroup(jPanelPrincipalLayout.createParallelGroup(
                                                                 javax.swing.GroupLayout.Alignment.TRAILING, false)
                                                                 .addComponent(jBtSalvar,
                                                                                 javax.swing.GroupLayout.PREFERRED_SIZE,
                                                                                 105,
                                                                                 javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                                                .addGroup(jPanelPrincipalLayout.createSequentialGroup()
                                                                                 .addComponent(jLabel5)
                                                                                 .addPreferredGap(
                                                                                                 javax.swing.LayoutStyle.ComponentPlacement.RELATED,
                                                                                                 67, Short.MAX_VALUE)
                                                                                 .addComponent(jRBtPerecivel)
-                                                                                .addGap(18, 18, 18).addComponent(jRBtN))
-                                                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                                                                .addGroup(jPanel1Layout
+                                                                                .addGap(18, 18, 18)
+                                                                                .addComponent(jRBtN))
+                                                                .addGroup(jPanelPrincipalLayout.createSequentialGroup()
+                                                                                .addGroup(jPanelPrincipalLayout
                                                                                                 .createParallelGroup(
                                                                                                                 javax.swing.GroupLayout.Alignment.LEADING)
-                                                                                                .addComponent(jLabel2,
+                                                                                                .addComponent(jLabelNome,
                                                                                                                 javax.swing.GroupLayout.DEFAULT_SIZE,
                                                                                                                 javax.swing.GroupLayout.DEFAULT_SIZE,
                                                                                                                 Short.MAX_VALUE)
-                                                                                                .addComponent(jLabel6,
+                                                                                                .addComponent(jLabelCodigo,
                                                                                                                 javax.swing.GroupLayout.DEFAULT_SIZE,
                                                                                                                 javax.swing.GroupLayout.DEFAULT_SIZE,
                                                                                                                 Short.MAX_VALUE)
-                                                                                                .addComponent(jLabel4,
+                                                                                                .addComponent(jLabelPreco,
                                                                                                                 javax.swing.GroupLayout.DEFAULT_SIZE,
                                                                                                                 javax.swing.GroupLayout.DEFAULT_SIZE,
                                                                                                                 Short.MAX_VALUE))
                                                                                 .addGap(26, 26, 26)
-                                                                                .addGroup(jPanel1Layout
+                                                                                .addGroup(jPanelPrincipalLayout
                                                                                                 .createParallelGroup(
                                                                                                                 javax.swing.GroupLayout.Alignment.LEADING,
                                                                                                                 false)
@@ -166,65 +168,66 @@ public class EdicaoProduto extends javax.swing.JFrame {
                                                                                                                 javax.swing.GroupLayout.DEFAULT_SIZE,
                                                                                                                 Short.MAX_VALUE)
                                                                                                 .addComponent(jTextNome)
-                                                                                                .addComponent(jTextCodProd,
+                                                                                                .addComponent(jTextCodigo,
                                                                                                                 javax.swing.GroupLayout.DEFAULT_SIZE,
                                                                                                                 150,
                                                                                                                 Short.MAX_VALUE))))
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addComponent(jLabelAviso1, javax.swing.GroupLayout.PREFERRED_SIZE, 154,
                                                                 javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(94, 94, 94))
-                                .addGroup(jPanel1Layout.createSequentialGroup().addGroup(jPanel1Layout
+                                                .addGap(200, 200, 200))
+                                .addGroup(jPanelPrincipalLayout.createSequentialGroup().addGroup(jPanelPrincipalLayout
                                                 .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addGroup(jPanel1Layout.createSequentialGroup().addContainerGap()
+                                                .addGroup(jPanelPrincipalLayout.createSequentialGroup().addContainerGap()
                                                                 .addComponent(jBtVoltar,
                                                                                 javax.swing.GroupLayout.PREFERRED_SIZE,
                                                                                 115,
                                                                                 javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                .addGroup(jPanel1Layout.createSequentialGroup().addGap(296, 296, 296)
-                                                                .addComponent(jLabel1,
-                                                                                javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                                                173,
-                                                                                javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                                .addGroup(jPanelPrincipalLayout.createSequentialGroup()
+                                                .addGap(480, 480, 480)
+                                                .addComponent(jLabelTitle, javax.swing.GroupLayout.DEFAULT_SIZE, 117, javax.swing.GroupLayout.DEFAULT_SIZE)))
                                                 .addGap(0, 0, Short.MAX_VALUE)));
-                jPanel1Layout.setVerticalGroup(jPanel1Layout
+                jPanelPrincipalLayout.setVerticalGroup(jPanelPrincipalLayout
                                 .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel1Layout.createSequentialGroup().addGap(73, 73, 73).addComponent(jLabel1)
+                                .addGroup(jPanelPrincipalLayout.createSequentialGroup()
+                                .addGap(73, 73, 73)
+                                .addComponent(jLabelTitle)
                                                 .addGap(34, 34, 34)
-                                                .addGroup(jPanel1Layout.createParallelGroup(
+                                                .addGroup(jPanelPrincipalLayout.createParallelGroup(
                                                                 javax.swing.GroupLayout.Alignment.BASELINE)
-                                                                .addComponent(jLabel6).addComponent(jTextCodProd,
+                                                                .addComponent(jLabelCodigo).addComponent(jTextCodigo,
                                                                                 javax.swing.GroupLayout.PREFERRED_SIZE,
                                                                                 javax.swing.GroupLayout.DEFAULT_SIZE,
                                                                                 javax.swing.GroupLayout.PREFERRED_SIZE))
                                                 .addGap(18, 18, 18)
-                                                .addGroup(jPanel1Layout.createParallelGroup(
+                                                .addGroup(jPanelPrincipalLayout.createParallelGroup(
                                                                 javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                                .addGroup(jPanel1Layout.createParallelGroup(
+                                                                .addGroup(jPanelPrincipalLayout.createParallelGroup(
                                                                                 javax.swing.GroupLayout.Alignment.BASELINE)
                                                                                 .addComponent(jTextNome,
                                                                                                 javax.swing.GroupLayout.PREFERRED_SIZE,
                                                                                                 25,
                                                                                                 javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                                .addComponent(jLabel2))
+                                                                                .addComponent(jLabelNome))
                                                                 .addComponent(jLabelAviso1,
                                                                                 javax.swing.GroupLayout.DEFAULT_SIZE,
                                                                                 javax.swing.GroupLayout.DEFAULT_SIZE,
                                                                                 Short.MAX_VALUE))
                                                 .addGap(18, 18, 18)
-                                                .addGroup(jPanel1Layout.createParallelGroup(
+                                                .addGroup(jPanelPrincipalLayout.createParallelGroup(
                                                                 javax.swing.GroupLayout.Alignment.BASELINE)
                                                                 .addComponent(jTextPrecoProd,
                                                                                 javax.swing.GroupLayout.PREFERRED_SIZE,
                                                                                 javax.swing.GroupLayout.DEFAULT_SIZE,
                                                                                 javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                .addComponent(jLabel4))
+                                                                .addComponent(jLabelPreco))
                                                 .addGap(22, 22, 22)
-                                                .addGroup(jPanel1Layout.createParallelGroup(
+                                                .addGroup(jPanelPrincipalLayout.createParallelGroup(
                                                                 javax.swing.GroupLayout.Alignment.BASELINE)
                                                                 .addComponent(jLabel5).addComponent(jRBtPerecivel)
                                                                 .addComponent(jRBtN))
-                                                .addGap(26, 26, 26).addComponent(jBtSalvar)
+                                                .addGap(26, 26, 26)
+                                                .addComponent(jBtSalvar)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76,
                                                                 Short.MAX_VALUE)
                                                 .addComponent(jBtVoltar).addContainerGap()));
@@ -233,12 +236,12 @@ public class EdicaoProduto extends javax.swing.JFrame {
                 getContentPane().setLayout(layout);
                 layout.setHorizontalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(layout.createSequentialGroup()
-                                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 799,
+                                                .addComponent(jPanelPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE,  javax.swing.GroupLayout.PREFERRED_SIZE,
                                                                 javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addGap(0, 1, Short.MAX_VALUE)));
                 layout.setVerticalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(layout.createSequentialGroup()
-                                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 449,
+                                                .addComponent(jPanelPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE,  javax.swing.GroupLayout.PREFERRED_SIZE,
                                                                 javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addGap(0, 0, Short.MAX_VALUE)));
 
@@ -253,17 +256,7 @@ public class EdicaoProduto extends javax.swing.JFrame {
         }// GEN-LAST:event_jTextPrecoProdKeyTyped
 
     private void setProduto() {
-
-        Produto produto = new Produto();
-
-        try {
-            produto = new ProdutosController().buscarProduto(produtoId);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Erro ao buscar produto.");
-        }
-
-        jTextCodProd.setText(produtoId + "");
+        jTextCodigo.setText(String.valueOf(produto.getId()));
         jTextNome.setText(String.valueOf(produto.getNome()));
         jTextPrecoProd.setText(String.valueOf(CaracteresHelper.addMascaraMonetaria(produto.getValor())));
     }
@@ -277,10 +270,9 @@ public class EdicaoProduto extends javax.swing.JFrame {
     }
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jBtSalvarActionPerformed
-        Produto produto = new Produto();
-
         this.verificaCampoNome();
-        if (!jTextNome.getText().equals("")) {
+
+        if (jTextNome.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "O campo \"Nome do Produto\"\n" + "precisa ser preenchido.", "Aviso",
                     JOptionPane.INFORMATION_MESSAGE);
         }
@@ -290,17 +282,15 @@ public class EdicaoProduto extends javax.swing.JFrame {
         }
 
         try {
-            new ProdutosController().atualizarProduto(
-                produtoId, 
-                jTextNome.getText(),
-                btGroupTipo.getSelection().getActionCommand(), 
-                produto.getQuantidade(),
-                CaracteresHelper.rmMascaraMonetaria(jTextPrecoProd.getText())
-            );
+            produto.setNome(jTextNome.getText());
+            produto.setValor(CaracteresHelper.rmMascaraMonetaria(jTextPrecoProd.getText()));
+            produto.setTipo(btGroupTipo.getSelection().getActionCommand());
+            produto.save();
 
         } catch (SQLException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Erro ao atualizar produto", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+            return;
         }
 
         JOptionPane.showMessageDialog(null, "Informações Atualizadas", "Aviso", JOptionPane.INFORMATION_MESSAGE);
@@ -329,16 +319,16 @@ public class EdicaoProduto extends javax.swing.JFrame {
     private javax.swing.ButtonGroup btGroupTipo;
     private javax.swing.JButton jBtSalvar;
     private javax.swing.JButton jBtVoltar;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabelTitle;
+    private javax.swing.JLabel jLabelNome;
+    private javax.swing.JLabel jLabelPreco;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabelCodigo;
     private javax.swing.JLabel jLabelAviso1;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanelPrincipal;
     private javax.swing.JRadioButton jRBtN;
     private javax.swing.JRadioButton jRBtPerecivel;
-    private javax.swing.JTextField jTextCodProd;
+    private javax.swing.JTextField jTextCodigo;
     private javax.swing.JTextField jTextNome;
     private javax.swing.JTextField jTextPrecoProd;
     // End of variables declaration//GEN-END:variables

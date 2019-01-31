@@ -23,16 +23,4 @@ public class ProdutosController extends Produto {
         return Produto.find(codigo);
     }
     
-    public void atualizarProduto(int id, String nome, String tipo, int quantidade, double valor) 
-        throws SQLException {
-
-        Produto produto = new Produto();
-        produto.setId(id);
-        produto.setNome(nome);
-        produto.setTipo(tipo);
-        produto.setQuantidade(quantidade);
-        produto.setValor(valor);
-        produto.save();
-    }
-    
 }

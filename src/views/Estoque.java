@@ -85,10 +85,10 @@ public class Estoque extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        jPanelPrincipal = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTbProd = new javax.swing.JTable();
-        jLabel1 = new javax.swing.JLabel();
+        jLabelTitle = new javax.swing.JLabel();
         jBtCadastrarProd = new javax.swing.JButton();
         jBtEditar = new javax.swing.JButton();
         jBtMenu = new javax.swing.JButton();
@@ -100,8 +100,8 @@ public class Estoque extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Estoque");
 
-        jPanel1.setBackground(new java.awt.Color(254, 254, 254));
-        jPanel1.setPreferredSize(new java.awt.Dimension(1100, 600));
+        jPanelPrincipal.setBackground(new java.awt.Color(254, 254, 254));
+        jPanelPrincipal.setPreferredSize(new java.awt.Dimension(1100, 600));
 
         jTbProd.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -131,8 +131,8 @@ public class Estoque extends javax.swing.JFrame {
             jTbProd.getColumnModel().getColumn(3).setResizable(false);
         }
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel1.setText("Estoque");
+        jLabelTitle.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabelTitle.setText("Estoque");
 
         jBtCadastrarProd.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jBtCadastrarProd.setText("Cadastrar Produto");
@@ -180,50 +180,50 @@ public class Estoque extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout jPanelPrincipalLayout = new javax.swing.GroupLayout(jPanelPrincipal);
+        jPanelPrincipal.setLayout(jPanelPrincipalLayout);
+        jPanelPrincipalLayout.setHorizontalGroup(
+            jPanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelPrincipalLayout.createSequentialGroup()
+                .addGroup(jPanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelPrincipalLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jBtMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(jPanelPrincipalLayout.createSequentialGroup()
                         .addGap(496, 496, 496)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabelTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanelPrincipalLayout.createSequentialGroup()
                         .addGap(94, 94, 94)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanelPrincipalLayout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jTextPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jBtLimpar))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGroup(jPanelPrincipalLayout.createSequentialGroup()
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 688, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(43, 43, 43)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(jPanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jBtCadastrarProd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jBtEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jBtGerenciar, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                 .addContainerGap(102, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        jPanelPrincipalLayout.setVerticalGroup(
+            jPanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelPrincipalLayout.createSequentialGroup()
                 .addGap(41, 41, 41)
-                .addComponent(jLabel1)
+                .addComponent(jLabelTitle)
                 .addGap(51, 51, 51)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addGroup(jPanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jTextPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jBtLimpar)))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelPrincipalLayout.createSequentialGroup()
                         .addComponent(jBtCadastrarProd, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jBtGerenciar, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -239,33 +239,30 @@ public class Estoque extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanelPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 603, Short.MAX_VALUE)
+            .addComponent(jPanelPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, 603, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtCadastrarProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCadastrarProdActionPerformed
-       new CadastrarProduto().setVisible(true);
+       new CadastroProduto().setVisible(true);
        Estoque.this.dispose();
     }//GEN-LAST:event_jBtCadastrarProdActionPerformed
 
     private void jBtEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtEditarActionPerformed
-        if(jTbProd.getSelectedRow() == -1){
+        if (jTbProd.getSelectedRow() == -1){
             JOptionPane.showMessageDialog(null, "Você nâo"
                     + " selecionou um produto");
+            return;
         }
-        else{
-            int codigoProduto = Integer.parseInt(jTbProd.getValueAt(
-                    jTbProd.getSelectedRow(), 0).toString());
-            
-            new EdicaoProduto(codigoProduto).setVisible(true);
-            Estoque.this.dispose();
-        }
+
+        new EdicaoProduto(this.produtos.get(jTbProd.getSelectedRow())).setVisible(true);
+        Estoque.this.dispose();
     }//GEN-LAST:event_jBtEditarActionPerformed
 
     private void jBtMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtMenuActionPerformed
@@ -329,9 +326,9 @@ public class Estoque extends javax.swing.JFrame {
     private javax.swing.JButton jBtGerenciar;
     private javax.swing.JButton jBtLimpar;
     private javax.swing.JButton jBtMenu;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabelTitle;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanelPrincipal;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTbProd;
     private javax.swing.JTextField jTextPesquisa;

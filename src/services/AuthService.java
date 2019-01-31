@@ -30,14 +30,12 @@ public class AuthService {
 
         db.select(sql, login, Senha.encrypt(senha));
         
-        
         if (db.nextResult()) {
             AuthService.setUser(Usuario.make(db.result()));
-            return true;
         }
 
         db.closeConnection();
         
-        return false;
+        return AuthService.getUser() != null;
     }
 }

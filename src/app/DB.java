@@ -92,14 +92,17 @@ public class DB {
 
     public void closeConnection() throws SQLException {
         if (this.pStmt != null) {
+            System.out.println("PreparedStatement closed.");
             this.pStmt.close();
         }
-
+        
         if (this.resultSet != null) {
+            System.out.println("ResultSet closed.");
             this.resultSet.close();
         }
-
-        if(this.connection != null) {
+        
+        if (this.connection != null) {
+            System.out.println("Connection closed.");
             this.connection.close();
         }
     }
