@@ -1,9 +1,26 @@
 package app;
 
+import java.io.File;
+import java.sql.Connection;
+
 public class Config {
-    public static final String DATABASE = "gerenciamento_vendas";
-    public static final String HOST = "jdbc:mysql://localhost:3306";
-    public static final String DRIVER_CLASS = "com.mysql.jdbc.Driver";
-    public static final String USER = "victor";
-    public static final String PASSWORD = "victor";
+    // public static final String DBNAME = "gerenciamento_vendas";
+    // public static final String URL = "jdbc:mysql://localhost:3306/"+DBNAME+"?useSSL=true";
+    // public static final String DRIVER_CLASS = "com.mysql.jdbc.Driver";
+    public static final String DBNAME = "vendas.db";
+    public static final String URL = "jdbc:sqlite:" + DBNAME;
+    public static final String DRIVER_CLASS = "org.sqlite.JDBC";
+    public static final String USER = "";
+    public static final String PASSWORD = "";
+
+    public static Connection getConnection() {
+        Connection con =  new CustomConnection().getConnection();
+
+        if (!(new File(DBNAME).exists())) {
+            SQLiteMigrations.execute();
+            SQLiteSeeder.run();
+        }
+
+        return con;
+    }
 }

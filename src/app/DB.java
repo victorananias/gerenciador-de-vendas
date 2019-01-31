@@ -1,6 +1,5 @@
 package app;
 
-import app.MySqlConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,7 +14,7 @@ public class DB {
     private boolean closeConnection = true;
 
     public DB() {
-        this.connection = new MySqlConnection().getConnection();
+        this.connection = Config.getConnection();
     }
 
     
@@ -23,7 +22,7 @@ public class DB {
         this.closeConnection = false;
     }
 
-    public Connection getConexao() {
+    public Connection getConnection() {
         return this.connection;
     }
 
@@ -60,7 +59,7 @@ public class DB {
     }
     
     public void update(String sql, Object... params) throws SQLException {
-        pStmt = getConexao().prepareStatement(sql);
+        pStmt = getConnection().prepareStatement(sql);
         
         for (int i = 0; i < params.length; i++) {
             pStmt.setObject(i+1, params[i]);
