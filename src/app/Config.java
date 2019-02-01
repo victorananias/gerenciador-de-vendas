@@ -1,6 +1,5 @@
 package app;
 
-import java.io.File;
 import java.sql.Connection;
 
 public class Config {
