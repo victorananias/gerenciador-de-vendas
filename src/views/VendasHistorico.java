@@ -8,12 +8,8 @@ package views;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import controllers.UsuariosController;
 import helpers.CaracteresHelper;
-import controllers.ProdutosController;
 import controllers.VendasController;
-import models.Produto;
-import models.Usuario;
 import models.Venda;
 import services.AuthService;
 

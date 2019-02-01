@@ -11,9 +11,7 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import helpers.CaracteresHelper;
-import controllers.VendasController;
 import models.ItemVenda;
-import models.Produto;
 import models.Venda;
 
 /**

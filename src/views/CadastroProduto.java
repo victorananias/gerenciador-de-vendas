@@ -155,7 +155,7 @@ public class CadastroProduto extends javax.swing.JFrame {
                                                 jPanelPrincipalLayout.createSequentialGroup()
                                                 
                                                         .addComponent(jLabelTitle, javax.swing.GroupLayout.DEFAULT_SIZE, 117, javax.swing.GroupLayout.DEFAULT_SIZE)
-                                                        .addGap(399, 399, 399))
+                                                        .addGap(450, 450, 450))
                                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING,
                                                 jPanelPrincipalLayout.createSequentialGroup().addGroup(jPanelPrincipalLayout
                                                         .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

@@ -5,7 +5,6 @@ import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 import controllers.UsuariosController;
-import models.Usuario;
 
 public class Login extends javax.swing.JFrame {
 

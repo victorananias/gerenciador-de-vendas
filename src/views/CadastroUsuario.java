@@ -14,12 +14,12 @@ import controllers.UsuariosController;
  *
  * @author victor
  */
-public class CadastrarUsuario extends javax.swing.JFrame {
+public class CadastroUsuario extends javax.swing.JFrame {
 
     /**
-     * Creates new form CadastrarUsuario
+     * Creates new form CadastroUsuario
      */
-    public CadastrarUsuario() {
+    public CadastroUsuario() {
         initComponents();
         this.setLocationRelativeTo(null);
     }
@@ -494,7 +494,7 @@ public class CadastrarUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_jFormattedTextNomeFocusLost
 
     private void jBtVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtVoltarActionPerformed
-        CadastrarUsuario.this.dispose();
+        CadastroUsuario.this.dispose();
         new Usuarios().setVisible(true);
     }//GEN-LAST:event_jBtVoltarActionPerformed
 

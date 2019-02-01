@@ -8,10 +8,8 @@ import javax.swing.table.DefaultTableModel;
 import helpers.CaracteresHelper;
 import controllers.ProdutosController;
 import controllers.VendasController;
-import models.ItemVenda;
 import models.Produto;
 import models.Venda;
-import services.AuthService;
 
 public class Vendas extends javax.swing.JFrame {
     ArrayList<Produto> produtos = new ArrayList<>();
