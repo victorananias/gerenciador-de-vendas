@@ -1,11 +1,10 @@
 package helpers;
 import java.text.NumberFormat;
-import java.util.Locale;
 
 public class MascaraMonetaria {
     
     public static String add(Double numero){
-        Locale meuLocal = new Locale( "pt", "BR" );
+        // Locale meuLocal = new Locale( "pt", "BR" );
         NumberFormat formato = NumberFormat.getCurrencyInstance();
 
         String saida = formato.format(numero);
