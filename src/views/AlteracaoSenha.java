@@ -1,30 +1,15 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package views;
 
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import models.Usuario;
 
-/**
- *
- * @author victor.ananias
- */
 public class AlteracaoSenha extends javax.swing.JFrame {
     private Usuario usuario;
 
-    /**
-     * Creates new form AlteracaoSenha
-     * 
-     * @param usuarioId
-     */
     public AlteracaoSenha(Usuario usuario) {
         this.usuario = usuario;
-        initComponents();
-        // Centralizando a tela
+        this.initComponents();
         this.setLocationRelativeTo(null);
     }
 

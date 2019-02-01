@@ -18,6 +18,10 @@ public class ProdutosController extends Produto {
     public ArrayList<Produto> buscarProdutos() throws SQLException {
         return Produto.all();
     }
+
+    public ArrayList<Produto> buscarProdutosEmEstoque() throws SQLException {
+        return Produto.emEstoque();
+    }
     
     public Produto buscarProduto(int codigo) throws SQLException {
         return Produto.find(codigo);

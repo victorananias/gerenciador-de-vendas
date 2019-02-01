@@ -126,6 +126,24 @@ public class Produto {
             
         return list;
     }
+    
+    public static ArrayList<Produto> emEstoque() throws SQLException {
+        ArrayList<Produto> list = new ArrayList<Produto>();
+        
+        String sql = "SELECT * FROM produtos WHERE quantidade > 0";
+        
+        DB db = new DB();
+
+        db.select(sql);
+        
+        while (db.nextResult()) {
+            list.add(Produto.make(db.result()));
+        }
+
+        db.closeConnection();
+            
+        return list;
+    }
 
     public static Produto make(ResultSet result) throws SQLException {
         Produto produto = new Produto();

@@ -1,5 +1,7 @@
 package services;
 
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 
 import app.DB;
@@ -9,21 +11,16 @@ import models.Usuario;
 public class AuthService {
     private static Usuario user;
 
-    /**
-     * @return the user
-     */
     public static Usuario getUser() {
         return user;
     }
 
-    /**
-     * @param user the user to set
-     */
     public static void setUser(Usuario user) {
         AuthService.user = user;
     }
 
-    public static boolean login(String login, String senha) throws SQLException {
+    public static boolean login(String login, String senha)
+            throws SQLException, UnsupportedEncodingException, NoSuchAlgorithmException {
         DB db  = new DB();
 
         String sql = "SELECT * FROM usuarios WHERE login = ? AND senha = ?";

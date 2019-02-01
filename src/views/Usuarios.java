@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package views;
 
 import java.sql.SQLException;
@@ -12,10 +7,6 @@ import javax.swing.table.DefaultTableModel;
 import controllers.UsuariosController;
 import models.Usuario;
 
-/**
- *
- * @author victor
- */
 public class Usuarios extends javax.swing.JFrame {
     ArrayList<Usuario> usuarios;
     DefaultTableModel modeloTabelaUsuarios = new DefaultTableModel(new Object[][] {},
@@ -27,9 +18,6 @@ public class Usuarios extends javax.swing.JFrame {
         }
     };
 
-    /**
-     * Creates new form CadastraUsuario
-     */
     public Usuarios() {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -49,7 +37,7 @@ public class Usuarios extends javax.swing.JFrame {
             modeloTabelaUsuarios.addRow(new String[]{
                 String.valueOf(this.usuarios.get(i).getLogin()),
                 String.valueOf(this.usuarios.get(i).getNome()),
-                String.valueOf(this.usuarios.get(i).getTipo())});
+                String.valueOf(this.usuarios.get(i).getTipo() == 'A' ? "Administrador" : "Usuário")});
         }
 
         jTbUsuarios.setModel(modeloTabelaUsuarios);
@@ -223,48 +211,6 @@ public class Usuarios extends javax.swing.JFrame {
         Usuario usuario = usuarios.get(this.jTbUsuarios.getSelectedRow());
         new AlteracaoSenha(usuario).setVisible(true);
     }//GEN-LAST:event_jBtSenhaActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Usuarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Usuarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Usuarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Usuarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Usuarios().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtCadastrar;

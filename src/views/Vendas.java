@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import helpers.CaracteresHelper;
+import helpers.MascaraMonetaria;
 import controllers.ProdutosController;
 import controllers.VendasController;
 import models.Produto;
@@ -34,10 +34,7 @@ public class Vendas extends javax.swing.JFrame {
             return canEdit[columnIndex];
         }
     };
-
-    /**
-     * Creates new form Tela1
-     */
+    
     public Vendas() {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -62,14 +59,14 @@ public class Vendas extends javax.swing.JFrame {
         jTbVenda = new javax.swing.JTable();
         jBtSalvar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTbProd = new javax.swing.JTable();
+        jTbProdutos = new javax.swing.JTable();
         jBtRemover = new javax.swing.JButton();
         jBtLimparCarrinho = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        jLabelQnt = new javax.swing.JLabel();
+        jLabelTitle = new javax.swing.JLabel();
         jBtMenu = new javax.swing.JButton();
         jLabelTotal = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        jLabelPesquisar = new javax.swing.JLabel();
         jBtLimparPesquisar = new javax.swing.JButton();
         jTextQntProd = new javax.swing.JTextField();
 
@@ -128,7 +125,7 @@ public class Vendas extends javax.swing.JFrame {
             }
         });
 
-        jTbProd.setModel(new javax.swing.table.DefaultTableModel(new Object[][] {
+        jTbProdutos.setModel(new javax.swing.table.DefaultTableModel(new Object[][] {
 
         }, new String[] { "Código", "Produto", "Em Estoque", "Preço Unidade" }) {
             Class[] types = new Class[] { java.lang.String.class, java.lang.String.class, java.lang.String.class,
@@ -143,12 +140,12 @@ public class Vendas extends javax.swing.JFrame {
                 return canEdit[columnIndex];
             }
         });
-        jTbProd.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_LAST_COLUMN);
-        jTbProd.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jTbProd.setMaximumSize(new java.awt.Dimension(202, 220));
-        jTbProd.setMinimumSize(new java.awt.Dimension(202, 220));
-        jTbProd.getTableHeader().setReorderingAllowed(false);
-        jScrollPane1.setViewportView(jTbProd);
+        jTbProdutos.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_LAST_COLUMN);
+        jTbProdutos.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jTbProdutos.setMaximumSize(new java.awt.Dimension(202, 220));
+        jTbProdutos.setMinimumSize(new java.awt.Dimension(202, 220));
+        jTbProdutos.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(jTbProdutos);
 
         jBtRemover.setText("-");
         jBtRemover.addActionListener(new java.awt.event.ActionListener() {
@@ -164,11 +161,11 @@ public class Vendas extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel2.setText("Qnt:");
+        jLabelQnt.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabelQnt.setText("Qnt:");
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel3.setText("Vendas");
+        jLabelTitle.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabelTitle.setText("Vendas");
 
         jBtMenu.setText("Menu");
         jBtMenu.addActionListener(new java.awt.event.ActionListener() {
@@ -179,11 +176,11 @@ public class Vendas extends javax.swing.JFrame {
 
         jLabelTotal.setBackground(java.awt.Color.white);
         jLabelTotal.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabelTotal.setText("  Total: R$");
+        jLabelTotal.setText(" Total: R$");
         jLabelTotal.setBorder(new javax.swing.border.LineBorder(java.awt.Color.lightGray, 1, true));
         jLabelTotal.setOpaque(true);
 
-        jLabel1.setText("Pesquisar:");
+        jLabelPesquisar.setText("Pesquisar:");
 
         jBtLimparPesquisar.setText("Limpar");
         jBtLimparPesquisar.addActionListener(new java.awt.event.ActionListener() {
@@ -206,11 +203,11 @@ public class Vendas extends javax.swing.JFrame {
         jLayeredPane1.setLayer(jScrollPane1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(jBtRemover, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(jBtLimparCarrinho, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(jLabel3, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(jLabelQnt, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(jLabelTitle, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(jBtMenu, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(jLabelTotal, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(jLabelPesquisar, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(jBtLimparPesquisar, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(jTextQntProd, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
@@ -224,7 +221,7 @@ public class Vendas extends javax.swing.JFrame {
                                 .addGroup(jLayeredPane1Layout
                                         .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 82,
+                                                .addComponent(jLabelPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 82,
                                                         javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addComponent(jTextPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE,
@@ -239,7 +236,7 @@ public class Vendas extends javax.swing.JFrame {
                                         .addGroup(jLayeredPane1Layout
                                                 .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                                 .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                                                        .addComponent(jLabel2)
+                                                        .addComponent(jLabelQnt)
                                                         .addPreferredGap(
                                                                 javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                         .addComponent(jTextQntProd))
@@ -265,14 +262,14 @@ public class Vendas extends javax.swing.JFrame {
                                                                 javax.swing.GroupLayout.PREFERRED_SIZE, 460,
                                                                 javax.swing.GroupLayout.PREFERRED_SIZE))))
                                 .addGroup(jLayeredPane1Layout.createSequentialGroup().addGap(13, 13, 13)
-                                        .addComponent(jLabel3)))
+                                        .addComponent(jLabelTitle)))
                         .addContainerGap(13, Short.MAX_VALUE)));
         jLayeredPane1Layout.setVerticalGroup(jLayeredPane1Layout
                 .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jLayeredPane1Layout.createSequentialGroup().addGap(41, 41, 41).addComponent(jLabel3)
+                .addGroup(jLayeredPane1Layout.createSequentialGroup().addGap(41, 41, 41).addComponent(jLabelTitle)
                         .addGap(108, 108, 108)
                         .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel2).addComponent(jTextQntProd,
+                                .addComponent(jLabelQnt).addComponent(jTextQntProd,
                                         javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
                                         javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18).addComponent(jBtAdicionar)
@@ -282,7 +279,7 @@ public class Vendas extends javax.swing.JFrame {
                         .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jTextPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE,
                                         javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 28,
+                                .addComponent(jLabelPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 28,
                                         javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jBtLimparPesquisar).addComponent(jLabelTotal,
                                         javax.swing.GroupLayout.PREFERRED_SIZE, 23,
@@ -318,7 +315,8 @@ public class Vendas extends javax.swing.JFrame {
 
     private void geraTabelaProdutos() {
         try {
-            produtos = new ProdutosController().buscarProdutos();
+            produtos = new ProdutosController().buscarProdutosEmEstoque();
+
         } catch (SQLException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Erro ao buscar produtos.");
@@ -329,28 +327,29 @@ public class Vendas extends javax.swing.JFrame {
                 String.valueOf(produtos.get(i).getId()),
                 String.valueOf(produtos.get(i).getNome()),
                 String.valueOf(produtos.get(i).getQuantidade()),
-                String.valueOf(CaracteresHelper.addMascaraMonetaria(produtos.get(i).getValor()))});
+                String.valueOf(MascaraMonetaria.add(produtos.get(i).getValor()))});
         }
 
-        jTbProd.setModel(modeloTabelaProdutos);
+        jTbProdutos.setModel(modeloTabelaProdutos);
     }
     
     private void setTotal(){
-        CaracteresHelper caracteres = new CaracteresHelper();
         double total = 0;
-        for(int contador =0;contador<jTbVenda.getRowCount();contador++){
-            total = total + caracteres.rmMascaraMonetaria(jTbVenda.getValueAt(contador,3).toString());
+
+        for (int contador = 0; contador < jTbVenda.getRowCount(); contador++) {
+            total = total + MascaraMonetaria.rm(jTbVenda.getValueAt(contador, 3).toString());
         }
-        jLabelTotal.setText("  Total: "+caracteres.addMascaraMonetaria(total));
+
+        jLabelTotal.setText("  Total: " + MascaraMonetaria.add(total));
     }
     
     private void procurarLinha(String palavra){
         
-        for(int i=0; i< jTbProd.getRowCount();i++){
-            String codProd = jTbProd.getValueAt(i, 1).toString();
+        for (int i = 0; i < jTbProdutos.getRowCount(); i++){
+            String nome = jTbProdutos.getValueAt(i, 1).toString();
             
-            if(codProd.contains(palavra)){
-                jTbProd.setRowSelectionInterval(i,i);
+            if (nome.contains(palavra)){
+                jTbProdutos.setRowSelectionInterval(i, i);
                 break;
             }
             
@@ -358,21 +357,15 @@ public class Vendas extends javax.swing.JFrame {
     }
     
     private boolean estoqueEstaVazio(){
-        return (jTbProd.getValueAt(
-                jTbProd.getSelectedRow(), 2).toString()).equals("1");
+        return (jTbProdutos.getValueAt(jTbProdutos.getSelectedRow(), 2).toString()).equals("0");
     }
     
     private int verificaQuantidade() {
         int opcao = 0;
-        int quantidadeEscolhida;
-        
-        int codigoProduto = Integer.parseInt(
-                jTbProd.getValueAt(jTbProd.getSelectedRow(), 0).toString());
 
-        int quantidadeProduto = Integer.parseInt(
-            jTbProd.getValueAt(jTbProd.getSelectedRow(), 2).toString());
+        int quantidadeEscolhida = Integer.parseInt(jTextQntProd.getText());
+        int quantidadeProduto = Integer.parseInt(jTbProdutos.getValueAt(jTbProdutos.getSelectedRow(), 2).toString());
 
-        quantidadeEscolhida = Integer.parseInt(jTextQntProd.getText());
         
         if (quantidadeEscolhida > quantidadeProduto) {
             opcao = 0;
@@ -407,7 +400,7 @@ public class Vendas extends javax.swing.JFrame {
         int contador;
         
         for (contador = 0; contador < jTbVenda.getRowCount(); contador++) {
-            Object linhaTbProd = jTbProd.getValueAt(jTbProd.getSelectedRow(), 0);
+            Object linhaTbProd = jTbProdutos.getValueAt(jTbProdutos.getSelectedRow(), 0);
             Object linhaTbVenda = jTbVenda.getValueAt(contador, 0);
             
             if (linhaTbProd == linhaTbVenda) {
@@ -424,8 +417,8 @@ public class Vendas extends javax.swing.JFrame {
     }
     
     private void linhaTabelaProdutos(){
-        for (int i = 0; i < jTbProd.getRowCount(); i++) {
-            Object linhaTbProd = jTbProd.getValueAt(i, 0);
+        for (int i = 0; i < jTbProdutos.getRowCount(); i++) {
+            Object linhaTbProd = jTbProdutos.getValueAt(i, 0);
             Object linhaTbVenda = jTbVenda.getValueAt(jTbVenda.getSelectedRow(), 0);
             if (linhaTbProd == linhaTbVenda) {
                 this.linhaProdutoTbprodutos = i;
@@ -435,14 +428,16 @@ public class Vendas extends javax.swing.JFrame {
     }
     
     private void adicionaTbVenda(){
-        double valor_produto = CaracteresHelper.rmMascaraMonetaria(
-                jTbProd.getValueAt(jTbProd.getSelectedRow(), 3).toString());
-        int quantidade_produto = Integer.parseInt(jTextQntProd.getText());
-        double valor_total = valor_produto*quantidade_produto;
+        int row = this.jTbProdutos.getSelectedRow();
 
-        String codigo_produto = (String) jTbProd.getValueAt(jTbProd.getSelectedRow(),0);
-        String nome_produto = (String) jTbProd.getValueAt(jTbProd.getSelectedRow(),1);
-        String valorConvertido = CaracteresHelper.addMascaraMonetaria(valor_total);
+        double valor_produto = MascaraMonetaria.rm(
+                jTbProdutos.getValueAt(row, 3).toString());
+        int quantidade_produto = Integer.parseInt(jTextQntProd.getText());
+        double valor_total = valor_produto * quantidade_produto;
+
+        String codigo_produto = jTbProdutos.getValueAt(row, 0).toString();
+        String nome_produto = jTbProdutos.getValueAt(row, 1).toString();
+        String valorConvertido = MascaraMonetaria.add(valor_total);
 
         modeloTabelaCarrinho.addRow(new String[]{
             codigo_produto,
@@ -454,7 +449,7 @@ public class Vendas extends javax.swing.JFrame {
     }
     
     private void atualizaTbVenda(){
-        double valor_produto = CaracteresHelper.rmMascaraMonetaria(jTbProd.getValueAt(jTbProd.getSelectedRow(),3).toString());
+        double valor_produto = MascaraMonetaria.rm(jTbProdutos.getValueAt(jTbProdutos.getSelectedRow(),3).toString());
         int quantidadeSelecionada = Integer.parseInt(jTextQntProd.getText());
         int quantidade_produto = Integer.parseInt(jTbVenda.getValueAt(this.linhaProdutoTbVendas, 2).toString());
 
@@ -464,21 +459,21 @@ public class Vendas extends javax.swing.JFrame {
 
         modeloTabelaCarrinho.setValueAt(novaQuantidade_produto, this.linhaProdutoTbVendas,2 );
 
-        modeloTabelaCarrinho.setValueAt(CaracteresHelper.addMascaraMonetaria(valor), this.linhaProdutoTbVendas,3 );
+        modeloTabelaCarrinho.setValueAt(MascaraMonetaria.add(valor), this.linhaProdutoTbVendas,3 );
         
     }
     
     private void atualizaTbProdutos(){
         int quantidadeSelecionada = Integer.parseInt(jTextQntProd.getText());
-        int quantidade_produto = Integer.parseInt(jTbProd.getValueAt(jTbProd.getSelectedRow(), 2).toString());
+        int quantidade_produto = Integer.parseInt(jTbProdutos.getValueAt(jTbProdutos.getSelectedRow(), 2).toString());
         int novaQuantidade = quantidade_produto-quantidadeSelecionada;
 
-        modeloTabelaProdutos.setValueAt(novaQuantidade, jTbProd.getSelectedRow() ,2 );
+        modeloTabelaProdutos.setValueAt(novaQuantidade, jTbProdutos.getSelectedRow() ,2 );
     }
     
     private void atualizaTbProdRemove(){
         this.linhaTabelaProdutos();
-        int quantidade_produto = Integer.parseInt(jTbProd.getValueAt(this.linhaProdutoTbprodutos, 2).toString());
+        int quantidade_produto = Integer.parseInt(jTbProdutos.getValueAt(this.linhaProdutoTbprodutos, 2).toString());
         int quntidade_produtoCarrinho = Integer.parseInt(jTbVenda.getValueAt(jTbVenda.getSelectedRow(), 2).toString());
         
         int novaQntP = quantidade_produto+quntidade_produtoCarrinho;
@@ -493,7 +488,7 @@ public class Vendas extends javax.swing.JFrame {
             venda.addItem(
                 Integer.parseInt(jTbVenda.getValueAt(i, 0).toString()), 
                 Integer.parseInt(jTbVenda.getValueAt(i, 2).toString()), 
-                CaracteresHelper.rmMascaraMonetaria(jTbVenda.getValueAt(i, 3).toString())
+                MascaraMonetaria.rm(jTbVenda.getValueAt(i, 3).toString())
             );
         }
 
@@ -510,32 +505,32 @@ public class Vendas extends javax.swing.JFrame {
     
     
     private void jBtAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAdicionarActionPerformed
-        if(jTbProd.getSelectedRow()>-1){
-            if(jTextQntProd.getText()==null){
-                JOptionPane.showMessageDialog(null, "Você não digitou uma quantidade");
-            }
-            else{
-                switch (this.verificaQuantidade()){
-                    case 0:
-                        if (estoqueEstaVazio()){
-                            JOptionPane.showMessageDialog(null, "Produto em falta");
-                        } else{
-                            JOptionPane.showMessageDialog(null, "Quantidade maior que estoque");
-                        }
-                        break;
-                    case 1:
-                        this.adicionaTbVenda();
-                        this.atualizaTbProdutos();
-                        break;
-                    case 2:
-                        this.atualizaTbVenda();
-                        this.atualizaTbProdutos();
-                        break;
-                }
-            }
-        }
-        else{
+        if(jTbProdutos.getSelectedRow() == -1){
             JOptionPane.showMessageDialog(null, "Selecione uma linha");
+            return;
+        }
+
+        if(jTextQntProd.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Você não digitou uma quantidade");
+            return;
+        }
+
+        switch (this.verificaQuantidade()){
+            case 0:
+                if (estoqueEstaVazio()){
+                    JOptionPane.showMessageDialog(null, "Produto em falta");
+                } else{
+                    JOptionPane.showMessageDialog(null, "Quantidade maior que estoque");
+                }
+                break;
+            case 1:
+                this.adicionaTbVenda();
+                this.atualizaTbProdutos();
+                break;
+            case 2:
+                this.atualizaTbVenda();
+                this.atualizaTbProdutos();
+                break;
         }
         this.setTotal();
     }//GEN-LAST:event_jBtAdicionarActionPerformed
@@ -590,56 +585,6 @@ public class Vendas extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jTextQntProdKeyTyped
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Vendas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Vendas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Vendas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Vendas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Vendas().setVisible(true);
-            }
-        });
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtAdicionar;
     private javax.swing.JButton jBtSalvar;
@@ -647,14 +592,14 @@ public class Vendas extends javax.swing.JFrame {
     private javax.swing.JButton jBtLimparPesquisar;
     private javax.swing.JButton jBtMenu;
     private javax.swing.JButton jBtRemover;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabelPesquisar;
+    private javax.swing.JLabel jLabelQnt;
+    private javax.swing.JLabel jLabelTitle;
     private javax.swing.JLabel jLabelTotal;
     private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTbProd;
+    private javax.swing.JTable jTbProdutos;
     private javax.swing.JTable jTbVenda;
     private javax.swing.JTextField jTextPesquisa;
     private javax.swing.JTextField jTextQntProd;

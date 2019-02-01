@@ -1,26 +1,15 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package views;
 
 import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
-import helpers.CaracteresHelper;
+import helpers.MascaraMonetaria;
 import models.Produto;
 
-/**
- *
- * @author victor.ananias
- */
 public class EdicaoProduto extends javax.swing.JFrame {
         private Produto produto;
 
-        /**
-         * Creates new form EditarProd
-         */
         public EdicaoProduto(Produto produto) {
                 this.produto = produto;
                 initComponents();
@@ -257,7 +246,7 @@ public class EdicaoProduto extends javax.swing.JFrame {
     private void setProduto() {
         jTextCodigo.setText(String.valueOf(produto.getId()));
         jTextNome.setText(String.valueOf(produto.getNome()));
-        jTextPrecoProd.setText(String.valueOf(CaracteresHelper.addMascaraMonetaria(produto.getValor())));
+        jTextPrecoProd.setText(String.valueOf(MascaraMonetaria.add(produto.getValor())));
     }
 
     private void verificaCampoNome() {
@@ -282,7 +271,7 @@ public class EdicaoProduto extends javax.swing.JFrame {
 
         try {
             produto.setNome(jTextNome.getText());
-            produto.setValor(CaracteresHelper.rmMascaraMonetaria(jTextPrecoProd.getText()));
+            produto.setValor(MascaraMonetaria.rm(jTextPrecoProd.getText()));
             produto.setTipo(btGroupTipo.getSelection().getActionCommand());
             produto.save();
 

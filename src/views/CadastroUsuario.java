@@ -5,6 +5,8 @@
  */
 package views;
 
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
@@ -33,68 +35,70 @@ public class CadastroUsuario extends javax.swing.JFrame {
 
     private void verificaUsuario() {
         if (jFormattedTextUsuario.getText().equals("")) {
-            jLabelAviso1.setText("Campo obrigatório");
-        } else {
-            jLabelAviso1.setText("");
+            jLabelAvisoUsuario.setText("Campo obrigatório");
+            return;
         }
+
+        jLabelAvisoUsuario.setText("");
     }
 
     private void verificaNome() {
         if (jFormattedTextNome.getText().equals("")) {
-            jLabelAviso2.setText("Campo obrigatório");
-        } else {
-            jLabelAviso2.setText("");
+            jLabelAvisoNome.setText("Campo obrigatório");
+            return;
         }
+
+        jLabelAvisoNome.setText("");
     }
 
     private void verificaCpf() {
         if (jTextCpf.getText().equals("")) {
-            jLabelAviso3.setText("Campo obrigatório");
+            jLabelAvisoCpf.setText("Campo obrigatório");
         } else if (jTextCpf.getText().length() != 11) {
-            jLabelAviso3.setText("CPF inválido");
+            jLabelAvisoCpf.setText("CPF inválido");
         } else {
-            jLabelAviso3.setText("");
+            jLabelAvisoCpf.setText("");
         }
     }
 
     private void verificaSenha() {
         if (jPwSenha.getText().equals("")) {
-            jLabelAviso4.setText("Campo obrigatório");
+            jLabelAvisoSenha.setText("Campo obrigatório");
         } else if (jPwSenha.getText().length() < 8) {
-            jLabelAviso4.setText("Mínimo 8 caracteres");
+            jLabelAvisoSenha.setText("Mínimo 8 caracteres");
         } else {
-            jLabelAviso4.setText("");
+            jLabelAvisoSenha.setText("");
         }
     }
 
     private void verificaSenhaCoincide() {
         if (jPwSenha.getText().length() >= 8) {
             if (jPwRepete.getText().equals("")) {
-                jLabelAviso5.setText("Campo obrigatório");
+                jLabelAvisoSenhaRepete.setText("Campo obrigatório");
             } else if (jPwSenha.getText().equals(jPwRepete.getText())) {
-                jLabelAviso5.setText("");
+                jLabelAvisoSenhaRepete.setText("");
             } else {
-                jLabelAviso5.setText("Senhas não coincidem");
+                jLabelAvisoSenhaRepete.setText("Senhas não coincidem");
             }
         } else if (jPwSenha.getText().length() < 8) {
             if (jPwSenha.getText().equals(jPwRepete.getText())) {
-                jLabelAviso5.setText("Campo obrigatório");
+                jLabelAvisoSenhaRepete.setText("Campo obrigatório");
             } else if (!jPwRepete.getText().equals("")) {
-                jLabelAviso5.setText("Senhas não coincidem");
+                jLabelAvisoSenhaRepete.setText("Senhas não coincidem");
             } else {
-                jLabelAviso5.setText("");
+                jLabelAvisoSenhaRepete.setText("");
             }
         } else {
-            jLabelAviso5.setText("");
+            jLabelAvisoSenhaRepete.setText("");
         }
     }
 
     private void limpaAvisos() {
-        jLabelAviso1.setText("");
-        jLabelAviso2.setText("");
-        jLabelAviso3.setText("");
-        jLabelAviso4.setText("");
-        jLabelAviso5.setText("");
+        jLabelAvisoUsuario.setText("");
+        jLabelAvisoNome.setText("");
+        jLabelAvisoCpf.setText("");
+        jLabelAvisoSenha.setText("");
+        jLabelAvisoSenhaRepete.setText("");
     }
 
     private void limparCampos() {
@@ -106,9 +110,9 @@ public class CadastroUsuario extends javax.swing.JFrame {
     }
 
     private boolean getStatusAvisos() {
-        return jLabelAviso1.getText().equals("") && jLabelAviso2.getText().equals("")
-                && jLabelAviso3.getText().equals("") && jLabelAviso4.getText().equals("")
-                && jLabelAviso5.getText().equals("");
+        return jLabelAvisoUsuario.getText().equals("") && jLabelAvisoNome.getText().equals("")
+                && jLabelAvisoCpf.getText().equals("") && jLabelAvisoSenha.getText().equals("")
+                && jLabelAvisoSenhaRepete.getText().equals("");
     }
 
     // <editor-fold defaultstate="collapsed" desc="Generated
@@ -128,11 +132,11 @@ public class CadastroUsuario extends javax.swing.JFrame {
         jPwSenha = new javax.swing.JPasswordField();
         jPwRepete = new javax.swing.JPasswordField();
         jLabel7 = new javax.swing.JLabel();
-        jLabelAviso1 = new javax.swing.JLabel();
-        jLabelAviso2 = new javax.swing.JLabel();
-        jLabelAviso3 = new javax.swing.JLabel();
-        jLabelAviso4 = new javax.swing.JLabel();
-        jLabelAviso5 = new javax.swing.JLabel();
+        jLabelAvisoUsuario = new javax.swing.JLabel();
+        jLabelAvisoNome = new javax.swing.JLabel();
+        jLabelAvisoCpf = new javax.swing.JLabel();
+        jLabelAvisoSenha = new javax.swing.JLabel();
+        jLabelAvisoSenhaRepete = new javax.swing.JLabel();
         jFormattedTextUsuario = new javax.swing.JFormattedTextField();
         jTextCpf = new javax.swing.JTextField();
         jBtVoltar = new javax.swing.JButton();
@@ -203,34 +207,34 @@ public class CadastroUsuario extends javax.swing.JFrame {
         jLabel7.setText("Confirm Senha:");
         jLabel7.setPreferredSize(new java.awt.Dimension(105, 30));
 
-        jLabelAviso1.setFont(new java.awt.Font("Cantarell", 0, 12)); // NOI18N
-        jLabelAviso1.setForeground(java.awt.Color.red);
-        jLabelAviso1.setPreferredSize(new java.awt.Dimension(185, 30));
+        jLabelAvisoUsuario.setFont(new java.awt.Font("Cantarell", 0, 12)); // NOI18N
+        jLabelAvisoUsuario.setForeground(java.awt.Color.red);
+        jLabelAvisoUsuario.setPreferredSize(new java.awt.Dimension(185, 30));
 
-        jLabelAviso2.setFont(new java.awt.Font("Cantarell", 0, 12)); // NOI18N
-        jLabelAviso2.setForeground(java.awt.Color.red);
-        jLabelAviso2.setPreferredSize(new java.awt.Dimension(185, 30));
+        jLabelAvisoNome.setFont(new java.awt.Font("Cantarell", 0, 12)); // NOI18N
+        jLabelAvisoNome.setForeground(java.awt.Color.red);
+        jLabelAvisoNome.setPreferredSize(new java.awt.Dimension(185, 30));
 
-        jLabelAviso3.setFont(new java.awt.Font("Cantarell", 0, 12)); // NOI18N
-        jLabelAviso3.setForeground(java.awt.Color.red);
-        jLabelAviso3.setPreferredSize(new java.awt.Dimension(185, 30));
+        jLabelAvisoCpf.setFont(new java.awt.Font("Cantarell", 0, 12)); // NOI18N
+        jLabelAvisoCpf.setForeground(java.awt.Color.red);
+        jLabelAvisoCpf.setPreferredSize(new java.awt.Dimension(185, 30));
 
-        jLabelAviso4.setFont(new java.awt.Font("Cantarell", 0, 12)); // NOI18N
-        jLabelAviso4.setForeground(java.awt.Color.red);
-        jLabelAviso4.setPreferredSize(new java.awt.Dimension(185, 30));
+        jLabelAvisoSenha.setFont(new java.awt.Font("Cantarell", 0, 12)); // NOI18N
+        jLabelAvisoSenha.setForeground(java.awt.Color.red);
+        jLabelAvisoSenha.setPreferredSize(new java.awt.Dimension(185, 30));
 
-        jLabelAviso5.setFont(new java.awt.Font("Cantarell", 0, 12)); // NOI18N
-        jLabelAviso5.setForeground(java.awt.Color.red);
-        jLabelAviso5.setPreferredSize(new java.awt.Dimension(185, 30));
+        jLabelAvisoSenhaRepete.setFont(new java.awt.Font("Cantarell", 0, 12)); // NOI18N
+        jLabelAvisoSenhaRepete.setForeground(java.awt.Color.red);
+        jLabelAvisoSenhaRepete.setPreferredSize(new java.awt.Dimension(185, 30));
 
         jFormattedTextUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jFormattedTextUsuarioActionPerformed(evt);
             }
         });
-        jFormattedTextUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
+        jFormattedTextNome.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                jFormattedTextUsuarioKeyTyped(evt);
+                jFormattedTextNomeKeyTyped(evt);
             }
         });
 
@@ -341,27 +345,27 @@ public class CadastroUsuario extends javax.swing.JFrame {
                                                                         javax.swing.GroupLayout.Alignment.TRAILING,
                                                                         false)
                                                                         .addComponent(
-                                                                                jLabelAviso3,
+                                                                                jLabelAvisoCpf,
                                                                                 javax.swing.GroupLayout.Alignment.LEADING,
                                                                                 javax.swing.GroupLayout.DEFAULT_SIZE,
                                                                                 javax.swing.GroupLayout.DEFAULT_SIZE,
                                                                                 Short.MAX_VALUE)
                                                                         .addComponent(
-                                                                                jLabelAviso4,
+                                                                                jLabelAvisoSenha,
                                                                                 javax.swing.GroupLayout.Alignment.LEADING,
                                                                                 javax.swing.GroupLayout.DEFAULT_SIZE,
                                                                                 javax.swing.GroupLayout.DEFAULT_SIZE,
                                                                                 Short.MAX_VALUE)
-                                                                        .addComponent(jLabelAviso5,
+                                                                        .addComponent(jLabelAvisoSenhaRepete,
                                                                                 javax.swing.GroupLayout.Alignment.LEADING,
                                                                                 javax.swing.GroupLayout.DEFAULT_SIZE,
                                                                                 javax.swing.GroupLayout.DEFAULT_SIZE,
                                                                                 Short.MAX_VALUE)
-                                                                        .addComponent(jLabelAviso1,
+                                                                        .addComponent(jLabelAvisoUsuario,
                                                                                 javax.swing.GroupLayout.DEFAULT_SIZE,
                                                                                 javax.swing.GroupLayout.DEFAULT_SIZE,
                                                                                 Short.MAX_VALUE)
-                                                                        .addComponent(jLabelAviso2,
+                                                                        .addComponent(jLabelAvisoNome,
                                                                                 javax.swing.GroupLayout.DEFAULT_SIZE,
                                                                                 javax.swing.GroupLayout.DEFAULT_SIZE,
                                                                                 Short.MAX_VALUE))
@@ -375,7 +379,7 @@ public class CadastroUsuario extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createSequentialGroup().addGap(40, 40, 40).addComponent(jLabel3)
                         .addGap(97, 97, 97)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabelAviso1, javax.swing.GroupLayout.Alignment.TRAILING,
+                                .addComponent(jLabelAvisoUsuario, javax.swing.GroupLayout.Alignment.TRAILING,
                                         javax.swing.GroupLayout.PREFERRED_SIZE, 30,
                                         javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -386,7 +390,7 @@ public class CadastroUsuario extends javax.swing.JFrame {
                                                 javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(24, 24, 24)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jLabelAviso2, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                .addComponent(jLabelAvisoNome, javax.swing.GroupLayout.DEFAULT_SIZE,
                                         javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE,
                                         javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -405,7 +409,7 @@ public class CadastroUsuario extends javax.swing.JFrame {
                                 .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
                                                 javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jLabelAviso3, javax.swing.GroupLayout.PREFERRED_SIZE, 30,
+                                        .addComponent(jLabelAvisoCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 30,
                                                 javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -419,11 +423,11 @@ public class CadastroUsuario extends javax.swing.JFrame {
                                         javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE,
                                         javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabelAviso4, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                .addComponent(jLabelAvisoSenha, javax.swing.GroupLayout.PREFERRED_SIZE,
                                         javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabelAviso5, javax.swing.GroupLayout.PREFERRED_SIZE, 30,
+                                .addComponent(jLabelAvisoSenhaRepete, javax.swing.GroupLayout.PREFERRED_SIZE, 30,
                                         javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE,
@@ -463,7 +467,7 @@ public class CadastroUsuario extends javax.swing.JFrame {
         try {
             new UsuariosController().cadastraUsuario(jFormattedTextUsuario.getText(), jFormattedTextNome.getText(),
                     jTextCpf.getText(), jPwSenha.getText(), jComboBoxTipo.getSelectedItem().toString());
-        } catch (SQLException e) {
+        } catch (SQLException | UnsupportedEncodingException | NoSuchAlgorithmException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Erro ao cadastrar usuário.");
         }
@@ -499,16 +503,16 @@ public class CadastroUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_jBtVoltarActionPerformed
 
     private void jTextCpfKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextCpfKeyTyped
-        if(!(evt.getKeyChar()+"").matches("[0-9]")){
+        if(!String.valueOf(evt.getKeyChar()).matches("[0-9]")){
             evt.consume();
         }
     }//GEN-LAST:event_jTextCpfKeyTyped
 
-    private void jFormattedTextUsuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jFormattedTextUsuarioKeyTyped
-        if(!(evt.getKeyChar()+"").matches("[a-zA-Z]")){
+    private void jFormattedTextNomeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jFormattedTextNomeKeyTyped
+        if(!String.valueOf(evt.getKeyChar()).matches("[a-zA-Z ]")){
             evt.consume();
         }
-    }//GEN-LAST:event_jFormattedTextUsuarioKeyTyped
+    }//GEN-LAST:event_jFormattedTextNomeKeyTyped
 
     private void jFormattedTextUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextUsuarioActionPerformed
         // TODO add your handling code here:
@@ -528,11 +532,11 @@ public class CadastroUsuario extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabelAviso1;
-    private javax.swing.JLabel jLabelAviso2;
-    private javax.swing.JLabel jLabelAviso3;
-    private javax.swing.JLabel jLabelAviso4;
-    private javax.swing.JLabel jLabelAviso5;
+    private javax.swing.JLabel jLabelAvisoUsuario;
+    private javax.swing.JLabel jLabelAvisoNome;
+    private javax.swing.JLabel jLabelAvisoCpf;
+    private javax.swing.JLabel jLabelAvisoSenha;
+    private javax.swing.JLabel jLabelAvisoSenhaRepete;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPasswordField jPwRepete;
     private javax.swing.JPasswordField jPwSenha;

@@ -1,23 +1,14 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package views;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import helpers.CaracteresHelper;
+import helpers.MascaraMonetaria;
 import controllers.ProdutosController;
 import models.Produto;
 import services.AuthService;
 
-/**
- *
- * @author victor.ananias
- */
 public class Estoque extends javax.swing.JFrame {
 
     ArrayList<Produto> produtos = new ArrayList<>();
@@ -51,7 +42,7 @@ public class Estoque extends javax.swing.JFrame {
                 String.valueOf(produtos.get(contador).getId()),
                 String.valueOf(produtos.get(contador).getNome()),
                 String.valueOf(produtos.get(contador).getQuantidade()),
-                String.valueOf(CaracteresHelper.addMascaraMonetaria(produtos.get(contador).getValor()))
+                String.valueOf(MascaraMonetaria.add(produtos.get(contador).getValor()))
             });
         }
 
@@ -284,41 +275,6 @@ public class Estoque extends javax.swing.JFrame {
     private void jBtLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtLimparActionPerformed
         jTextPesquisa.setText("");
     }//GEN-LAST:event_jBtLimparActionPerformed
-    
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Estoque.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Estoque.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Estoque.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Estoque.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Estoque().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtCadastrarProd;

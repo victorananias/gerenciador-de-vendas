@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package views;
 
 import java.sql.SQLException;
@@ -10,15 +5,11 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import helpers.CaracteresHelper;
+import helpers.MascaraMonetaria;
 import models.ItemVenda;
 import models.Venda;
 
-/**
- *
- * @author victor.ananias
- */
-public class VendasHistoricoProdutos extends javax.swing.JFrame {
+public class HistoricoVendasProdutos extends javax.swing.JFrame {
     private ArrayList<ItemVenda> itensVenda = new ArrayList<>();
     private Venda venda;
 
@@ -31,7 +22,7 @@ public class VendasHistoricoProdutos extends javax.swing.JFrame {
         }
     };
 
-    public VendasHistoricoProdutos(Venda venda) {
+    public HistoricoVendasProdutos(Venda venda) {
         this.venda = venda;
         initComponents();
         this.buscarProdsVenda();
@@ -121,8 +112,8 @@ public class VendasHistoricoProdutos extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtMenuActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jBtMenuActionPerformed
-        VendasHistoricoProdutos.this.dispose();
-        new VendasHistorico().setVisible(true);
+        HistoricoVendasProdutos.this.dispose();
+        new HistoricoVendas().setVisible(true);
     }// GEN-LAST:event_jBtMenuActionPerformed
 
     private void buscarProdsVenda() {
@@ -134,7 +125,7 @@ public class VendasHistoricoProdutos extends javax.swing.JFrame {
                     String.valueOf(this.itensVenda.get(i).getVendaId()),
                     String.valueOf(this.itensVenda.get(i).getProdutoId()),
                     String.valueOf(this.itensVenda.get(i).getProduto().getNome()),
-                    String.valueOf(CaracteresHelper.addMascaraMonetaria(this.itensVenda.get(i).getValor())),
+                    String.valueOf(MascaraMonetaria.add(this.itensVenda.get(i).getValor())),
                     String.valueOf(this.itensVenda.get(i).getQuantidade())});
             }
 

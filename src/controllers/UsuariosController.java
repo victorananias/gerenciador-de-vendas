@@ -4,12 +4,15 @@ import models.Usuario;
 import services.AuthService;
 import helpers.Senha;
 
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class UsuariosController {
 
-    public void cadastraUsuario(String login, String nome, String cpf, String senha, String tipo) throws SQLException {
+    public void cadastraUsuario(String login, String nome, String cpf, String senha, String tipo)
+            throws SQLException, UnsupportedEncodingException, NoSuchAlgorithmException {
         Usuario usuario = new Usuario();
         usuario.setLogin(login);
         usuario.setNome(nome);
@@ -23,7 +26,7 @@ public class UsuariosController {
         return Usuario.all();
     }
 
-    public boolean login(String login, String senha) throws SQLException {
+    public boolean login(String login, String senha) throws SQLException, UnsupportedEncodingException, NoSuchAlgorithmException {
         return AuthService.login(login, senha);
     }
 }
