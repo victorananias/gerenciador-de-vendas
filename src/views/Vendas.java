@@ -18,7 +18,7 @@ public class Vendas extends javax.swing.JFrame {
     private int linhaProdutoTbVendas = -1;
     private int linhaProdutoTbprodutos = -1;
 
-    DefaultTableModel modeloTabelaCarrinho = new DefaultTableModel(new Object[][] {},
+    DefaultTableModel modelTbCarrinho = new DefaultTableModel(new Object[][] {},
             new Object[] { "Código", "Produto", "Quantidade", "Preço" }) {
         private static final long serialVersionUID = 1L;
         boolean[] canEdit = new boolean[] { false, false, false, false, false, false };
@@ -28,7 +28,7 @@ public class Vendas extends javax.swing.JFrame {
             return canEdit[columnIndex];
         }
     };
-    DefaultTableModel modeloTabelaProdutos = new DefaultTableModel(new Object[][] {},
+    DefaultTableModel modelTbEstoque = new DefaultTableModel(new Object[][] {},
             new Object[] { "Código", "Produto", "Em Estoque", "Preço Unidade" }) {
         private static final long serialVersionUID = 1L;
         boolean[] canEdit = new boolean[] { false, false, false, false, false, false };
@@ -52,10 +52,10 @@ public class Vendas extends javax.swing.JFrame {
         jTextPesquisa = new javax.swing.JTextField();
         jBtAdicionar = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTbVenda = new javax.swing.JTable();
+        jTbCarrinho = new javax.swing.JTable();
         jBtSalvar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTbProdutos = new javax.swing.JTable();
+        jTbEstoque = new javax.swing.JTable();
         jBtRemover = new javax.swing.JButton();
         jBtLimparCarrinho = new javax.swing.JButton();
         jLabelQnt = new javax.swing.JLabel();
@@ -90,7 +90,7 @@ public class Vendas extends javax.swing.JFrame {
             }
         });
 
-        jTbVenda.setModel(new javax.swing.table.DefaultTableModel(new Object[][] {
+        jTbCarrinho.setModel(new javax.swing.table.DefaultTableModel(new Object[][] {
 
         }, new String[] { "Código", "Produto", "Quantidade", "Preço" }) {
             private static final long serialVersionUID = 1L;
@@ -106,13 +106,13 @@ public class Vendas extends javax.swing.JFrame {
                 return canEdit[columnIndex];
             }
         });
-        jTbVenda.getTableHeader().setReorderingAllowed(false);
-        jScrollPane2.setViewportView(jTbVenda);
-        if (jTbVenda.getColumnModel().getColumnCount() > 0) {
-            jTbVenda.getColumnModel().getColumn(0).setResizable(false);
-            jTbVenda.getColumnModel().getColumn(1).setResizable(false);
-            jTbVenda.getColumnModel().getColumn(2).setResizable(false);
-            jTbVenda.getColumnModel().getColumn(3).setResizable(false);
+        jTbCarrinho.getTableHeader().setReorderingAllowed(false);
+        jScrollPane2.setViewportView(jTbCarrinho);
+        if (jTbCarrinho.getColumnModel().getColumnCount() > 0) {
+            jTbCarrinho.getColumnModel().getColumn(0).setResizable(false);
+            jTbCarrinho.getColumnModel().getColumn(1).setResizable(false);
+            jTbCarrinho.getColumnModel().getColumn(2).setResizable(false);
+            jTbCarrinho.getColumnModel().getColumn(3).setResizable(false);
         }
 
         jBtSalvar.setText("Salvar");
@@ -122,7 +122,7 @@ public class Vendas extends javax.swing.JFrame {
             }
         });
 
-        jTbProdutos.setModel(new javax.swing.table.DefaultTableModel(new Object[][] {
+        jTbEstoque.setModel(new javax.swing.table.DefaultTableModel(new Object[][] {
 
         }, new String[] { "Código", "Produto", "Em Estoque", "Preço Unidade" }) {
             private static final long serialVersionUID = 1L;
@@ -138,12 +138,12 @@ public class Vendas extends javax.swing.JFrame {
                 return canEdit[columnIndex];
             }
         });
-        jTbProdutos.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_LAST_COLUMN);
-        jTbProdutos.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jTbProdutos.setMaximumSize(new java.awt.Dimension(202, 220));
-        jTbProdutos.setMinimumSize(new java.awt.Dimension(202, 220));
-        jTbProdutos.getTableHeader().setReorderingAllowed(false);
-        jScrollPane1.setViewportView(jTbProdutos);
+        jTbEstoque.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_LAST_COLUMN);
+        jTbEstoque.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jTbEstoque.setMaximumSize(new java.awt.Dimension(202, 220));
+        jTbEstoque.setMinimumSize(new java.awt.Dimension(202, 220));
+        jTbEstoque.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(jTbEstoque);
 
         jBtRemover.setText("-");
         jBtRemover.addActionListener(new java.awt.event.ActionListener() {
@@ -321,21 +321,21 @@ public class Vendas extends javax.swing.JFrame {
         }
         
         for (int i = 0; i < produtos.size(); i++) {
-            modeloTabelaProdutos.addRow(new String[]{
+            modelTbEstoque.addRow(new String[]{
                 String.valueOf(produtos.get(i).getId()),
                 String.valueOf(produtos.get(i).getNome()),
                 String.valueOf(produtos.get(i).getQuantidade()),
                 String.valueOf(MascaraMonetaria.add(produtos.get(i).getValor()))});
         }
 
-        jTbProdutos.setModel(modeloTabelaProdutos);
+        jTbEstoque.setModel(modelTbEstoque);
     }
     
     private void setTotal(){
         double total = 0;
 
-        for (int contador = 0; contador < jTbVenda.getRowCount(); contador++) {
-            total = total + MascaraMonetaria.rm(jTbVenda.getValueAt(contador, 3).toString());
+        for (int contador = 0; contador < jTbCarrinho.getRowCount(); contador++) {
+            total = total + MascaraMonetaria.rm(jTbCarrinho.getValueAt(contador, 3).toString());
         }
 
         jLabelTotal.setText("  Total: " + MascaraMonetaria.add(total));
@@ -343,11 +343,11 @@ public class Vendas extends javax.swing.JFrame {
     
     private void procurarLinha(String palavra){
         
-        for (int i = 0; i < jTbProdutos.getRowCount(); i++){
-            String nome = jTbProdutos.getValueAt(i, 1).toString();
+        for (int i = 0; i < jTbEstoque.getRowCount(); i++){
+            String nome = jTbEstoque.getValueAt(i, 1).toString();
             
             if (nome.contains(palavra)){
-                jTbProdutos.setRowSelectionInterval(i, i);
+                jTbEstoque.setRowSelectionInterval(i, i);
                 break;
             }
             
@@ -355,25 +355,25 @@ public class Vendas extends javax.swing.JFrame {
     }
     
     private boolean estoqueEstaVazio(){
-        return (jTbProdutos.getValueAt(jTbProdutos.getSelectedRow(), 2).toString()).equals("0");
+        return (jTbEstoque.getValueAt(jTbEstoque.getSelectedRow(), 2).toString()).equals("0");
     }
     
     private int verificaQuantidade() {
         int opcao = 0;
 
         int quantidadeEscolhida = Integer.parseInt(jTextQntProd.getText());
-        int quantidadeProduto = Integer.parseInt(jTbProdutos.getValueAt(jTbProdutos.getSelectedRow(), 2).toString());
+        int quantidadeProduto = Integer.parseInt(jTbEstoque.getValueAt(jTbEstoque.getSelectedRow(), 2).toString());
 
         
         if (quantidadeEscolhida > quantidadeProduto) {
             opcao = 0;
             //se tem ao menos 1 linha
-        } else if (jTbVenda.getRowCount() > 0) {
+        } else if (jTbCarrinho.getRowCount() > 0) {
             this.linhaProdutoTbVendas = linhaTabelaVendas();
             
             if(linhaProdutoTbVendas != -1){
                 int quantidadeCarrinho = Integer.parseInt(
-                        jTbVenda.getValueAt(linhaTabelaVendas(), 2).toString());
+                        jTbCarrinho.getValueAt(linhaTabelaVendas(), 2).toString());
                 
                 if(quantidadeCarrinho + quantidadeEscolhida > quantidadeProduto){
                     opcao = 0;
@@ -397,9 +397,9 @@ public class Vendas extends javax.swing.JFrame {
         int testador = -1;
         int contador;
         
-        for (contador = 0; contador < jTbVenda.getRowCount(); contador++) {
-            Object linhaTbProd = jTbProdutos.getValueAt(jTbProdutos.getSelectedRow(), 0);
-            Object linhaTbVenda = jTbVenda.getValueAt(contador, 0);
+        for (contador = 0; contador < jTbCarrinho.getRowCount(); contador++) {
+            Object linhaTbProd = jTbEstoque.getValueAt(jTbEstoque.getSelectedRow(), 0);
+            Object linhaTbVenda = jTbCarrinho.getValueAt(contador, 0);
             
             if (linhaTbProd == linhaTbVenda) {
                 testador = contador;
@@ -410,14 +410,14 @@ public class Vendas extends javax.swing.JFrame {
     }
     
     private void limpaTabela(){
-        modeloTabelaCarrinho.setNumRows(0);
-        modeloTabelaProdutos.setNumRows(0);
+        modelTbCarrinho.setNumRows(0);
+        modelTbEstoque.setNumRows(0);
     }
     
     private void linhaTabelaProdutos(){
-        for (int i = 0; i < jTbProdutos.getRowCount(); i++) {
-            Object linhaTbProd = jTbProdutos.getValueAt(i, 0);
-            Object linhaTbVenda = jTbVenda.getValueAt(jTbVenda.getSelectedRow(), 0);
+        for (int i = 0; i < jTbEstoque.getRowCount(); i++) {
+            Object linhaTbProd = jTbEstoque.getValueAt(i, 0);
+            Object linhaTbVenda = jTbCarrinho.getValueAt(jTbCarrinho.getSelectedRow(), 0);
             if (linhaTbProd == linhaTbVenda) {
                 this.linhaProdutoTbprodutos = i;
                 break;
@@ -426,67 +426,66 @@ public class Vendas extends javax.swing.JFrame {
     }
     
     private void adicionaTbVenda(){
-        int row = this.jTbProdutos.getSelectedRow();
+        int row = this.jTbEstoque.getSelectedRow();
 
-        double valor_produto = MascaraMonetaria.rm(
-                jTbProdutos.getValueAt(row, 3).toString());
-        int quantidade_produto = Integer.parseInt(jTextQntProd.getText());
-        double valor_total = valor_produto * quantidade_produto;
+        double valorUnidadeProduto = MascaraMonetaria.rm(jTbEstoque.getValueAt(row, 3).toString());
+        int quantidadeEscolhida = Integer.parseInt(jTextQntProd.getText());
+        double valor_total = valorUnidadeProduto * quantidadeEscolhida;
 
-        String codigo_produto = jTbProdutos.getValueAt(row, 0).toString();
-        String nome_produto = jTbProdutos.getValueAt(row, 1).toString();
+        String codigo_produto = jTbEstoque.getValueAt(row, 0).toString();
+        String nome_produto = jTbEstoque.getValueAt(row, 1).toString();
         String valorConvertido = MascaraMonetaria.add(valor_total);
 
-        modeloTabelaCarrinho.addRow(new String[]{
+        modelTbCarrinho.addRow(new String[]{
             codigo_produto,
             nome_produto,
-            String.valueOf(quantidade_produto),
+            String.valueOf(quantidadeEscolhida),
             valorConvertido});
 
-        jTbVenda.setModel(modeloTabelaCarrinho);
+        jTbCarrinho.setModel(modelTbCarrinho);
     }
     
-    private void atualizaTbVenda(){
-        double valor_produto = MascaraMonetaria.rm(jTbProdutos.getValueAt(jTbProdutos.getSelectedRow(),3).toString());
+    private void atualizaTbVenda() {
+        double valor_produto = MascaraMonetaria.rm(jTbEstoque.getValueAt(jTbEstoque.getSelectedRow(),3).toString());
         int quantidadeSelecionada = Integer.parseInt(jTextQntProd.getText());
-        int quantidade_produto = Integer.parseInt(jTbVenda.getValueAt(this.linhaProdutoTbVendas, 2).toString());
+        int quantidade_produto = Integer.parseInt(jTbCarrinho.getValueAt(this.linhaProdutoTbVendas, 2).toString());
 
         int novaQuantidade_produto =quantidadeSelecionada+quantidade_produto;
 
         double valor = valor_produto*novaQuantidade_produto;
 
-        modeloTabelaCarrinho.setValueAt(novaQuantidade_produto, this.linhaProdutoTbVendas,2 );
+        modelTbCarrinho.setValueAt(novaQuantidade_produto, this.linhaProdutoTbVendas,2 );
 
-        modeloTabelaCarrinho.setValueAt(MascaraMonetaria.add(valor), this.linhaProdutoTbVendas,3 );
+        modelTbCarrinho.setValueAt(MascaraMonetaria.add(valor), this.linhaProdutoTbVendas,3 );
         
     }
     
     private void atualizaTbProdutos(){
         int quantidadeSelecionada = Integer.parseInt(jTextQntProd.getText());
-        int quantidade_produto = Integer.parseInt(jTbProdutos.getValueAt(jTbProdutos.getSelectedRow(), 2).toString());
+        int quantidade_produto = Integer.parseInt(jTbEstoque.getValueAt(jTbEstoque.getSelectedRow(), 2).toString());
         int novaQuantidade = quantidade_produto-quantidadeSelecionada;
 
-        modeloTabelaProdutos.setValueAt(novaQuantidade, jTbProdutos.getSelectedRow() ,2 );
+        modelTbEstoque.setValueAt(novaQuantidade, jTbEstoque.getSelectedRow() ,2 );
     }
     
     private void atualizaTbProdRemove(){
         this.linhaTabelaProdutos();
-        int quantidade_produto = Integer.parseInt(jTbProdutos.getValueAt(this.linhaProdutoTbprodutos, 2).toString());
-        int quntidade_produtoCarrinho = Integer.parseInt(jTbVenda.getValueAt(jTbVenda.getSelectedRow(), 2).toString());
+        int quantidade_produto = Integer.parseInt(jTbEstoque.getValueAt(this.linhaProdutoTbprodutos, 2).toString());
+        int quntidade_produtoCarrinho = Integer.parseInt(jTbCarrinho.getValueAt(jTbCarrinho.getSelectedRow(), 2).toString());
         
         int novaQntP = quantidade_produto+quntidade_produtoCarrinho;
 
-        modeloTabelaProdutos.setValueAt(novaQntP, this.linhaProdutoTbprodutos ,2 );
+        modelTbEstoque.setValueAt(novaQntP, this.linhaProdutoTbprodutos ,2 );
     }
     
     private void registrarVenda(){
         Venda venda = new Venda();
        
-        for(int i = 0; i < jTbVenda.getRowCount(); i++){
+        for(int i = 0; i < jTbCarrinho.getRowCount(); i++){
             venda.addItem(
-                Integer.parseInt(jTbVenda.getValueAt(i, 0).toString()), 
-                Integer.parseInt(jTbVenda.getValueAt(i, 2).toString()), 
-                MascaraMonetaria.rm(jTbVenda.getValueAt(i, 3).toString())
+                Integer.parseInt(jTbCarrinho.getValueAt(i, 0).toString()), 
+                Integer.parseInt(jTbCarrinho.getValueAt(i, 2).toString()), 
+                MascaraMonetaria.rm(jTbCarrinho.getValueAt(i, 3).toString())
             );
         }
 
@@ -503,38 +502,57 @@ public class Vendas extends javax.swing.JFrame {
     
     
     private void jBtAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAdicionarActionPerformed
-        if(jTbProdutos.getSelectedRow() == -1){
-            JOptionPane.showMessageDialog(null, "Selecione uma linha");
+        int row = jTbEstoque.getSelectedRow();
+
+        if (row == -1){
+            JOptionPane.showMessageDialog(null, "Selecione uma produto do estoque.");
             return;
         }
 
-        if(jTextQntProd.getText().equals("")){
-            JOptionPane.showMessageDialog(null, "Você não digitou uma quantidade");
+        int quantidadeDisponivel = Integer.parseInt(jTbEstoque.getValueAt(row, 2).toString());
+        int quantidadeEscolhida = Integer.parseInt(jTextQntProd.getText().toString());
+        
+        if (quantidadeEscolhida < 1){
+            JOptionPane.showMessageDialog(null, "Você não digitou uma quantidade válida.");
             return;
         }
 
-        switch (this.verificaQuantidade()){
-            case 0:
-                if (estoqueEstaVazio()){
-                    JOptionPane.showMessageDialog(null, "Produto em falta");
-                } else{
-                    JOptionPane.showMessageDialog(null, "Quantidade maior que estoque");
-                }
-                break;
-            case 1:
-                this.adicionaTbVenda();
-                this.atualizaTbProdutos();
-                break;
-            case 2:
-                this.atualizaTbVenda();
-                this.atualizaTbProdutos();
-                break;
+        if (quantidadeEscolhida > quantidadeDisponivel) {
+            JOptionPane.showMessageDialog(null, "A quantidade escolhida é maior que a quantidade disponível.");
+            return;
         }
-        this.setTotal();
+
+        int linhaCarrinho = -1;
+        
+        for (int i = 0; i < modelTbCarrinho.getRowCount(); i++) {
+            if (jTbEstoque.getValueAt(row, 0).toString().equals(jTbCarrinho.getValueAt(i, 0).toString())) {
+                linhaCarrinho = i;
+                break;
+            }
+        }
+
+        if (linhaCarrinho >= 0) {
+            int quantidadeAnterior = Integer.parseInt(jTbCarrinho.getValueAt(linhaCarrinho, 2).toString());
+            int novaQtd = quantidadeAnterior + quantidadeEscolhida;
+            modelTbCarrinho.setValueAt(novaQtd, linhaCarrinho, 2);
+        } else {
+            Produto produtoSelecionado = this.produtos.get(row);
+            modelTbCarrinho.addRow(new String[]{
+                String.valueOf(produtoSelecionado.getId()),
+                String.valueOf(produtoSelecionado.getNome()),
+                String.valueOf(quantidadeEscolhida),
+                String.valueOf(MascaraMonetaria.add(produtoSelecionado.getValor()))
+            });
+        }
+        
+        modelTbEstoque.setValueAt(quantidadeDisponivel - quantidadeEscolhida, row, 2);
+
+        jTbCarrinho.setModel(modelTbCarrinho);
+        jTbEstoque.setModel(modelTbEstoque);
     }//GEN-LAST:event_jBtAdicionarActionPerformed
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
-        if(jTbVenda.getRowCount() == 0) {
+        if(jTbCarrinho.getRowCount() == 0) {
             JOptionPane.showMessageDialog(null, "O carrinho está vazio");
             return;
         }
@@ -547,13 +565,49 @@ public class Vendas extends javax.swing.JFrame {
     }//GEN-LAST:event_jBtSalvarActionPerformed
 
     private void jBtRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtRemoverActionPerformed
-        if (jTbVenda.getSelectedRow() == -1) { 
+        int row = jTbCarrinho.getSelectedRow();
+        int novaQtdCarrinho = 0;
+        int novaQtdEstoque = 0;
+        int linhaEstoque = -1;
+
+        if (row < 0) {
+            JOptionPane.showMessageDialog(null, "Você não selecionou um produto do carrinho.");
             return;
         }
 
-        atualizaTbProdRemove();
-        modeloTabelaCarrinho.removeRow(jTbVenda.getSelectedRow());
-        this.setTotal();
+        int quantidadeEscolhida = Integer.parseInt(jTextQntProd.getText().toString());
+        int quantidadeDisponivel = Integer.parseInt(jTbCarrinho.getValueAt(row, 2).toString());
+        
+        if (quantidadeEscolhida < 1){
+            JOptionPane.showMessageDialog(null, "Você não digitou uma quantidade válida.");
+            return;
+        }
+
+        if (quantidadeEscolhida > quantidadeDisponivel) {
+            quantidadeEscolhida = quantidadeDisponivel;
+        }
+        
+        novaQtdCarrinho = quantidadeDisponivel - quantidadeEscolhida;
+
+        for (int i = 0; i < modelTbEstoque.getRowCount(); i++) {
+            if (jTbEstoque.getValueAt(i, 0).toString().equals(jTbCarrinho.getValueAt(row, 0).toString())) {
+                linhaEstoque = i;
+                break;
+            }
+        }
+
+        int quantidadeAnterior = Integer.parseInt(jTbEstoque.getValueAt(linhaEstoque, 2).toString());
+        novaQtdEstoque = quantidadeAnterior + quantidadeEscolhida;
+        modelTbEstoque.setValueAt(novaQtdEstoque, linhaEstoque, 2);
+
+        if (novaQtdCarrinho == 0) {
+            modelTbCarrinho.removeRow(row);
+        } else {
+            modelTbCarrinho.setValueAt(novaQtdCarrinho, row, 2);
+        }
+
+        jTbCarrinho.setModel(modelTbCarrinho);
+        jTbEstoque.setModel(modelTbEstoque);
     }//GEN-LAST:event_jBtRemoverActionPerformed
 
     private void jBtLimparCarrinhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtLimparCarrinhoActionPerformed
@@ -599,8 +653,8 @@ public class Vendas extends javax.swing.JFrame {
     private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTbProdutos;
-    private javax.swing.JTable jTbVenda;
+    private javax.swing.JTable jTbEstoque;
+    private javax.swing.JTable jTbCarrinho;
     private javax.swing.JTextField jTextPesquisa;
     private javax.swing.JTextField jTextQntProd;
     // End of variables declaration//GEN-END:variables
