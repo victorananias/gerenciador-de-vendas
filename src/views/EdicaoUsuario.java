@@ -5,18 +5,17 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import models.Usuario;
 
-public class EditarUsuario extends javax.swing.JFrame {
+public class EdicaoUsuario extends javax.swing.JFrame {
     private static final long serialVersionUID = 1L;
-
     private Usuario usuario;
 
-    public EditarUsuario(Usuario usuario) {
+    public EdicaoUsuario(Usuario usuario) {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setUsuario(usuario);
     }
 
-    private void verificaNome() {
+    private void checkJTextNome() {
         if (jTextNome.getText().equals("")) {
             jLabelAvisoNome.setText("Campo obrigatório");
         } else {
@@ -24,7 +23,7 @@ public class EditarUsuario extends javax.swing.JFrame {
         }
     }
 
-    private void verificaCpf() {
+    private void checkJTextCpf() {
         if (jTextCpf.getText().equals("")) {
             jLabelAvisoCpf.setText("Campo obrigatório");
         } else if (jTextCpf.getText().length() != 11) {
@@ -41,12 +40,12 @@ public class EditarUsuario extends javax.swing.JFrame {
         jComboBoxTipo.setSelectedIndex(usuario.isAdmin() ? 1 : 0);
     }
 
-    private void limpaAvisos() {
+    private void limparAvisos() {
         jLabelAvisoNome.setText("");
         jLabelAvisoCpf.setText("");
     }
 
-    private boolean verificarAvisos() {
+    private boolean formIsInvalid() {
         return jLabelAvisoNome.getText().equals("") && jLabelAvisoCpf.getText().equals("");
     }
 
@@ -299,11 +298,11 @@ public class EditarUsuario extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jBtSalvarActionPerformed
-        this.limpaAvisos();
-        this.verificaNome();
-        this.verificaCpf();
+        this.limparAvisos();
+        this.checkJTextNome();
+        this.checkJTextCpf();
 
-        if (!verificarAvisos()) {
+        if (!formIsInvalid()) {
             JOptionPane.showMessageDialog(null, "Verifique os campos e tente novamente");
             return;
         }
@@ -319,6 +318,7 @@ public class EditarUsuario extends javax.swing.JFrame {
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Erro ao atualizar informações do usuário.");
         }
 
         JOptionPane.showMessageDialog(null, "Informações Alteradas");
@@ -330,7 +330,7 @@ public class EditarUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextLoginFocusLost
 
     private void jBtVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtVoltarActionPerformed
-        EditarUsuario.this.dispose();
+        EdicaoUsuario.this.dispose();
         new Usuarios().setVisible(true);
     }//GEN-LAST:event_jBtVoltarActionPerformed
 
@@ -346,7 +346,7 @@ public class EditarUsuario extends javax.swing.JFrame {
                 JOptionPane.WARNING_MESSAGE
         );
 
-        if(removerUsuario != 0) {
+        if (removerUsuario != 0) {
             return;
         }
 
@@ -355,12 +355,11 @@ public class EditarUsuario extends javax.swing.JFrame {
         } catch (SQLException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null,"Erro ao deletar usuário.");
-            System.exit(0);
         }
 
         JOptionPane.showMessageDialog(null,"Usuário Removido.");
         
-        EditarUsuario.this.dispose();
+        EdicaoUsuario.this.dispose();
         
         new Usuarios().setVisible(true);
 

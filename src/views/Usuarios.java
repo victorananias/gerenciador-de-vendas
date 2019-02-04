@@ -193,7 +193,7 @@ public class Usuarios extends javax.swing.JFrame {
                     + " selecionou um usuário");
         } else {
             Usuarios.this.dispose();
-            new EditarUsuario(usuarios.get(jTbUsuarios.getSelectedRow())).setVisible(true);
+            new EdicaoUsuario(usuarios.get(jTbUsuarios.getSelectedRow())).setVisible(true);
         }
     }//GEN-LAST:event_jBtEditarActionPerformed
 

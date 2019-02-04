@@ -15,8 +15,6 @@ public class Vendas extends javax.swing.JFrame {
     private static final long serialVersionUID = 1L;
 
     ArrayList<Produto> produtos = new ArrayList<>();
-    private int linhaProdutoTbVendas = -1;
-    private int linhaProdutoTbprodutos = -1;
 
     DefaultTableModel modelTbCarrinho = new DefaultTableModel(new Object[][] {},
             new Object[] { "Código", "Produto", "Quantidade", "Preço" }) {
@@ -42,8 +40,7 @@ public class Vendas extends javax.swing.JFrame {
     public Vendas() {
         initComponents();
         this.setLocationRelativeTo(null);
-        this.geraTabelaProdutos();
-        this.setTotal();
+        this.updateTbEstoque();
     }
     
     private void initComponents() {
@@ -311,9 +308,9 @@ public class Vendas extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void geraTabelaProdutos() {
+    private void updateTbEstoque() {
         try {
-            produtos = new ProdutosController().buscarProdutosEmEstoque();
+            this.produtos = new ProdutosController().buscarProdutosEmEstoque();
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -325,23 +322,24 @@ public class Vendas extends javax.swing.JFrame {
                 String.valueOf(produtos.get(i).getId()),
                 String.valueOf(produtos.get(i).getNome()),
                 String.valueOf(produtos.get(i).getQuantidade()),
-                String.valueOf(MascaraMonetaria.add(produtos.get(i).getValor()))});
+                String.valueOf(MascaraMonetaria.add(produtos.get(i).getValor())
+            )});
         }
 
         jTbEstoque.setModel(modelTbEstoque);
     }
     
-    private void setTotal(){
+    private void updateJLabelTotal(){
         double total = 0;
 
-        for (int contador = 0; contador < jTbCarrinho.getRowCount(); contador++) {
-            total = total + MascaraMonetaria.rm(jTbCarrinho.getValueAt(contador, 3).toString());
+        for (int i = 0; i < jTbCarrinho.getRowCount(); i++) {
+            total = total + MascaraMonetaria.rm(jTbCarrinho.getValueAt(i, 3).toString());
         }
 
         jLabelTotal.setText("  Total: " + MascaraMonetaria.add(total));
     }
     
-    private void procurarLinha(String palavra){
+    private void pesquisar(String palavra){
         
         for (int i = 0; i < jTbEstoque.getRowCount(); i++){
             String nome = jTbEstoque.getValueAt(i, 1).toString();
@@ -354,153 +352,6 @@ public class Vendas extends javax.swing.JFrame {
         }
     }
     
-    private boolean estoqueEstaVazio(){
-        return (jTbEstoque.getValueAt(jTbEstoque.getSelectedRow(), 2).toString()).equals("0");
-    }
-    
-    private int verificaQuantidade() {
-        int opcao = 0;
-
-        int quantidadeEscolhida = Integer.parseInt(jTextQntProd.getText());
-        int quantidadeProduto = Integer.parseInt(jTbEstoque.getValueAt(jTbEstoque.getSelectedRow(), 2).toString());
-
-        
-        if (quantidadeEscolhida > quantidadeProduto) {
-            opcao = 0;
-            //se tem ao menos 1 linha
-        } else if (jTbCarrinho.getRowCount() > 0) {
-            this.linhaProdutoTbVendas = linhaTabelaVendas();
-            
-            if(linhaProdutoTbVendas != -1){
-                int quantidadeCarrinho = Integer.parseInt(
-                        jTbCarrinho.getValueAt(linhaTabelaVendas(), 2).toString());
-                
-                if(quantidadeCarrinho + quantidadeEscolhida > quantidadeProduto){
-                    opcao = 0;
-                } else{
-                    opcao = 2;
-                }
-            }
-            //se a table tem mais de 1 linha mas nao contem
-            else{
-                opcao = 1;
-            }
-        }
-        else {
-            opcao = 1;
-        }
-
-        return opcao;
-    }
-    
-    private int linhaTabelaVendas(){
-        int testador = -1;
-        int contador;
-        
-        for (contador = 0; contador < jTbCarrinho.getRowCount(); contador++) {
-            Object linhaTbProd = jTbEstoque.getValueAt(jTbEstoque.getSelectedRow(), 0);
-            Object linhaTbVenda = jTbCarrinho.getValueAt(contador, 0);
-            
-            if (linhaTbProd == linhaTbVenda) {
-                testador = contador;
-                break;
-            }
-        }
-        return testador;
-    }
-    
-    private void limpaTabela(){
-        modelTbCarrinho.setNumRows(0);
-        modelTbEstoque.setNumRows(0);
-    }
-    
-    private void linhaTabelaProdutos(){
-        for (int i = 0; i < jTbEstoque.getRowCount(); i++) {
-            Object linhaTbProd = jTbEstoque.getValueAt(i, 0);
-            Object linhaTbVenda = jTbCarrinho.getValueAt(jTbCarrinho.getSelectedRow(), 0);
-            if (linhaTbProd == linhaTbVenda) {
-                this.linhaProdutoTbprodutos = i;
-                break;
-            }
-        }
-    }
-    
-    private void adicionaTbVenda(){
-        int row = this.jTbEstoque.getSelectedRow();
-
-        double valorUnidadeProduto = MascaraMonetaria.rm(jTbEstoque.getValueAt(row, 3).toString());
-        int quantidadeEscolhida = Integer.parseInt(jTextQntProd.getText());
-        double valor_total = valorUnidadeProduto * quantidadeEscolhida;
-
-        String codigo_produto = jTbEstoque.getValueAt(row, 0).toString();
-        String nome_produto = jTbEstoque.getValueAt(row, 1).toString();
-        String valorConvertido = MascaraMonetaria.add(valor_total);
-
-        modelTbCarrinho.addRow(new String[]{
-            codigo_produto,
-            nome_produto,
-            String.valueOf(quantidadeEscolhida),
-            valorConvertido});
-
-        jTbCarrinho.setModel(modelTbCarrinho);
-    }
-    
-    private void atualizaTbVenda() {
-        double valor_produto = MascaraMonetaria.rm(jTbEstoque.getValueAt(jTbEstoque.getSelectedRow(),3).toString());
-        int quantidadeSelecionada = Integer.parseInt(jTextQntProd.getText());
-        int quantidade_produto = Integer.parseInt(jTbCarrinho.getValueAt(this.linhaProdutoTbVendas, 2).toString());
-
-        int novaQuantidade_produto =quantidadeSelecionada+quantidade_produto;
-
-        double valor = valor_produto*novaQuantidade_produto;
-
-        modelTbCarrinho.setValueAt(novaQuantidade_produto, this.linhaProdutoTbVendas,2 );
-
-        modelTbCarrinho.setValueAt(MascaraMonetaria.add(valor), this.linhaProdutoTbVendas,3 );
-        
-    }
-    
-    private void atualizaTbProdutos(){
-        int quantidadeSelecionada = Integer.parseInt(jTextQntProd.getText());
-        int quantidade_produto = Integer.parseInt(jTbEstoque.getValueAt(jTbEstoque.getSelectedRow(), 2).toString());
-        int novaQuantidade = quantidade_produto-quantidadeSelecionada;
-
-        modelTbEstoque.setValueAt(novaQuantidade, jTbEstoque.getSelectedRow() ,2 );
-    }
-    
-    private void atualizaTbProdRemove(){
-        this.linhaTabelaProdutos();
-        int quantidade_produto = Integer.parseInt(jTbEstoque.getValueAt(this.linhaProdutoTbprodutos, 2).toString());
-        int quntidade_produtoCarrinho = Integer.parseInt(jTbCarrinho.getValueAt(jTbCarrinho.getSelectedRow(), 2).toString());
-        
-        int novaQntP = quantidade_produto+quntidade_produtoCarrinho;
-
-        modelTbEstoque.setValueAt(novaQntP, this.linhaProdutoTbprodutos ,2 );
-    }
-    
-    private void registrarVenda(){
-        Venda venda = new Venda();
-       
-        for(int i = 0; i < jTbCarrinho.getRowCount(); i++){
-            venda.addItem(
-                Integer.parseInt(jTbCarrinho.getValueAt(i, 0).toString()), 
-                Integer.parseInt(jTbCarrinho.getValueAt(i, 2).toString()), 
-                MascaraMonetaria.rm(jTbCarrinho.getValueAt(i, 3).toString())
-            );
-        }
-
-        try {
-            new VendasController().registrarVenda(venda);
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(null,"Erro ao registrar venda.");
-        }
-        
-        JOptionPane.showMessageDialog(null,"Venda registrada.");
-   }
-    
-    
     private void jBtAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAdicionarActionPerformed
         int row = jTbEstoque.getSelectedRow();
 
@@ -509,15 +360,15 @@ public class Vendas extends javax.swing.JFrame {
             return;
         }
 
-        int quantidadeDisponivel = Integer.parseInt(jTbEstoque.getValueAt(row, 2).toString());
-        int quantidadeEscolhida = Integer.parseInt(jTextQntProd.getText().toString());
+        int qtdEstoque = Integer.parseInt(jTbEstoque.getValueAt(row, 2).toString());
+        int qtdEscolhida = Integer.parseInt(jTextQntProd.getText().toString());
         
-        if (quantidadeEscolhida < 1){
+        if (qtdEscolhida < 1) {
             JOptionPane.showMessageDialog(null, "Você não digitou uma quantidade válida.");
             return;
         }
 
-        if (quantidadeEscolhida > quantidadeDisponivel) {
+        if (qtdEscolhida > qtdEstoque) {
             JOptionPane.showMessageDialog(null, "A quantidade escolhida é maior que a quantidade disponível.");
             return;
         }
@@ -531,43 +382,67 @@ public class Vendas extends javax.swing.JFrame {
             }
         }
 
+        Produto produto = this.produtos.get(row);
+
         if (linhaCarrinho >= 0) {
-            int quantidadeAnterior = Integer.parseInt(jTbCarrinho.getValueAt(linhaCarrinho, 2).toString());
-            int novaQtd = quantidadeAnterior + quantidadeEscolhida;
-            modelTbCarrinho.setValueAt(novaQtd, linhaCarrinho, 2);
+            int qtdCarrinho = qtdEscolhida + Integer.parseInt(jTbCarrinho.getValueAt(linhaCarrinho, 2).toString());
+            modelTbCarrinho.setValueAt(qtdCarrinho, linhaCarrinho, 2);
+            modelTbCarrinho.setValueAt(MascaraMonetaria.add(qtdCarrinho * produto.getValor()), linhaCarrinho, 3);
         } else {
-            Produto produtoSelecionado = this.produtos.get(row);
             modelTbCarrinho.addRow(new String[]{
-                String.valueOf(produtoSelecionado.getId()),
-                String.valueOf(produtoSelecionado.getNome()),
-                String.valueOf(quantidadeEscolhida),
-                String.valueOf(MascaraMonetaria.add(produtoSelecionado.getValor()))
+                String.valueOf(produto.getId()),
+                String.valueOf(produto.getNome()),
+                String.valueOf(qtdEscolhida),
+                String.valueOf(MascaraMonetaria.add(produto.getValor() * qtdEscolhida))
             });
         }
         
-        modelTbEstoque.setValueAt(quantidadeDisponivel - quantidadeEscolhida, row, 2);
+        modelTbEstoque.setValueAt(qtdEstoque - qtdEscolhida, row, 2);
 
+        this.updateJTables();
+
+        this.updateJLabelTotal();
+    }// GEN-LAST:event_jBtAdicionarActionPerformed
+
+    private void updateJTables() {
         jTbCarrinho.setModel(modelTbCarrinho);
         jTbEstoque.setModel(modelTbEstoque);
-    }//GEN-LAST:event_jBtAdicionarActionPerformed
+    }
 
-    private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalvarActionPerformed
-        if(jTbCarrinho.getRowCount() == 0) {
+    private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jBtSalvarActionPerformed
+        if (jTbCarrinho.getRowCount() == 0) {
             JOptionPane.showMessageDialog(null, "O carrinho está vazio");
             return;
         }
 
-        this.registrarVenda();
-        this.limpaTabela();
-        this.geraTabelaProdutos();
-        this.setTotal();
-        
-    }//GEN-LAST:event_jBtSalvarActionPerformed
+        Venda venda = new Venda();
 
-    private void jBtRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtRemoverActionPerformed
+        for (int i = 0; i < jTbCarrinho.getRowCount(); i++) {
+            venda.addItem(Integer.parseInt(jTbCarrinho.getValueAt(i, 0).toString()),
+                    Integer.parseInt(jTbCarrinho.getValueAt(i, 2).toString()),
+                    MascaraMonetaria.rm(jTbCarrinho.getValueAt(i, 3).toString()));
+        }
+
+        try {
+            new VendasController().registrarVenda(venda);
+            JOptionPane.showMessageDialog(null, "Venda registrada.");
+
+            modelTbEstoque.setRowCount(0);
+            modelTbCarrinho.setRowCount(0);
+            this.updateJLabelTotal();
+            this.updateTbEstoque();
+        } catch (SQLException e) {
+
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Erro ao registrar venda.");
+        }
+
+    }// GEN-LAST:event_jBtSalvarActionPerformed
+
+    private void jBtRemoverActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jBtRemoverActionPerformed
         int row = jTbCarrinho.getSelectedRow();
-        int novaQtdCarrinho = 0;
-        int novaQtdEstoque = 0;
+        int qtdCarrinho = 0;
+        int qtdEstoque = 0;
         int linhaEstoque = -1;
 
         if (row < 0) {
@@ -575,19 +450,21 @@ public class Vendas extends javax.swing.JFrame {
             return;
         }
 
+        qtdCarrinho = Integer.parseInt(jTbCarrinho.getValueAt(row, 2).toString());
         int quantidadeEscolhida = Integer.parseInt(jTextQntProd.getText().toString());
-        int quantidadeDisponivel = Integer.parseInt(jTbCarrinho.getValueAt(row, 2).toString());
-        
-        if (quantidadeEscolhida < 1){
+
+        if (quantidadeEscolhida < 1) {
             JOptionPane.showMessageDialog(null, "Você não digitou uma quantidade válida.");
             return;
         }
 
-        if (quantidadeEscolhida > quantidadeDisponivel) {
-            quantidadeEscolhida = quantidadeDisponivel;
+        if (quantidadeEscolhida > qtdCarrinho) {
+            qtdEstoque += qtdCarrinho;
+            qtdCarrinho = 0;
+        } else {
+            qtdCarrinho -= quantidadeEscolhida;
+            qtdEstoque += quantidadeEscolhida;
         }
-        
-        novaQtdCarrinho = quantidadeDisponivel - quantidadeEscolhida;
 
         for (int i = 0; i < modelTbEstoque.getRowCount(); i++) {
             if (jTbEstoque.getValueAt(i, 0).toString().equals(jTbCarrinho.getValueAt(row, 0).toString())) {
@@ -597,23 +474,26 @@ public class Vendas extends javax.swing.JFrame {
         }
 
         int quantidadeAnterior = Integer.parseInt(jTbEstoque.getValueAt(linhaEstoque, 2).toString());
-        novaQtdEstoque = quantidadeAnterior + quantidadeEscolhida;
-        modelTbEstoque.setValueAt(novaQtdEstoque, linhaEstoque, 2);
+        double valor = this.produtos.get(linhaEstoque).getValor();
+        qtdEstoque += quantidadeAnterior;
 
-        if (novaQtdCarrinho == 0) {
+        modelTbEstoque.setValueAt(qtdEstoque, linhaEstoque, 2);
+
+        if (qtdCarrinho == 0) {
             modelTbCarrinho.removeRow(row);
         } else {
-            modelTbCarrinho.setValueAt(novaQtdCarrinho, row, 2);
+            modelTbCarrinho.setValueAt(qtdCarrinho, row, 2);
+            modelTbCarrinho.setValueAt(MascaraMonetaria.add(qtdCarrinho * valor), row, 3);
         }
 
-        jTbCarrinho.setModel(modelTbCarrinho);
-        jTbEstoque.setModel(modelTbEstoque);
+        updateJTables();
+
+        this.updateJLabelTotal();
     }//GEN-LAST:event_jBtRemoverActionPerformed
 
     private void jBtLimparCarrinhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtLimparCarrinhoActionPerformed
-        this.limpaTabela();
-        this.geraTabelaProdutos();
-        this.setTotal();
+        modelTbCarrinho.setNumRows(0);
+        modelTbEstoque.setNumRows(0);
     }//GEN-LAST:event_jBtLimparCarrinhoActionPerformed
 
     private void jBtMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtMenuActionPerformed
@@ -622,7 +502,7 @@ public class Vendas extends javax.swing.JFrame {
     }//GEN-LAST:event_jBtMenuActionPerformed
 
     private void jTextPesquisaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextPesquisaKeyTyped
-        procurarLinha(jTextPesquisa.getText());
+        pesquisar(jTextPesquisa.getText());
     }//GEN-LAST:event_jTextPesquisaKeyTyped
 
     private void jTextPesquisaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextPesquisaKeyPressed
@@ -634,7 +514,7 @@ public class Vendas extends javax.swing.JFrame {
     }//GEN-LAST:event_jBtLimparPesquisarActionPerformed
 
     private void jTextQntProdKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextQntProdKeyTyped
-        if(!(evt.getKeyChar()+"").matches("[0-9]")){
+        if (!Character.toString(evt.getKeyChar()).matches("[0-9]")){
             evt.consume();
         }
     }//GEN-LAST:event_jTextQntProdKeyTyped
