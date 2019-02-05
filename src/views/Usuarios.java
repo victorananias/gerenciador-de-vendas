@@ -204,8 +204,7 @@ public class Usuarios extends javax.swing.JFrame {
 
     private void jBtSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSenhaActionPerformed
         if (jTbUsuarios.getSelectedRow() == -1) {
-            JOptionPane.showMessageDialog(null, "Você nâo"
-                    + " selecionou um usuário");
+            JOptionPane.showMessageDialog(null, "Você nâo selecionou um usuário");
             return;
         } 
         Usuario usuario = usuarios.get(this.jTbUsuarios.getSelectedRow());

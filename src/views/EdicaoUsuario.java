@@ -307,21 +307,21 @@ public class EdicaoUsuario extends javax.swing.JFrame {
             return;
         }
 
-        this.usuario.setNome(jTextNome.getText());
-        this.usuario.setCpf(jTextCpf.getText());
-        this.usuario.setLogin(jTextLogin.getText());
-        char tipo = jComboBoxTipo.getSelectedItem().toString().equals("Usuário") ? 'U' : 'A';
-        this.usuario.setTipo(tipo);
-
         try {
+            this.usuario.setNome(jTextNome.getText());
+            this.usuario.setCpf(jTextCpf.getText());
+            this.usuario.setLogin(jTextLogin.getText());
+            char tipo = jComboBoxTipo.getSelectedItem().toString().equals("Usuário") ? 'U' : 'A';
+            this.usuario.setTipo(tipo);
             this.usuario.save();
+            JOptionPane.showMessageDialog(null, "Informações Alteradas");
+
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Erro ao atualizar informações do usuário.");
         }
 
-        JOptionPane.showMessageDialog(null, "Informações Alteradas");
         
     }//GEN-LAST:event_jBtSalvarActionPerformed
 
