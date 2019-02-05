@@ -26,6 +26,7 @@ public class Vendas extends javax.swing.JFrame {
             return canEdit[columnIndex];
         }
     };
+    
     DefaultTableModel modelTbEstoque = new DefaultTableModel(new Object[][] {},
             new Object[] { "Código", "Produto", "Em Estoque", "Preço Unidade" }) {
         private static final long serialVersionUID = 1L;
@@ -75,9 +76,9 @@ public class Vendas extends javax.swing.JFrame {
                 jTextPesquisaKeyTyped(evt);
             }
 
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTextPesquisaKeyPressed(evt);
-            }
+            // public void keyPressed(java.awt.event.KeyEvent evt) {
+            //     jTextPesquisaKeyPressed(evt);
+            // }
         });
 
         jBtAdicionar.setText("+");
@@ -87,22 +88,23 @@ public class Vendas extends javax.swing.JFrame {
             }
         });
 
-        jTbCarrinho.setModel(new javax.swing.table.DefaultTableModel(new Object[][] {
+        jTbCarrinho.setModel(modelTbCarrinho);
+        // jTbCarrinho.setModel(new javax.swing.table.DefaultTableModel(new Object[][] {
 
-        }, new String[] { "Código", "Produto", "Quantidade", "Preço" }) {
-            private static final long serialVersionUID = 1L;
-            Class[] types = new Class[] { java.lang.String.class, java.lang.String.class, java.lang.String.class,
-                    java.lang.String.class };
-            boolean[] canEdit = new boolean[] { false, false, false, false };
+        // }, new String[] { "Código", "Produto", "Quantidade", "Preço" }) {
+        //     private static final long serialVersionUID = 1L;
+        //     Class[] types = new Class[] { java.lang.String.class, java.lang.String.class, java.lang.String.class,
+        //             java.lang.String.class };
+        //     boolean[] canEdit = new boolean[] { false, false, false, false };
 
-            public Class getColumnClass(int columnIndex) {
-                return types[columnIndex];
-            }
+        //     public Class getColumnClass(int columnIndex) {
+        //         return types[columnIndex];
+        //     }
 
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit[columnIndex];
-            }
-        });
+        //     public boolean isCellEditable(int rowIndex, int columnIndex) {
+        //         return canEdit[columnIndex];
+        //     }
+        // });
         jTbCarrinho.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(jTbCarrinho);
         if (jTbCarrinho.getColumnModel().getColumnCount() > 0) {
@@ -119,22 +121,23 @@ public class Vendas extends javax.swing.JFrame {
             }
         });
 
-        jTbEstoque.setModel(new javax.swing.table.DefaultTableModel(new Object[][] {
+        jTbEstoque.setModel(modelTbEstoque);
+        // jTbEstoque.setModel(new javax.swing.table.DefaultTableModel(new Object[][] {
 
-        }, new String[] { "Código", "Produto", "Em Estoque", "Preço Unidade" }) {
-            private static final long serialVersionUID = 1L;
-            Class[] types = new Class[] { java.lang.String.class, java.lang.String.class, java.lang.String.class,
-                    java.lang.String.class };
-            boolean[] canEdit = new boolean[] { false, false, false, false };
+        // }, new String[] { "Código", "Produto", "Em Estoque", "Preço Unidade" }) {
+        //     private static final long serialVersionUID = 1L;
+        //     Class[] types = new Class[] { java.lang.String.class, java.lang.String.class, java.lang.String.class,
+        //             java.lang.String.class };
+        //     boolean[] canEdit = new boolean[] { false, false, false, false };
 
-            public Class getColumnClass(int columnIndex) {
-                return types[columnIndex];
-            }
+        //     public Class getColumnClass(int columnIndex) {
+        //         return types[columnIndex];
+        //     }
 
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit[columnIndex];
-            }
-        });
+        //     public boolean isCellEditable(int rowIndex, int columnIndex) {
+        //         return canEdit[columnIndex];
+        //     }
+        // });
         jTbEstoque.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_LAST_COLUMN);
         jTbEstoque.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jTbEstoque.setMaximumSize(new java.awt.Dimension(202, 220));
@@ -308,6 +311,173 @@ public class Vendas extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jBtSalvarActionPerformed
+        if (jTbCarrinho.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(null, "O carrinho está vazio");
+            return;
+        }
+
+        Venda venda = new Venda();
+
+        for (int i = 0; i < jTbCarrinho.getRowCount(); i++) {
+            venda.addItem(
+                (int) jTbCarrinho.getValueAt(i, 0),
+                (int) jTbCarrinho.getValueAt(i, 2),
+                MascaraMonetaria.rm(jTbCarrinho.getValueAt(i, 3).toString())
+            );
+        }
+
+        try {
+            new VendasController().registrarVenda(venda);
+            JOptionPane.showMessageDialog(null, "Venda registrada.");
+
+            modelTbEstoque.setRowCount(0);
+            modelTbCarrinho.setRowCount(0);
+        } catch (SQLException e) {
+
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Erro ao registrar venda.");
+        }
+
+        this.updateTbEstoque();
+        this.updateJLabelTotal();
+    }// GEN-LAST:event_jBtSalvarActionPerformed
+    
+    private void jBtAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAdicionarActionPerformed
+        int row = jTbEstoque.getSelectedRow();
+
+        if (row == -1){
+            JOptionPane.showMessageDialog(null, "Selecione uma produto do estoque.");
+            return;
+        }
+
+        int qtdEstoque = (int) jTbEstoque.getValueAt(row, 2);
+        int qtdEscolhida = Integer.parseInt(jTextQntProd.getText());
+        
+        if (qtdEscolhida < 1) {
+            JOptionPane.showMessageDialog(null, "Você não digitou uma quantidade válida.");
+            return;
+        }
+
+        if (qtdEscolhida > qtdEstoque) {
+            JOptionPane.showMessageDialog(null, "A quantidade escolhida é maior que a quantidade disponível.");
+            return;
+        }
+
+        int linhaCarrinho = -1;
+        
+        for (int i = 0; i < modelTbCarrinho.getRowCount(); i++) {
+            if (jTbEstoque.getValueAt(row, 0).toString().equals(jTbCarrinho.getValueAt(i, 0).toString())) {
+                linhaCarrinho = i;
+                break;
+            }
+        }
+
+        Produto produto = this.produtos.get(row);
+
+        if (linhaCarrinho >= 0) {
+            int qtdCarrinho = qtdEscolhida + (int) jTbCarrinho.getValueAt(linhaCarrinho, 2);
+            modelTbCarrinho.setValueAt(qtdCarrinho, linhaCarrinho, 2);
+            modelTbCarrinho.setValueAt(MascaraMonetaria.add(qtdCarrinho * produto.getValor()), linhaCarrinho, 3);
+        } else {
+            modelTbCarrinho.addRow(new String[]{
+                String.valueOf(produto.getId()),
+                String.valueOf(produto.getNome()),
+                String.valueOf(qtdEscolhida),
+                String.valueOf(MascaraMonetaria.add(produto.getValor() * qtdEscolhida))
+            });
+        }
+        
+        modelTbEstoque.setValueAt(qtdEstoque - qtdEscolhida, row, 2);
+
+        this.updateJTables();
+        this.updateJLabelTotal();
+    }// GEN-LAST:event_jBtAdicionarActionPerformed
+
+    private void jBtRemoverActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jBtRemoverActionPerformed
+        int row = jTbCarrinho.getSelectedRow();
+        int qtdCarrinho = 0;
+        int qtdEstoque = 0;
+        int linhaEstoque = -1;
+
+        if (row < 0) {
+            JOptionPane.showMessageDialog(null, "Você não selecionou um produto do carrinho.");
+            return;
+        }
+
+        qtdCarrinho = (int) jTbCarrinho.getValueAt(row, 2);
+        int quantidadeEscolhida = Integer.parseInt(jTextQntProd.getText());
+
+        if (quantidadeEscolhida < 1) {
+            JOptionPane.showMessageDialog(null, "Você não digitou uma quantidade válida.");
+            return;
+        }
+
+        if (quantidadeEscolhida > qtdCarrinho) {
+            qtdEstoque += qtdCarrinho;
+            qtdCarrinho = 0;
+        } else {
+            qtdCarrinho -= quantidadeEscolhida;
+            qtdEstoque += quantidadeEscolhida;
+        }
+
+        linhaEstoque = this.getRowById(modelTbEstoque, (int) jTbCarrinho.getValueAt(row, 0));
+
+        int quantidadeAnterior = (int) jTbEstoque.getValueAt(linhaEstoque, 2);
+        double valor = this.produtos.get(linhaEstoque).getValor();
+        qtdEstoque += quantidadeAnterior;
+
+        modelTbEstoque.setValueAt(qtdEstoque, linhaEstoque, 2);
+
+        if (qtdCarrinho == 0) {
+            modelTbCarrinho.removeRow(row);
+        } else {
+            modelTbCarrinho.setValueAt(qtdCarrinho, row, 2);
+            modelTbCarrinho.setValueAt(MascaraMonetaria.add(qtdCarrinho * valor), row, 3);
+        }
+
+        this.updateJTables();
+        this.updateJLabelTotal();
+    }//GEN-LAST:event_jBtRemoverActionPerformed
+
+    private void jBtLimparCarrinhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtLimparCarrinhoActionPerformed
+        modelTbCarrinho.setNumRows(0);
+        modelTbEstoque.setNumRows(0);
+    }//GEN-LAST:event_jBtLimparCarrinhoActionPerformed
+
+    private void jBtMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtMenuActionPerformed
+        Vendas.this.dispose();
+        new Menu().setVisible(true);
+    }//GEN-LAST:event_jBtMenuActionPerformed
+
+    private void jTextPesquisaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextPesquisaKeyTyped
+        pesquisar(jTextPesquisa.getText());
+    }//GEN-LAST:event_jTextPesquisaKeyTyped
+
+    // private void jTextPesquisaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextPesquisaKeyPressed
+        
+    // }//GEN-LAST:event_jTextPesquisaKeyPressed
+
+    private void jBtLimparPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtLimparPesquisarActionPerformed
+        jTextPesquisa.setText("");
+    }//GEN-LAST:event_jBtLimparPesquisarActionPerformed
+
+    private void jTextQntProdKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextQntProdKeyTyped
+        if (!Character.toString(evt.getKeyChar()).matches("[0-9]")){
+            evt.consume();
+        }
+    }//GEN-LAST:event_jTextQntProdKeyTyped
+
+    private int getRowById(DefaultTableModel model, int id) {
+        for (int i = 0; i < model.getRowCount(); i++) {
+            if ((int) jTbEstoque.getValueAt(i, 0) == id) {
+                return i;
+            }
+        }
+        
+        return -1;
+    }
+
     private void updateTbEstoque() {
         try {
             this.produtos = new ProdutosController().buscarProdutosEmEstoque();
@@ -340,7 +510,6 @@ public class Vendas extends javax.swing.JFrame {
     }
     
     private void pesquisar(String palavra){
-        
         for (int i = 0; i < jTbEstoque.getRowCount(); i++){
             String nome = jTbEstoque.getValueAt(i, 1).toString();
             
@@ -348,176 +517,13 @@ public class Vendas extends javax.swing.JFrame {
                 jTbEstoque.setRowSelectionInterval(i, i);
                 break;
             }
-            
         }
     }
-    
-    private void jBtAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAdicionarActionPerformed
-        int row = jTbEstoque.getSelectedRow();
-
-        if (row == -1){
-            JOptionPane.showMessageDialog(null, "Selecione uma produto do estoque.");
-            return;
-        }
-
-        int qtdEstoque = Integer.parseInt(jTbEstoque.getValueAt(row, 2).toString());
-        int qtdEscolhida = Integer.parseInt(jTextQntProd.getText().toString());
-        
-        if (qtdEscolhida < 1) {
-            JOptionPane.showMessageDialog(null, "Você não digitou uma quantidade válida.");
-            return;
-        }
-
-        if (qtdEscolhida > qtdEstoque) {
-            JOptionPane.showMessageDialog(null, "A quantidade escolhida é maior que a quantidade disponível.");
-            return;
-        }
-
-        int linhaCarrinho = -1;
-        
-        for (int i = 0; i < modelTbCarrinho.getRowCount(); i++) {
-            if (jTbEstoque.getValueAt(row, 0).toString().equals(jTbCarrinho.getValueAt(i, 0).toString())) {
-                linhaCarrinho = i;
-                break;
-            }
-        }
-
-        Produto produto = this.produtos.get(row);
-
-        if (linhaCarrinho >= 0) {
-            int qtdCarrinho = qtdEscolhida + Integer.parseInt(jTbCarrinho.getValueAt(linhaCarrinho, 2).toString());
-            modelTbCarrinho.setValueAt(qtdCarrinho, linhaCarrinho, 2);
-            modelTbCarrinho.setValueAt(MascaraMonetaria.add(qtdCarrinho * produto.getValor()), linhaCarrinho, 3);
-        } else {
-            modelTbCarrinho.addRow(new String[]{
-                String.valueOf(produto.getId()),
-                String.valueOf(produto.getNome()),
-                String.valueOf(qtdEscolhida),
-                String.valueOf(MascaraMonetaria.add(produto.getValor() * qtdEscolhida))
-            });
-        }
-        
-        modelTbEstoque.setValueAt(qtdEstoque - qtdEscolhida, row, 2);
-
-        this.updateJTables();
-
-        this.updateJLabelTotal();
-    }// GEN-LAST:event_jBtAdicionarActionPerformed
 
     private void updateJTables() {
         jTbCarrinho.setModel(modelTbCarrinho);
         jTbEstoque.setModel(modelTbEstoque);
     }
-
-    private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jBtSalvarActionPerformed
-        if (jTbCarrinho.getRowCount() == 0) {
-            JOptionPane.showMessageDialog(null, "O carrinho está vazio");
-            return;
-        }
-
-        Venda venda = new Venda();
-
-        for (int i = 0; i < jTbCarrinho.getRowCount(); i++) {
-            venda.addItem(Integer.parseInt(jTbCarrinho.getValueAt(i, 0).toString()),
-                    Integer.parseInt(jTbCarrinho.getValueAt(i, 2).toString()),
-                    MascaraMonetaria.rm(jTbCarrinho.getValueAt(i, 3).toString()));
-        }
-
-        try {
-            new VendasController().registrarVenda(venda);
-            JOptionPane.showMessageDialog(null, "Venda registrada.");
-
-            modelTbEstoque.setRowCount(0);
-            modelTbCarrinho.setRowCount(0);
-            this.updateJLabelTotal();
-            this.updateTbEstoque();
-        } catch (SQLException e) {
-
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Erro ao registrar venda.");
-        }
-
-    }// GEN-LAST:event_jBtSalvarActionPerformed
-
-    private void jBtRemoverActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jBtRemoverActionPerformed
-        int row = jTbCarrinho.getSelectedRow();
-        int qtdCarrinho = 0;
-        int qtdEstoque = 0;
-        int linhaEstoque = -1;
-
-        if (row < 0) {
-            JOptionPane.showMessageDialog(null, "Você não selecionou um produto do carrinho.");
-            return;
-        }
-
-        qtdCarrinho = Integer.parseInt(jTbCarrinho.getValueAt(row, 2).toString());
-        int quantidadeEscolhida = Integer.parseInt(jTextQntProd.getText().toString());
-
-        if (quantidadeEscolhida < 1) {
-            JOptionPane.showMessageDialog(null, "Você não digitou uma quantidade válida.");
-            return;
-        }
-
-        if (quantidadeEscolhida > qtdCarrinho) {
-            qtdEstoque += qtdCarrinho;
-            qtdCarrinho = 0;
-        } else {
-            qtdCarrinho -= quantidadeEscolhida;
-            qtdEstoque += quantidadeEscolhida;
-        }
-
-        for (int i = 0; i < modelTbEstoque.getRowCount(); i++) {
-            if (jTbEstoque.getValueAt(i, 0).toString().equals(jTbCarrinho.getValueAt(row, 0).toString())) {
-                linhaEstoque = i;
-                break;
-            }
-        }
-
-        int quantidadeAnterior = Integer.parseInt(jTbEstoque.getValueAt(linhaEstoque, 2).toString());
-        double valor = this.produtos.get(linhaEstoque).getValor();
-        qtdEstoque += quantidadeAnterior;
-
-        modelTbEstoque.setValueAt(qtdEstoque, linhaEstoque, 2);
-
-        if (qtdCarrinho == 0) {
-            modelTbCarrinho.removeRow(row);
-        } else {
-            modelTbCarrinho.setValueAt(qtdCarrinho, row, 2);
-            modelTbCarrinho.setValueAt(MascaraMonetaria.add(qtdCarrinho * valor), row, 3);
-        }
-
-        updateJTables();
-
-        this.updateJLabelTotal();
-    }//GEN-LAST:event_jBtRemoverActionPerformed
-
-    private void jBtLimparCarrinhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtLimparCarrinhoActionPerformed
-        modelTbCarrinho.setNumRows(0);
-        modelTbEstoque.setNumRows(0);
-    }//GEN-LAST:event_jBtLimparCarrinhoActionPerformed
-
-    private void jBtMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtMenuActionPerformed
-        Vendas.this.dispose();
-        new Menu().setVisible(true);
-    }//GEN-LAST:event_jBtMenuActionPerformed
-
-    private void jTextPesquisaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextPesquisaKeyTyped
-        pesquisar(jTextPesquisa.getText());
-    }//GEN-LAST:event_jTextPesquisaKeyTyped
-
-    private void jTextPesquisaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextPesquisaKeyPressed
-        
-    }//GEN-LAST:event_jTextPesquisaKeyPressed
-
-    private void jBtLimparPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtLimparPesquisarActionPerformed
-        jTextPesquisa.setText("");
-    }//GEN-LAST:event_jBtLimparPesquisarActionPerformed
-
-    private void jTextQntProdKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextQntProdKeyTyped
-        if (!Character.toString(evt.getKeyChar()).matches("[0-9]")){
-            evt.consume();
-        }
-    }//GEN-LAST:event_jTextQntProdKeyTyped
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtAdicionar;
