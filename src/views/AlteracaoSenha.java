@@ -1,10 +1,18 @@
 package views;
 
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
+
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
+
+import helpers.Senha;
 import models.Usuario;
 
 public class AlteracaoSenha extends javax.swing.JFrame {
+    private static final long serialVersionUID = 1188706350689865290L;
     private Usuario usuario;
 
     public AlteracaoSenha(Usuario usuario) {
@@ -13,45 +21,47 @@ public class AlteracaoSenha extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
     }
 
-    private void verificarCaracteresSenha() {
-        if (jPwSenha.getText().equals("")) {
-            jLabelAviso4.setText(" Campo obrigatório");
-        } else if (jPwSenha.getText().length() < 8) {
-            jLabelAviso4.setText(" Mínimo 8 caracteres");
+    private void checkPasswordChars() {
+        if (new String(jPassword1.getPassword()).equals("")) {
+            jLabelPassword1.setText("Campo obrigatório");
+        } else if (jPassword1.getPassword().length < 8) {
+            jLabelPassword1.setText("Mínimo 8 caracteres");
         } else {
-            jLabelAviso4.setText("");
+            jLabelPassword1.setText("");
         }
     }
 
-    private void verificarCamposCoincidem() {
-        if (jPwSenha.getText().length() >= 8) {
-            if (jPwRepete.getText().equals("")) {
-                jLabelAviso5.setText(" Campo obrigatório");
-            } else if (jPwSenha.getText().equals(jPwRepete.getText())) {
-                jLabelAviso5.setText("");
-            } else {
-                jLabelAviso5.setText(" Senhas não coincidem");
-            }
-        } else if (jPwSenha.getText().length() < 8) {
-            if (jPwSenha.getText().equals(jPwRepete.getText())) {
-                jLabelAviso5.setText(" Campo obrigatório");
-            } else if (!jPwRepete.getText().equals("")) {
-                jLabelAviso5.setText(" Senhas não coincidem");
-            } else {
-                jLabelAviso5.setText("");
-            }
-        } else {
-            jLabelAviso5.setText("");
+    private boolean checkPassword(JPasswordField field, JLabel label) {
+        if (new String(field.getPassword()).equals("")) {
+            label.setText("Campo obrigatório");
+            return false;
+        } 
+        
+        if (field.getPassword().length < 8) {
+            label.setText("Mínimo 8 caracteres");
+            return false;
         }
+
+        label.setText("");
+
+        return true;
+    }
+
+    private boolean isPasswordsEquals() {
+        boolean passowordEquals = new String(this.jPassword1.getPassword()).equals(new String(this.jPassword2.getPassword()));
+        
+        if (!passowordEquals) {
+            jLabelPassword1.setText("");
+            jLabelPassword2.setText("Senhas não coincidem.");
+            return false;
+        }
+
+        return true;
     }
 
     private void limpaAvisos() {
-        jLabelAviso4.setText("");
-        jLabelAviso5.setText("");
-    }
-
-    private boolean podeAlterarSenha() {
-        return jLabelAviso4.getText().equals("") && jLabelAviso5.getText().equals("");
+        jLabelPassword1.setText("");
+        jLabelPassword2.setText("");
     }
 
     // <editor-fold defaultstate="collapsed" desc="Generated
@@ -64,10 +74,10 @@ public class AlteracaoSenha extends javax.swing.JFrame {
         jBtVoltar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jPwSenha = new javax.swing.JPasswordField();
-        jPwRepete = new javax.swing.JPasswordField();
-        jLabelAviso4 = new javax.swing.JLabel();
-        jLabelAviso5 = new javax.swing.JLabel();
+        jPassword1 = new javax.swing.JPasswordField();
+        jPassword2 = new javax.swing.JPasswordField();
+        jLabelPassword1 = new javax.swing.JLabel();
+        jLabelPassword2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Alterar Senha");
@@ -97,30 +107,21 @@ public class AlteracaoSenha extends javax.swing.JFrame {
         jLabel1.setText("Nova Senha:");
         jLabel1.setPreferredSize(new java.awt.Dimension(100, 30));
 
-        jPwSenha.setMinimumSize(new java.awt.Dimension(10, 19));
-        jPwSenha.setPreferredSize(new java.awt.Dimension(185, 30));
-        jPwSenha.addFocusListener(new java.awt.event.FocusAdapter() {
+        jPassword1.setMinimumSize(new java.awt.Dimension(10, 19));
+        jPassword1.setPreferredSize(new java.awt.Dimension(185, 30));
+
+        jPassword2.setPreferredSize(new java.awt.Dimension(185, 30));
+        jPassword2.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
-                jPwSenhaFocusLost(evt);
+                jPassword2FocusLost(evt);
             }
         });
 
-        jPwRepete.setPreferredSize(new java.awt.Dimension(185, 30));
-        jPwRepete.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                jPwRepeteFocusGained(evt);
-            }
+        jLabelPassword1.setFont(new java.awt.Font("Cantarell", 0, 12)); // NOI18N
+        jLabelPassword1.setForeground(java.awt.Color.red);
 
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                jPwRepeteFocusLost(evt);
-            }
-        });
-
-        jLabelAviso4.setFont(new java.awt.Font("Cantarell", 0, 12)); // NOI18N
-        jLabelAviso4.setForeground(java.awt.Color.red);
-
-        jLabelAviso5.setFont(new java.awt.Font("Cantarell", 0, 12)); // NOI18N
-        jLabelAviso5.setForeground(java.awt.Color.red);
+        jLabelPassword2.setFont(new java.awt.Font("Cantarell", 0, 12)); // NOI18N
+        jLabelPassword2.setForeground(java.awt.Color.red);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -144,15 +145,15 @@ public class AlteracaoSenha extends javax.swing.JFrame {
                                 .addGroup(jPanel2Layout.createSequentialGroup().addGap(245, 245, 245)
                                         .addGroup(jPanel2Layout
                                                 .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                .addComponent(jLabelAviso4, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                .addComponent(jLabelPassword1, javax.swing.GroupLayout.DEFAULT_SIZE,
                                                         javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(jPwSenha, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                .addComponent(jPassword1, javax.swing.GroupLayout.PREFERRED_SIZE,
                                                         javax.swing.GroupLayout.DEFAULT_SIZE,
                                                         javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING,
                                         jPanel2Layout.createSequentialGroup().addContainerGap().addGroup(jPanel2Layout
                                                 .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(jLabelAviso5, javax.swing.GroupLayout.Alignment.TRAILING,
+                                                .addComponent(jLabelPassword2, javax.swing.GroupLayout.Alignment.TRAILING,
                                                         javax.swing.GroupLayout.PREFERRED_SIZE, 185,
                                                         javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout
@@ -164,7 +165,7 @@ public class AlteracaoSenha extends javax.swing.JFrame {
                                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 117,
                                         javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jPwRepete, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                .addComponent(jPassword2, javax.swing.GroupLayout.PREFERRED_SIZE,
                                         javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 166, Short.MAX_VALUE)));
         jPanel2Layout.setVerticalGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -173,19 +174,19 @@ public class AlteracaoSenha extends javax.swing.JFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE,
                                         javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jPwSenha, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                .addComponent(jPassword1, javax.swing.GroupLayout.PREFERRED_SIZE,
                                         javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabelAviso4, javax.swing.GroupLayout.PREFERRED_SIZE, 17,
+                        .addComponent(jLabelPassword1, javax.swing.GroupLayout.PREFERRED_SIZE, 17,
                                 javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE,
                                         javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jPwRepete, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                .addComponent(jPassword2, javax.swing.GroupLayout.PREFERRED_SIZE,
                                         javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabelAviso5, javax.swing.GroupLayout.PREFERRED_SIZE, 17,
+                        .addComponent(jLabelPassword2, javax.swing.GroupLayout.PREFERRED_SIZE, 17,
                                 javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -205,46 +206,37 @@ public class AlteracaoSenha extends javax.swing.JFrame {
 
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButtonSalvarActionPerformed
         this.limpaAvisos();
-        this.verificarCaracteresSenha();
-        this.verificarCamposCoincidem();
+        
+        if (!this.checkPassword(jPassword1, jLabelPassword1) || this.checkPassword(jPassword2, jLabelPassword2)) {
+            return;
+        }
 
-        if (!podeAlterarSenha()) {
+        if (!this.isPasswordsEquals()) {
             JOptionPane.showMessageDialog(null, "Verifique os campos e tente novamente");
             return;
         }
 
-        this.usuario.setSenha(jPwSenha.getText());
-
         try {
+            this.usuario.setSenha(Senha.encrypt(new String(jPassword1.getPassword())));
             this.usuario.save();
-        } catch (SQLException e) {
+
+            JOptionPane.showMessageDialog(null, "Senha alterada");
+            AlteracaoSenha.this.dispose();
+
+        } catch (SQLException | UnsupportedEncodingException | NoSuchAlgorithmException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Erro ao alterar senha.");
-            System.exit(0);
         }
-        
-        JOptionPane.showMessageDialog(null, "Senha alterada");
-
-        AlteracaoSenha.this.dispose();
     }//GEN-LAST:event_jButtonSalvarActionPerformed
 
     private void jBtVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtVoltarActionPerformed
         AlteracaoSenha.this.dispose();
-        Usuarios usuariosTela = new Usuarios();
-        usuariosTela.setVisible(true);
+        new Usuarios().setVisible(true);
     }//GEN-LAST:event_jBtVoltarActionPerformed
 
-    private void jPwSenhaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jPwSenhaFocusLost
-
-    }//GEN-LAST:event_jPwSenhaFocusLost
-
-    private void jPwRepeteFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jPwRepeteFocusGained
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jPwRepeteFocusGained
-
-    private void jPwRepeteFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jPwRepeteFocusLost
-        this.verificarCaracteresSenha();
-    }//GEN-LAST:event_jPwRepeteFocusLost
+    private void jPassword2FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jPassword2FocusLost
+        this.checkPasswordChars();
+    }//GEN-LAST:event_jPassword2FocusLost
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -253,10 +245,10 @@ public class AlteracaoSenha extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabelAviso4;
-    private javax.swing.JLabel jLabelAviso5;
+    private javax.swing.JLabel jLabelPassword1;
+    private javax.swing.JLabel jLabelPassword2;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPasswordField jPwRepete;
-    private javax.swing.JPasswordField jPwSenha;
+    private javax.swing.JPasswordField jPassword2;
+    private javax.swing.JPasswordField jPassword1;
     // End of variables declaration//GEN-END:variables
 }

@@ -10,16 +10,15 @@ public class Menu extends javax.swing.JFrame {
     public Menu() {
         this.initComponents();
         this.setLocationRelativeTo(null);
-        this.verificaTipoUsuario();
-        this.setLogin();
-        
+        this.CheckTipoUsuario();
+        this.setNomeUsuarioLabel();
     }
     
-    private void setLogin(){
+    private void setNomeUsuarioLabel(){
         jLabelNomeUsuaro.setText(AuthService.getUser().getNome());
     }
     
-    private void verificaTipoUsuario(){
+    private void CheckTipoUsuario(){
         if (!AuthService.getUser().isAdmin()){
             jBtUsuarios.setVisible(false);
         }

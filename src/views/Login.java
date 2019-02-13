@@ -40,11 +40,6 @@ public class Login extends javax.swing.JFrame {
 
         painelFundo.setBackground(new java.awt.Color(254, 254, 254));
         painelFundo.setPreferredSize(new java.awt.Dimension(1100, 600));
-        painelFundo.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                painelFundoKeyPressed(evt);
-            }
-        });
 
         painelInterno.setBackground(new java.awt.Color(232, 232, 232));
         painelInterno.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(232, 232, 232)));
@@ -66,9 +61,6 @@ public class Login extends javax.swing.JFrame {
         labelSenha.setText("Senha:");
 
         campoUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                campoUsuarioKeyTyped(evt);
-            }
 
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 campoUsuarioKeyPressed(evt);
@@ -157,7 +149,7 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtEntrarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jBtEntrarActionPerformed
-        if (campoUsuario.getText().equals("") || campoSenha.getText().equals("")) {
+        if (campoUsuario.getText().equals("") || new String(campoSenha.getPassword()).equals("")) {
             JOptionPane.showMessageDialog(null, "Verifique os campos e tente novamente.");
             return;
         }
@@ -165,13 +157,13 @@ public class Login extends javax.swing.JFrame {
         boolean login = false;
 
         try {
-            login = new UsuariosController().login(this.campoUsuario.getText(), this.campoSenha.getText());
+            login = new UsuariosController().login(this.campoUsuario.getText(), new String(this.campoSenha.getPassword()));
         } catch (SQLException | UnsupportedEncodingException | NoSuchAlgorithmException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null,"Erro ao verificar login.");
         }
 
-        if(!login){
+        if (!login){
             JOptionPane.showMessageDialog(null,"Usuário ou senha inválidos.");
             return;
         }
@@ -180,10 +172,6 @@ public class Login extends javax.swing.JFrame {
 
         Login.this.dispose();
     }//GEN-LAST:event_jBtEntrarActionPerformed
-
-    private void campoUsuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoUsuarioKeyTyped
-
-    }//GEN-LAST:event_campoUsuarioKeyTyped
 
     private void campoSenhaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoSenhaKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
@@ -196,10 +184,6 @@ public class Login extends javax.swing.JFrame {
             campoSenha.requestFocus();
         }
     }//GEN-LAST:event_campoUsuarioKeyPressed
- 
-    private void painelFundoKeyPressed(java.awt.event.KeyEvent evt) {                                   
-        
-    } 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPasswordField campoSenha;
