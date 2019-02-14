@@ -207,7 +207,7 @@ public class AlteracaoSenha extends javax.swing.JFrame {
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButtonSalvarActionPerformed
         this.limpaAvisos();
         
-        if (!this.checkPassword(jPassword1, jLabelPassword1) || this.checkPassword(jPassword2, jLabelPassword2)) {
+        if (!this.checkPassword(jPassword1, jLabelPassword1) || !this.checkPassword(jPassword2, jLabelPassword2)) {
             return;
         }
 
