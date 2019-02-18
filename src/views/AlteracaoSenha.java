@@ -48,7 +48,9 @@ public class AlteracaoSenha extends javax.swing.JFrame {
     }
 
     private boolean isPasswordsEquals() {
-        boolean passowordEquals = new String(this.jPassword1.getPassword()).equals(new String(this.jPassword2.getPassword()));
+        boolean passowordEquals = new String(
+            this.jPassword1.getPassword()).equals(new String(this.jPassword2.getPassword())
+        );
         
         if (!passowordEquals) {
             jLabelPassword1.setText("");
