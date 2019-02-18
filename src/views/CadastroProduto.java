@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package views;
 
 import javax.swing.JOptionPane;
@@ -10,8 +5,7 @@ import helpers.MascaraMonetaria;
 import controllers.ProdutosController;
 
 public class CadastroProduto extends javax.swing.JFrame {
-   
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2869173145525481195L;
 
     public CadastroProduto() {
         this.initComponents();
@@ -311,7 +305,7 @@ public class CadastroProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextNomeKeyTyped
 
     private void jTextQntProdKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextQntProdKeyTyped
-        if(!(evt.getKeyChar()+"").matches("[0-9]")){
+        if (!Character.toString(evt.getKeyChar()).matches("[0-9]")){
             evt.consume();
         }
     }//GEN-LAST:event_jTextQntProdKeyTyped
@@ -322,7 +316,7 @@ public class CadastroProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_jBtVoltarActionPerformed
 
     private void jTextPrecoProdKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextPrecoProdKeyTyped
-        // TODO add your handling code here:
+        System.out.println("Digitando preço...");
     }//GEN-LAST:event_jTextPrecoProdKeyTyped
 
 
