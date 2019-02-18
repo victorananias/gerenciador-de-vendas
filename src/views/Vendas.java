@@ -321,8 +321,8 @@ public class Vendas extends javax.swing.JFrame {
 
         for (int i = 0; i < jTbCarrinho.getRowCount(); i++) {
             venda.addItem(
-                (int) jTbCarrinho.getValueAt(i, 0),
-                (int) jTbCarrinho.getValueAt(i, 2),
+                Integer.parseInt(jTbCarrinho.getValueAt(i, 0).toString()),
+                Integer.parseInt(jTbCarrinho.getValueAt(i, 2).toString()),
                 MascaraMonetaria.rm(jTbCarrinho.getValueAt(i, 3).toString())
             );
         }
@@ -351,7 +351,7 @@ public class Vendas extends javax.swing.JFrame {
             return;
         }
 
-        int qtdEstoque = (int) jTbEstoque.getValueAt(row, 2);
+        int qtdEstoque = Integer.parseInt(jTbEstoque.getValueAt(row, 2).toString());
         int qtdEscolhida = Integer.parseInt(jTextQntProd.getText());
         
         if (qtdEscolhida < 1) {
@@ -376,7 +376,7 @@ public class Vendas extends javax.swing.JFrame {
         Produto produto = this.produtos.get(row);
 
         if (linhaCarrinho >= 0) {
-            int qtdCarrinho = qtdEscolhida + (int) jTbCarrinho.getValueAt(linhaCarrinho, 2);
+            int qtdCarrinho = qtdEscolhida + Integer.parseInt(jTbCarrinho.getValueAt(linhaCarrinho, 2).toString());
             modelTbCarrinho.setValueAt(qtdCarrinho, linhaCarrinho, 2);
             modelTbCarrinho.setValueAt(MascaraMonetaria.add(qtdCarrinho * produto.getValor()), linhaCarrinho, 3);
         } else {
@@ -405,7 +405,7 @@ public class Vendas extends javax.swing.JFrame {
             return;
         }
 
-        qtdCarrinho = (int) jTbCarrinho.getValueAt(row, 2);
+        qtdCarrinho = Integer.parseInt(jTbCarrinho.getValueAt(row, 2).toString());
         int quantidadeEscolhida = Integer.parseInt(jTextQntProd.getText());
 
         if (quantidadeEscolhida < 1) {
@@ -421,9 +421,9 @@ public class Vendas extends javax.swing.JFrame {
             qtdEstoque += quantidadeEscolhida;
         }
 
-        linhaEstoque = this.getRowById(modelTbEstoque, (int) jTbCarrinho.getValueAt(row, 0));
+        linhaEstoque = this.getRowById(modelTbEstoque, Integer.parseInt(jTbCarrinho.getValueAt(row, 0).toString()));
 
-        int quantidadeAnterior = (int) jTbEstoque.getValueAt(linhaEstoque, 2);
+        int quantidadeAnterior = Integer.parseInt(jTbEstoque.getValueAt(linhaEstoque, 2).toString());
         double valor = this.produtos.get(linhaEstoque).getValor();
         qtdEstoque += quantidadeAnterior;
 
@@ -470,7 +470,7 @@ public class Vendas extends javax.swing.JFrame {
 
     private int getRowById(DefaultTableModel model, int id) {
         for (int i = 0; i < model.getRowCount(); i++) {
-            if ((int) jTbEstoque.getValueAt(i, 0) == id) {
+            if (Integer.parseInt(jTbEstoque.getValueAt(i, 0).toString()) == id) {
                 return i;
             }
         }
