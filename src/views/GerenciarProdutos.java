@@ -30,14 +30,14 @@ public class GerenciarProdutos extends javax.swing.JFrame {
     private void initComponents() {
 
         JLayeredPanePrincipal = new javax.swing.JLayeredPane();
-        jLabelTitle = new javax.swing.JLabel();
+        jLabelPesquisar = new javax.swing.JLabel();
         jBtAdicionar = new javax.swing.JButton();
         jBtSalvar = new javax.swing.JButton();
         jScrollPane = new javax.swing.JScrollPane();
         jTbProd = new javax.swing.JTable();
         jBtRemover = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        jLabelTitle = new javax.swing.JLabel();
         jBtVoltar = new javax.swing.JButton();
         jTextPesquisa = new javax.swing.JTextField();
         jBtLimpar = new javax.swing.JButton();
@@ -50,7 +50,7 @@ public class GerenciarProdutos extends javax.swing.JFrame {
         JLayeredPanePrincipal.setOpaque(true);
         JLayeredPanePrincipal.setPreferredSize(new java.awt.Dimension(1100, 600));
 
-        jLabelTitle.setText("Pesquisar:");
+        jLabelPesquisar.setText("Pesquisar:");
 
         jBtAdicionar.setText("Adicionar");
         jBtAdicionar.addActionListener(new java.awt.event.ActionListener() {
@@ -85,8 +85,8 @@ public class GerenciarProdutos extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setText("Qnt:");
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel3.setText("Gerenciar Produtos");
+        jLabelTitle.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabelTitle.setText("Gerenciar Produtos");
 
         jBtVoltar.setText("Voltar");
         jBtVoltar.addActionListener(new java.awt.event.ActionListener() {
@@ -115,13 +115,13 @@ public class GerenciarProdutos extends javax.swing.JFrame {
             }
         });
 
-        JLayeredPanePrincipal.setLayer(jLabelTitle, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        JLayeredPanePrincipal.setLayer(jLabelPesquisar, javax.swing.JLayeredPane.DEFAULT_LAYER);
         JLayeredPanePrincipal.setLayer(jBtAdicionar, javax.swing.JLayeredPane.DEFAULT_LAYER);
         JLayeredPanePrincipal.setLayer(jBtSalvar, javax.swing.JLayeredPane.DEFAULT_LAYER);
         JLayeredPanePrincipal.setLayer(jScrollPane, javax.swing.JLayeredPane.DEFAULT_LAYER);
         JLayeredPanePrincipal.setLayer(jBtRemover, javax.swing.JLayeredPane.DEFAULT_LAYER);
         JLayeredPanePrincipal.setLayer(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        JLayeredPanePrincipal.setLayer(jLabel3, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        JLayeredPanePrincipal.setLayer(jLabelTitle, javax.swing.JLayeredPane.DEFAULT_LAYER);
         JLayeredPanePrincipal.setLayer(jBtVoltar, javax.swing.JLayeredPane.DEFAULT_LAYER);
         JLayeredPanePrincipal.setLayer(jTextPesquisa, javax.swing.JLayeredPane.DEFAULT_LAYER);
         JLayeredPanePrincipal.setLayer(jBtLimpar, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -141,11 +141,11 @@ public class GerenciarProdutos extends javax.swing.JFrame {
                                         .addComponent(jBtSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 89,
                                                 javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(JLayeredPanePrincipalLayout.createSequentialGroup().addGap(407, 407, 407)
-                                        .addComponent(jLabel3).addGap(0, 0, Short.MAX_VALUE)))
+                                        .addComponent(jLabelTitle).addGap(0, 0, Short.MAX_VALUE)))
                         .addContainerGap())
                 .addGroup(JLayeredPanePrincipalLayout.createSequentialGroup().addGap(132, 132, 132)
                         .addGroup(JLayeredPanePrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(JLayeredPanePrincipalLayout.createSequentialGroup().addComponent(jLabelTitle)
+                                .addGroup(JLayeredPanePrincipalLayout.createSequentialGroup().addComponent(jLabelPesquisar)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jTextPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 153,
                                                 javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -168,12 +168,12 @@ public class GerenciarProdutos extends javax.swing.JFrame {
                         .addContainerGap(148, Short.MAX_VALUE)));
         JLayeredPanePrincipalLayout.setVerticalGroup(JLayeredPanePrincipalLayout
                 .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(JLayeredPanePrincipalLayout.createSequentialGroup().addGap(40, 40, 40).addComponent(jLabel3)
+                .addGroup(JLayeredPanePrincipalLayout.createSequentialGroup().addGap(40, 40, 40).addComponent(jLabelTitle)
                         .addGap(50, 50, 50)
                         .addGroup(JLayeredPanePrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jTextPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE,
                                         javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabelTitle).addComponent(jBtLimpar))
+                                .addComponent(jLabelPesquisar).addComponent(jBtLimpar))
                         .addGap(18, 18, 18)
                         .addGroup(JLayeredPanePrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jScrollPane, javax.swing.GroupLayout.Alignment.TRAILING,
@@ -346,9 +346,9 @@ public class GerenciarProdutos extends javax.swing.JFrame {
     private javax.swing.JButton jBtRemover;
     private javax.swing.JButton jBtSalvar;
     private javax.swing.JButton jBtVoltar;
-    private javax.swing.JLabel jLabelTitle;
+    private javax.swing.JLabel jLabelPesquisar;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabelTitle;
     private javax.swing.JLayeredPane JLayeredPanePrincipal;
     private javax.swing.JScrollPane jScrollPane;
     private javax.swing.JTable jTbProd;

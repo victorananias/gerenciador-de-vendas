@@ -62,7 +62,7 @@ public class Usuarios extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(254, 254, 254));
         jPanel1.setPreferredSize(new java.awt.Dimension(1100, 600));
 
-        jLabelTitle.setFont(new java.awt.Font("Cantarell", 1, 24)); // NOI18N
+        jLabelTitle.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabelTitle.setText("Usuários");
 
         jTbUsuarios.setModel(this.modelTbUsuarios);
@@ -168,8 +168,7 @@ public class Usuarios extends javax.swing.JFrame {
 
     private void jBtEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtEditarActionPerformed
         if(jTbUsuarios.getSelectedRow() == -1){
-            JOptionPane.showMessageDialog(null, "Você nâo"
-                    + " selecionou um usuário");
+            JOptionPane.showMessageDialog(null, "Você não selecionou um usuário");
         } else {
             Usuarios.this.dispose();
             new EdicaoUsuario(usuarios.get(jTbUsuarios.getSelectedRow())).setVisible(true);
@@ -183,7 +182,7 @@ public class Usuarios extends javax.swing.JFrame {
 
     private void jBtSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSenhaActionPerformed
         if (jTbUsuarios.getSelectedRow() == -1) {
-            JOptionPane.showMessageDialog(null, "Você nâo selecionou um usuário");
+            JOptionPane.showMessageDialog(null, "Você não selecionou um usuário");
             return;
         } 
         Usuario usuario = usuarios.get(this.jTbUsuarios.getSelectedRow());

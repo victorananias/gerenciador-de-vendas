@@ -58,7 +58,7 @@ public class HistoricoVendasProdutos extends javax.swing.JFrame {
             jTbProds.getColumnModel().getColumn(4).setResizable(false);
         }
 
-        jLabelTitle.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabelTitle.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabelTitle.setText("Produtos da Venda");
 
         jBtMenu.setText("Voltar");

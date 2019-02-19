@@ -62,7 +62,7 @@ public class HistoricoVendas extends javax.swing.JFrame {
             jTbHistorico.getColumnModel().getColumn(4).setResizable(false);
         }
 
-        jLabelTitle.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabelTitle.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabelTitle.setText("Histórico");
 
         jBtProdutos.setText("Ver Produtos");

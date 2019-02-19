@@ -22,11 +22,11 @@ public class Login extends javax.swing.JFrame {
         painelFundo = new javax.swing.JPanel();
         painelInterno = new javax.swing.JPanel();
         jBtEntrar = new javax.swing.JButton();
-        labelUsuario = new javax.swing.JLabel();
-        labelSenha = new javax.swing.JLabel();
+        jLabelLogin = new javax.swing.JLabel();
+        jLabelSenha = new javax.swing.JLabel();
         campoUsuario = new javax.swing.JTextField();
         campoSenha = new javax.swing.JPasswordField();
-        jLabel3 = new javax.swing.JLabel();
+        jLabelTitle = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Login");
@@ -47,11 +47,11 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
-        labelUsuario.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        labelUsuario.setText("Usuário:");
+        jLabelLogin.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabelLogin.setText("Usuário:");
 
-        labelSenha.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        labelSenha.setText("Senha:");
+        jLabelSenha.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabelSenha.setText("Senha:");
 
         campoUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
 
@@ -67,17 +67,17 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setBackground(new java.awt.Color(239, 239, 241));
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel3.setText("Entre com seu Usuário e Senha");
-        jLabel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(239, 239, 241), 10));
-        jLabel3.setOpaque(true);
+        jLabelTitle.setBackground(new java.awt.Color(239, 239, 241));
+        jLabelTitle.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabelTitle.setText("Entre com seu Usuário e Senha");
+        jLabelTitle.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(239, 239, 241), 10));
+        jLabelTitle.setOpaque(true);
 
         javax.swing.GroupLayout painelInternoLayout = new javax.swing.GroupLayout(painelInterno);
         painelInterno.setLayout(painelInternoLayout);
         painelInternoLayout
                 .setHorizontalGroup(painelInternoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 394, Short.MAX_VALUE)
+                        .addComponent(jLabelTitle, javax.swing.GroupLayout.DEFAULT_SIZE, 394, Short.MAX_VALUE)
                         .addGroup(painelInternoLayout.createSequentialGroup().addGap(52, 52, 52)
                                 .addGroup(painelInternoLayout
                                         .createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -86,7 +86,7 @@ public class Login extends javax.swing.JFrame {
                                         .addGroup(painelInternoLayout.createSequentialGroup()
                                                 .addGroup(painelInternoLayout
                                                         .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addComponent(labelUsuario).addComponent(labelSenha))
+                                                        .addComponent(jLabelLogin).addComponent(jLabelSenha))
                                                 .addGap(18, 18, 18)
                                                 .addGroup(painelInternoLayout
                                                         .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING,
@@ -99,17 +99,17 @@ public class Login extends javax.swing.JFrame {
         painelInternoLayout.setVerticalGroup(painelInternoLayout
                 .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelInternoLayout.createSequentialGroup()
-                        .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE)
+                        .addComponent(jLabelTitle, javax.swing.GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE)
                         .addGap(30, 30, 30)
                         .addGroup(painelInternoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(campoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE,
                                         javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(labelUsuario))
+                                .addComponent(jLabelLogin))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addGap(18, 18, 18)
                         .addGroup(painelInternoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(campoSenha, javax.swing.GroupLayout.PREFERRED_SIZE,
                                         javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(labelSenha))
+                                .addComponent(jLabelSenha))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addGap(24, 24, 24)
                         .addComponent(jBtEntrar).addContainerGap()));
 
@@ -182,9 +182,9 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JPasswordField campoSenha;
     private javax.swing.JTextField campoUsuario;
     private javax.swing.JButton jBtEntrar;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel labelSenha;
-    private javax.swing.JLabel labelUsuario;
+    private javax.swing.JLabel jLabelTitle;
+    private javax.swing.JLabel jLabelSenha;
+    private javax.swing.JLabel jLabelLogin;
     private javax.swing.JPanel painelFundo;
     private javax.swing.JPanel painelInterno;
     // End of variables declaration//GEN-END:variables

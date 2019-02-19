@@ -162,7 +162,7 @@ public class Vendas extends javax.swing.JFrame {
         jLabelQnt.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabelQnt.setText("Qnt:");
 
-        jLabelTitle.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabelTitle.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabelTitle.setText("Vendas");
 
         jBtMenu.setText("Menu");

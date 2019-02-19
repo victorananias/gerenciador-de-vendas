@@ -71,7 +71,7 @@ public class AlteracaoSenha extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel2 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
+        jLabelTitle = new javax.swing.JLabel();
         jButtonSalvar = new javax.swing.JButton();
         jBtVoltar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
@@ -86,8 +86,8 @@ public class AlteracaoSenha extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(254, 254, 254));
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel3.setText("Alterar Senha");
+        jLabelTitle.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabelTitle.setText("Alterar Senha");
 
         jButtonSalvar.setText("Salvar");
         jButtonSalvar.addActionListener(new java.awt.event.ActionListener() {
@@ -103,7 +103,7 @@ public class AlteracaoSenha extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setText("Repita a Senha:");
+        jLabel2.setText("Confirmar nova Senha:");
         jLabel2.setPreferredSize(new java.awt.Dimension(100, 30));
 
         jLabel1.setText("Nova Senha:");
@@ -119,10 +119,10 @@ public class AlteracaoSenha extends javax.swing.JFrame {
             }
         });
 
-        jLabelPassword1.setFont(new java.awt.Font("Cantarell", 0, 12)); // NOI18N
+        jLabelPassword1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabelPassword1.setForeground(java.awt.Color.red);
 
-        jLabelPassword2.setFont(new java.awt.Font("Cantarell", 0, 12)); // NOI18N
+        jLabelPassword2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabelPassword2.setForeground(java.awt.Color.red);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -140,7 +140,7 @@ public class AlteracaoSenha extends javax.swing.JFrame {
                                         .addContainerGap())
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING,
                                         jPanel2Layout.createSequentialGroup().addGap(0, 0, Short.MAX_VALUE)
-                                                .addComponent(jLabel3).addGap(226, 226, 226))))
+                                                .addComponent(jLabelTitle).addGap(226, 226, 226))))
                 .addGroup(jPanel2Layout.createSequentialGroup().addGroup(jPanel2Layout
                         .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -171,7 +171,7 @@ public class AlteracaoSenha extends javax.swing.JFrame {
                                         javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 166, Short.MAX_VALUE)));
         jPanel2Layout.setVerticalGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel2Layout.createSequentialGroup().addGap(51, 51, 51).addComponent(jLabel3)
+                .addGroup(jPanel2Layout.createSequentialGroup().addGap(51, 51, 51).addComponent(jLabelTitle)
                         .addGap(27, 27, 27)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE,
@@ -246,7 +246,7 @@ public class AlteracaoSenha extends javax.swing.JFrame {
     private javax.swing.JButton jButtonSalvar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabelTitle;
     private javax.swing.JLabel jLabelPassword1;
     private javax.swing.JLabel jLabelPassword2;
     private javax.swing.JPanel jPanel2;

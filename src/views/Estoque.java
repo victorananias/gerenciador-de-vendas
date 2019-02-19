@@ -102,7 +102,7 @@ public class Estoque extends javax.swing.JFrame {
             jTbProd.getColumnModel().getColumn(3).setResizable(false);
         }
 
-        jLabelTitle.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabelTitle.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabelTitle.setText("Estoque");
 
         jBtCadastrarProd.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N

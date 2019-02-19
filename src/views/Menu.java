@@ -50,7 +50,7 @@ public class Menu extends javax.swing.JFrame {
             }
         });
 
-        jLabelTitle.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabelTitle.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabelTitle.setText("Menu");
 
         jBtHistorico.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N

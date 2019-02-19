@@ -9,7 +9,7 @@ class SQLiteMigrations {
     Statement stmt;
 
     public static void execute() {
-        System.out.println("aq");
+        System.out.println("Migrating");
 
         SQLiteMigrations migrations =  new SQLiteMigrations();
 

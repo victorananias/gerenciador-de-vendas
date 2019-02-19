@@ -9,15 +9,14 @@ import models.Produto;
 
 public class EdicaoProduto extends javax.swing.JFrame {
 
-    private static final long serialVersionUID = 1L;
-
+    private static final long serialVersionUID = 4255615292208814069L;
     private Produto produto;
 
     public EdicaoProduto(Produto produto) {
-            this.produto = produto;
-            initComponents();
-            this.setLocationRelativeTo(null);
-            this.setProduto();
+        this.produto = produto;
+        this.initComponents();
+        this.setLocationRelativeTo(null);
+        this.setProduto();
     }
 
     private void initComponents() {
@@ -33,7 +32,7 @@ public class EdicaoProduto extends javax.swing.JFrame {
         jRBtPerecivel = new javax.swing.JRadioButton();
         jRBtN = new javax.swing.JRadioButton();
         jTextNome = new javax.swing.JTextField();
-        jLabelAviso1 = new javax.swing.JLabel();
+        jLabelAvisoNome = new javax.swing.JLabel();
         jBtVoltar = new javax.swing.JButton();
         jLabelCodigo = new javax.swing.JLabel();
         jTextCodigo = new javax.swing.JTextField();
@@ -54,7 +53,7 @@ public class EdicaoProduto extends javax.swing.JFrame {
         jTextPrecoProd.setPreferredSize(new java.awt.Dimension(10, 25));
         jTextPrecoProd.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                    jTextPrecoProdKeyTyped(evt);
+                jTextPrecoProdKeyTyped(evt);
             }
         });
 
@@ -81,20 +80,15 @@ public class EdicaoProduto extends javax.swing.JFrame {
                         jTextNomeFocusLost(evt);
                 }
         });
-        jTextNome.addKeyListener(new java.awt.event.KeyAdapter() {
-                public void keyTyped(java.awt.event.KeyEvent evt) {
-                        jTextNomeKeyTyped(evt);
-                }
-        });
 
-        jLabelAviso1.setFont(new java.awt.Font("Cantarell", 0, 12)); // NOI18N
-        jLabelAviso1.setForeground(java.awt.Color.red);
+        jLabelAvisoNome.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabelAvisoNome.setForeground(java.awt.Color.red);
 
         jBtVoltar.setText("Voltar");
         jBtVoltar.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                        jBtVoltarActionPerformed(evt);
-                }
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtVoltarActionPerformed(evt);
+            }
         });
 
         jLabelCodigo.setText("Código: ");
@@ -155,7 +149,7 @@ public class EdicaoProduto extends javax.swing.JFrame {
                                                                                                         150,
                                                                                                         Short.MAX_VALUE))))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabelAviso1, javax.swing.GroupLayout.PREFERRED_SIZE, 154,
+                                        .addComponent(jLabelAvisoNome, javax.swing.GroupLayout.PREFERRED_SIZE, 154,
                                                         javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(200, 200, 200))
                         .addGroup(jPanelPrincipalLayout.createSequentialGroup().addGroup(jPanelPrincipalLayout
@@ -191,7 +185,7 @@ public class EdicaoProduto extends javax.swing.JFrame {
                                                                                         25,
                                                                                         javax.swing.GroupLayout.PREFERRED_SIZE)
                                                                         .addComponent(jLabelNome))
-                                                        .addComponent(jLabelAviso1,
+                                                        .addComponent(jLabelAvisoNome,
                                                                         javax.swing.GroupLayout.DEFAULT_SIZE,
                                                                         javax.swing.GroupLayout.DEFAULT_SIZE,
                                                                         Short.MAX_VALUE))
@@ -231,29 +225,38 @@ public class EdicaoProduto extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTextPrecoProdKeyTyped(java.awt.event.KeyEvent evt) {// GEN-FIRST:event_jTextPrecoProdKeyTyped
-        // mascara monetária aqui
+        String digito = Character.toString(evt.getKeyChar());
+        
+        if (!digito.matches("[0-9]") && !digito.matches(",")){
+            evt.consume();
+        }
     }// GEN-LAST:event_jTextPrecoProdKeyTyped
 
     private void setProduto() {
         jTextCodigo.setText(String.valueOf(produto.getId()));
         jTextNome.setText(String.valueOf(produto.getNome()));
-        jTextPrecoProd.setText(String.valueOf(MascaraMonetaria.add(produto.getValor())));
+        jTextPrecoProd.setText(
+            String.valueOf(MascaraMonetaria.add(produto.getValor())).substring(3)
+        );
     }
 
-    private void verificaCampoNome() {
-        if (jTextNome.getText().equals("")) {
-            jLabelAviso1.setText("Campo Obrigatório");
-        } else {
-            jLabelAviso1.setText("");
+    private boolean isNomeValid() {
+        boolean invalid = jTextNome.getText().equals("");
+
+        jLabelAvisoNome.setText("");
+
+        if (invalid) {
+            jLabelAvisoNome.setText("Campo Obrigatório");
         }
+
+        return !invalid;
     }
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jBtSalvarActionPerformed
-        this.verificaCampoNome();
-
-        if (jTextNome.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "O campo \"Nome do Produto\"\n" + "precisa ser preenchido.", "Aviso",
+        if (!this.isNomeValid()) {
+            JOptionPane.showMessageDialog(null, "Verifique os campos e tente novamente.", "Aviso",
                     JOptionPane.INFORMATION_MESSAGE);
+            return;
         }
 
         if (jTextPrecoProd.getText().equals("")) {
@@ -277,17 +280,8 @@ public class EdicaoProduto extends javax.swing.JFrame {
     }// GEN-LAST:event_jBtSalvarActionPerformed
 
     private void jTextNomeFocusLost(java.awt.event.FocusEvent evt) {// GEN-FIRST:event_jTextNomeFocusLost
-        this.verificaCampoNome();
+        this.isNomeValid();
     }// GEN-LAST:event_jTextNomeFocusLost
-
-    private void jTextNomeKeyTyped(java.awt.event.KeyEvent evt) {// GEN-FIRST:event_jTextNomeKeyTyped
-        // if(!(evt.getKeyChar()+"").equals(" ")){
-        // String texto = jTextNome.getText();
-        // String letra = conversorCaracteres.verificaLetra(evt);
-        // evt.consume();
-        // jTextNome.setText(texto + letra);
-        // }
-    }// GEN-LAST:event_jTextNomeKeyTyped
 
     private void jBtVoltarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jBtVoltarActionPerformed
         EdicaoProduto.this.dispose();
@@ -303,7 +297,7 @@ public class EdicaoProduto extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelPreco;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabelCodigo;
-    private javax.swing.JLabel jLabelAviso1;
+    private javax.swing.JLabel jLabelAvisoNome;
     private javax.swing.JPanel jPanelPrincipal;
     private javax.swing.JRadioButton jRBtN;
     private javax.swing.JRadioButton jRBtPerecivel;

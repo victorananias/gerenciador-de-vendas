@@ -12,15 +12,7 @@ public class CadastroProduto extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
     }
 
-    private void verificaProdNome() {
-        if (jTextNome.getText().equals("")) {
-            jLabelAviso1.setText("Campo Obrigatório");
-        } else {
-            jLabelAviso1.setText("");
-        }
-    }
-
-    private void limparDados() {
+    private void clearForm() {
         jTextNome.setText("");
         jTextPrecoProd.setText("");
         jTextQntProd.setText("");
@@ -42,7 +34,7 @@ public class CadastroProduto extends javax.swing.JFrame {
         jRBtPerecivel = new javax.swing.JRadioButton();
         jRBtN = new javax.swing.JRadioButton();
         jTextNome = new javax.swing.JTextField();
-        jLabelAviso1 = new javax.swing.JLabel();
+        jLabelAvisoNome = new javax.swing.JLabel();
         jBtVoltar = new javax.swing.JButton();
         jTextPrecoProd = new javax.swing.JTextField();
 
@@ -102,9 +94,9 @@ public class CadastroProduto extends javax.swing.JFrame {
             }
         });
 
-        jLabelAviso1.setFont(new java.awt.Font("Cantarell", 0, 12)); // NOI18N
-        jLabelAviso1.setForeground(java.awt.Color.red);
-        jLabelAviso1.setPreferredSize(new java.awt.Dimension(185, 26));
+        jLabelAvisoNome.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabelAvisoNome.setForeground(java.awt.Color.red);
+        jLabelAvisoNome.setPreferredSize(new java.awt.Dimension(185, 26));
 
         jBtVoltar.setText("Voltar");
         jBtVoltar.addActionListener(new java.awt.event.ActionListener() {
@@ -187,7 +179,7 @@ public class CadastroProduto extends javax.swing.JFrame {
                                                                                                         javax.swing.GroupLayout.PREFERRED_SIZE,
                                                                                                         javax.swing.GroupLayout.PREFERRED_SIZE,
                                                                                                         javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                                                        .addGap(18, 18, 18).addComponent(jLabelAviso1,
+                                                                        .addGap(18, 18, 18).addComponent(jLabelAvisoNome,
                                                                                 javax.swing.GroupLayout.PREFERRED_SIZE,
                                                                                 javax.swing.GroupLayout.DEFAULT_SIZE,
                                                                                 javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -211,7 +203,7 @@ public class CadastroProduto extends javax.swing.JFrame {
                 .addGroup(jPanelPrincipalLayout.createSequentialGroup().addGap(70, 70, 70).addComponent(jLabelTitle)
                         .addGap(50, 50, 50)
                         .addGroup(jPanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabelAviso1, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                .addComponent(jLabelAvisoNome, javax.swing.GroupLayout.PREFERRED_SIZE,
                                         javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGroup(jPanelPrincipalLayout.createSequentialGroup()
                                         .addGroup(jPanelPrincipalLayout
@@ -261,12 +253,22 @@ public class CadastroProduto extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jBtSalvarActionPerformed
-        this.verificaProdNome();
+    private boolean isNomeValid() {
+        boolean invalid = jTextNome.getText().equals("");
 
-        if (jTextNome.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "O campo \"Nome do Produto\"\n"
-                    +"precisa ser preenchido.","Aviso",
+        jLabelAvisoNome.setText("");
+
+        if (invalid) {
+            jLabelAvisoNome.setText("Campo Obrigatório");
+        }
+
+        return !invalid;
+    }
+
+    private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jBtSalvarActionPerformed
+
+        if (!this.isNomeValid()) {
+            JOptionPane.showMessageDialog(null, "Verifique os campos e tente novamente.","Aviso",
                     JOptionPane.INFORMATION_MESSAGE);
             return;
         }
@@ -283,21 +285,22 @@ public class CadastroProduto extends javax.swing.JFrame {
             new ProdutosController().cadastrarProduto(jTextNome.getText(),
                     btGroupTipo.getSelection().getActionCommand(), Integer.parseInt(jTextQntProd.getText()),
                     MascaraMonetaria.rm(jTextPrecoProd.getText()));
+        
+                    JOptionPane.showMessageDialog(null, "Produto Cadastrado", "Aviso",
+                            JOptionPane.INFORMATION_MESSAGE);
+
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Erro ao cadastrar produto.", "Aviso",
                 JOptionPane.INFORMATION_MESSAGE);
         } 
         
-        JOptionPane.showMessageDialog(null, "Produto Cadastrado", "Aviso",
-                JOptionPane.INFORMATION_MESSAGE);
-        
-        this.limparDados();
+        this.clearForm();
         
     }//GEN-LAST:event_jBtSalvarActionPerformed
 
     private void jTextNomeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextNomeFocusLost
-        this.verificaProdNome();
+        this.isNomeValid();
     }//GEN-LAST:event_jTextNomeFocusLost
 
     private void jTextNomeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextNomeKeyTyped
@@ -316,7 +319,11 @@ public class CadastroProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_jBtVoltarActionPerformed
 
     private void jTextPrecoProdKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextPrecoProdKeyTyped
-        System.out.println("Digitando preço...");
+        String digito = Character.toString(evt.getKeyChar());
+        
+        if (!digito.matches("[0-9]") && !digito.matches(",")){
+            evt.consume();
+        }
     }//GEN-LAST:event_jTextPrecoProdKeyTyped
 
 
@@ -329,7 +336,7 @@ public class CadastroProduto extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelQuantidade;
     private javax.swing.JLabel jLabelPreco;
     private javax.swing.JLabel jLabelTipo;
-    private javax.swing.JLabel jLabelAviso1;
+    private javax.swing.JLabel jLabelAvisoNome;
     private javax.swing.JPanel jPanelPrincipal;
     private javax.swing.JRadioButton jRBtN;
     private javax.swing.JRadioButton jRBtPerecivel;

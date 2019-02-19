@@ -15,22 +15,40 @@ public class EdicaoUsuario extends javax.swing.JFrame {
         this.setUsuario(usuario);
     }
 
-    private void checkJTextNome() {
-        if (jTextNome.getText().equals("")) {
+    private boolean isNomeValid() {
+        boolean invalid = jTextNome.getText().equals("");
+
+        jLabelAvisoNome.setText("");
+
+        if (invalid) {
             jLabelAvisoNome.setText("Campo obrigatório");
-        } else {
-            jLabelAvisoNome.setText("");
         }
+
+        return !invalid;
     }
 
-    private void checkJTextCpf() {
-        if (jTextCpf.getText().equals("")) {
-            jLabelAvisoCpf.setText("Campo obrigatório");
-        } else if (jTextCpf.getText().length() != 11) {
+    private boolean isCpfValid() {
+        boolean invalid = jTextCpf.getText().length() != 11;
+
+        jLabelAvisoCpf.setText("");
+
+        if (invalid) {
             jLabelAvisoCpf.setText("CPF inválido");
-        } else {
-            jLabelAvisoCpf.setText("");
         }
+
+        return !invalid;
+    }
+
+    private void clearForm() {
+        jTextNome.setText("");
+        jTextLogin.setText("");
+        jTextCpf.setText("");
+    }
+
+    private boolean isFormValid() {
+        boolean valid = isNomeValid() && isCpfValid();
+
+        return valid;
     }
 
     private void setUsuario(Usuario usuario) {
@@ -39,16 +57,6 @@ public class EdicaoUsuario extends javax.swing.JFrame {
         jTextCpf.setText(usuario.getCpf());
         jComboBoxTipo.setSelectedIndex(usuario.isAdmin() ? 1 : 0);
     }
-
-    private void limparAvisos() {
-        jLabelAvisoNome.setText("");
-        jLabelAvisoCpf.setText("");
-    }
-
-    private boolean formIsInvalid() {
-        return jLabelAvisoNome.getText().equals("") && jLabelAvisoCpf.getText().equals("");
-    }
-
     private void initComponents() {
 
         jPanelPrincipal = new javax.swing.JPanel();
@@ -58,12 +66,12 @@ public class EdicaoUsuario extends javax.swing.JFrame {
         jBtSalvar = new javax.swing.JButton();
         jLabelTipo = new javax.swing.JLabel();
         jComboBoxTipo = new javax.swing.JComboBox<>();
-        jLabelEditarUsuario = new javax.swing.JLabel();
+        jLabelTitle = new javax.swing.JLabel();
         jLabelAvisoNome = new javax.swing.JLabel();
         jLabelAvisoCpf = new javax.swing.JLabel();
         jTextLogin = new javax.swing.JFormattedTextField();
         jBtVoltar = new javax.swing.JButton();
-        jBtRemover = new javax.swing.JButton();
+        jBtExcluir = new javax.swing.JButton();
         jTextNome = new javax.swing.JTextField();
         jTextCpf = new javax.swing.JTextField();
 
@@ -101,13 +109,13 @@ public class EdicaoUsuario extends javax.swing.JFrame {
         jComboBoxTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Usuário", "Admin" }));
         jComboBoxTipo.setPreferredSize(new java.awt.Dimension(120, 30));
 
-        jLabelEditarUsuario.setFont(new java.awt.Font("Cantarell", 1, 24)); // NOI18N
-        jLabelEditarUsuario.setText("Editar Usuário");
+        jLabelTitle.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabelTitle.setText("Editação de Usuário");
 
-        jLabelAvisoNome.setFont(new java.awt.Font("Cantarell", 0, 12)); // NOI18N
+        jLabelAvisoNome.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabelAvisoNome.setPreferredSize(new java.awt.Dimension(185, 30));
 
-        jLabelAvisoCpf.setFont(new java.awt.Font("Cantarell", 0, 12)); // NOI18N
+        jLabelAvisoCpf.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
         jTextLogin.setEnabled(false);
         jTextLogin.setPreferredSize(new java.awt.Dimension(185, 30));
@@ -130,11 +138,11 @@ public class EdicaoUsuario extends javax.swing.JFrame {
             }
         });
 
-        jBtRemover.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
-        jBtRemover.setText("Remover");
-        jBtRemover.addActionListener(new java.awt.event.ActionListener() {
+        jBtExcluir.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
+        jBtExcluir.setText("Excluir");
+        jBtExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtRemoverActionPerformed(evt);
+                jBtExcluirActionPerformed(evt);
             }
         });
 
@@ -169,7 +177,7 @@ public class EdicaoUsuario extends javax.swing.JFrame {
                                                         .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING,
                                                                 jPanelPrincipalLayout.createSequentialGroup()
-                                                                        .addComponent(jBtRemover,
+                                                                        .addComponent(jBtExcluir,
                                                                                 javax.swing.GroupLayout.PREFERRED_SIZE,
                                                                                 133,
                                                                                 javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -236,10 +244,10 @@ public class EdicaoUsuario extends javax.swing.JFrame {
                                                                                 javax.swing.GroupLayout.PREFERRED_SIZE))))
                                                         .addGap(205, 205, 205))
                                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING,
-                                                jPanelPrincipalLayout.createSequentialGroup().addComponent(jLabelEditarUsuario).addGap(459,
+                                                jPanelPrincipalLayout.createSequentialGroup().addComponent(jLabelTitle).addGap(459,
                                                         459, 459)))))));
         jPanelPrincipalLayout.setVerticalGroup(jPanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanelPrincipalLayout.createSequentialGroup().addGap(44, 44, 44).addComponent(jLabelEditarUsuario)
+                .addGroup(jPanelPrincipalLayout.createSequentialGroup().addGap(44, 44, 44).addComponent(jLabelTitle)
                         .addGap(93, 93, 93)
                         .addGroup(jPanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addGroup(jPanelPrincipalLayout.createSequentialGroup()
@@ -282,7 +290,7 @@ public class EdicaoUsuario extends javax.swing.JFrame {
                                         javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(48, 48, 48)
                         .addGroup(jPanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jBtRemover).addComponent(jBtSalvar))
+                                .addComponent(jBtExcluir).addComponent(jBtSalvar))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 143, Short.MAX_VALUE)
                         .addComponent(jBtVoltar).addContainerGap()));
 
@@ -298,11 +306,8 @@ public class EdicaoUsuario extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtSalvarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jBtSalvarActionPerformed
-        this.limparAvisos();
-        this.checkJTextNome();
-        this.checkJTextCpf();
 
-        if (!formIsInvalid()) {
+        if (!isFormValid()) {
             JOptionPane.showMessageDialog(null, "Verifique os campos e tente novamente");
             return;
         }
@@ -338,15 +343,15 @@ public class EdicaoUsuario extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextLoginKeyTyped
 
-    private void jBtRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtRemoverActionPerformed
-        int removerUsuario = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja remover"
+    private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
+        int ExcluirUsuario = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja Excluir"
                 + " o usuário: "+ usuario.getLogin() +"?",
                 "Confirmar",
                 JOptionPane.YES_NO_OPTION,
                 JOptionPane.WARNING_MESSAGE
         );
 
-        if (removerUsuario != 0) {
+        if (ExcluirUsuario != 0) {
             return;
         }
 
@@ -363,7 +368,7 @@ public class EdicaoUsuario extends javax.swing.JFrame {
         
         new Usuarios().setVisible(true);
 
-    }//GEN-LAST:event_jBtRemoverActionPerformed
+    }//GEN-LAST:event_jBtExcluirActionPerformed
 
     private void jTextNomeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextNomeKeyTyped
         
@@ -376,13 +381,13 @@ public class EdicaoUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextCpfKeyTyped
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jBtRemover;
+    private javax.swing.JButton jBtExcluir;
     private javax.swing.JButton jBtSalvar;
     private javax.swing.JButton jBtVoltar;
     private javax.swing.JComboBox<String> jComboBoxTipo;
     private javax.swing.JLabel jLabelNome;
     private javax.swing.JLabel jLabelUsuario;
-    private javax.swing.JLabel jLabelEditarUsuario;
+    private javax.swing.JLabel jLabelTitle;
     private javax.swing.JLabel jLabelCpf;
     private javax.swing.JLabel jLabelTipo;
     private javax.swing.JLabel jLabelAvisoNome;
