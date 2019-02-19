@@ -39,12 +39,6 @@ public class EdicaoUsuario extends javax.swing.JFrame {
         return !invalid;
     }
 
-    private void clearForm() {
-        jTextNome.setText("");
-        jTextLogin.setText("");
-        jTextCpf.setText("");
-    }
-
     private boolean isFormValid() {
         boolean valid = isNomeValid() && isCpfValid();
 
