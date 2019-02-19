@@ -10,7 +10,7 @@ public class EdicaoUsuario extends javax.swing.JFrame {
     private Usuario usuario;
 
     public EdicaoUsuario(Usuario usuario) {
-        initComponents();
+        this.initComponents();
         this.setLocationRelativeTo(null);
         this.setUsuario(usuario);
     }
@@ -52,16 +52,18 @@ public class EdicaoUsuario extends javax.swing.JFrame {
     }
 
     private void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
         jTextLogin.setText(usuario.getLogin());
         jTextNome.setText(usuario.getNome());
         jTextCpf.setText(usuario.getCpf());
         jComboBoxTipo.setSelectedIndex(usuario.isAdmin() ? 1 : 0);
     }
+
     private void initComponents() {
 
         jPanelPrincipal = new javax.swing.JPanel();
         jLabelNome = new javax.swing.JLabel();
-        jLabelUsuario = new javax.swing.JLabel();
+        jLabelLogin = new javax.swing.JLabel();
         jLabelCpf = new javax.swing.JLabel();
         jBtSalvar = new javax.swing.JButton();
         jLabelTipo = new javax.swing.JLabel();
@@ -85,9 +87,9 @@ public class EdicaoUsuario extends javax.swing.JFrame {
         jLabelNome.setText("Nome:");
         jLabelNome.setPreferredSize(new java.awt.Dimension(55, 30));
 
-        jLabelUsuario.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
-        jLabelUsuario.setText("Usuário:");
-        jLabelUsuario.setPreferredSize(new java.awt.Dimension(55, 30));
+        jLabelLogin.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
+        jLabelLogin.setText("Usuário:");
+        jLabelLogin.setPreferredSize(new java.awt.Dimension(55, 30));
 
         jLabelCpf.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
         jLabelCpf.setText("CPF");
@@ -110,7 +112,7 @@ public class EdicaoUsuario extends javax.swing.JFrame {
         jComboBoxTipo.setPreferredSize(new java.awt.Dimension(120, 30));
 
         jLabelTitle.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabelTitle.setText("Editação de Usuário");
+        jLabelTitle.setText("Edição de Usuário");
 
         jLabelAvisoNome.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabelAvisoNome.setPreferredSize(new java.awt.Dimension(185, 30));
@@ -123,11 +125,6 @@ public class EdicaoUsuario extends javax.swing.JFrame {
         jTextLogin.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 jTextLoginFocusLost(evt);
-            }
-        });
-        jTextLogin.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                jTextLoginKeyTyped(evt);
             }
         });
 
@@ -147,11 +144,6 @@ public class EdicaoUsuario extends javax.swing.JFrame {
         });
 
         jTextNome.setPreferredSize(new java.awt.Dimension(185, 30));
-        jTextNome.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                jTextNomeKeyTyped(evt);
-            }
-        });
 
         jTextCpf.setPreferredSize(new java.awt.Dimension(185, 30));
         jTextCpf.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -189,7 +181,7 @@ public class EdicaoUsuario extends javax.swing.JFrame {
                                                                                 javax.swing.GroupLayout.PREFERRED_SIZE,
                                                                                 javax.swing.GroupLayout.DEFAULT_SIZE,
                                                                                 javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                        .addComponent(jLabelUsuario,
+                                                                        .addComponent(jLabelLogin,
                                                                                 javax.swing.GroupLayout.PREFERRED_SIZE,
                                                                                 javax.swing.GroupLayout.DEFAULT_SIZE,
                                                                                 javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -264,7 +256,7 @@ public class EdicaoUsuario extends javax.swing.JFrame {
                                                 .addComponent(jTextLogin, javax.swing.GroupLayout.PREFERRED_SIZE,
                                                         javax.swing.GroupLayout.DEFAULT_SIZE,
                                                         javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(jLabelUsuario, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                .addComponent(jLabelLogin, javax.swing.GroupLayout.PREFERRED_SIZE,
                                                         javax.swing.GroupLayout.DEFAULT_SIZE,
                                                         javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGap(18, 18, 18)
@@ -313,12 +305,13 @@ public class EdicaoUsuario extends javax.swing.JFrame {
         }
 
         try {
-            this.usuario.setNome(jTextNome.getText());
-            this.usuario.setCpf(jTextCpf.getText());
-            this.usuario.setLogin(jTextLogin.getText());
+            System.out.println("aqui");
+            this.usuario.setNome(jTextNome.getText().toString());
+            this.usuario.setCpf(jTextCpf.getText().toString());
             char tipo = jComboBoxTipo.getSelectedItem().toString().equals("Usuário") ? 'U' : 'A';
             this.usuario.setTipo(tipo);
             this.usuario.save();
+
             JOptionPane.showMessageDialog(null, "Informações Alteradas");
 
         } catch (SQLException e) {
@@ -339,19 +332,14 @@ public class EdicaoUsuario extends javax.swing.JFrame {
         new Usuarios().setVisible(true);
     }//GEN-LAST:event_jBtVoltarActionPerformed
 
-    private void jTextLoginKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextLoginKeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextLoginKeyTyped
-
     private void jBtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirActionPerformed
-        int ExcluirUsuario = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja Excluir"
-                + " o usuário: "+ usuario.getLogin() +"?",
+        int excluirUsuario = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja Excluir o usuário: "+ usuario.getLogin() +"?",
                 "Confirmar",
                 JOptionPane.YES_NO_OPTION,
                 JOptionPane.WARNING_MESSAGE
         );
 
-        if (ExcluirUsuario != 0) {
+        if (excluirUsuario != 0) {
             return;
         }
 
@@ -370,9 +358,6 @@ public class EdicaoUsuario extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jBtExcluirActionPerformed
 
-    private void jTextNomeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextNomeKeyTyped
-        
-    }//GEN-LAST:event_jTextNomeKeyTyped
 
     private void jTextCpfKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextCpfKeyTyped
         if(!(evt.getKeyChar()+"").matches("[0-9]")){
@@ -386,7 +371,7 @@ public class EdicaoUsuario extends javax.swing.JFrame {
     private javax.swing.JButton jBtVoltar;
     private javax.swing.JComboBox<String> jComboBoxTipo;
     private javax.swing.JLabel jLabelNome;
-    private javax.swing.JLabel jLabelUsuario;
+    private javax.swing.JLabel jLabelLogin;
     private javax.swing.JLabel jLabelTitle;
     private javax.swing.JLabel jLabelCpf;
     private javax.swing.JLabel jLabelTipo;
