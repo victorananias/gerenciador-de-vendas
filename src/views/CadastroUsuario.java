@@ -143,7 +143,7 @@ public class CadastroUsuario extends javax.swing.JFrame {
         jLabelLogin.setOpaque(true);
         jLabelLogin.setPreferredSize(new java.awt.Dimension(120, 30));
 
-        jLabelCpf.setText("CPF");
+        jLabelCpf.setText("CPF:");
         jLabelCpf.setPreferredSize(new java.awt.Dimension(120, 30));
 
         jBtSalvar.setText("Salvar");
@@ -220,11 +220,12 @@ public class CadastroUsuario extends javax.swing.JFrame {
         jLabelPassword2.setForeground(java.awt.Color.red);
         jLabelPassword2.setPreferredSize(new java.awt.Dimension(185, 30));
 
-        jFormattedTextLogin.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jFormattedTextLoginActionPerformed(evt);
+        jFormattedTextLogin.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jFormattedTextLoginFocusLost(evt);
             }
         });
+
         jFormattedTextNome.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jFormattedTextNomeKeyTyped(evt);
@@ -506,10 +507,6 @@ public class CadastroUsuario extends javax.swing.JFrame {
             evt.consume();
         }
     }//GEN-LAST:event_jFormattedTextNomeKeyTyped
-
-    private void jFormattedTextLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextLoginActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jFormattedTextLoginActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
